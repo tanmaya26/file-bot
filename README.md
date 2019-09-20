@@ -8,7 +8,7 @@ FileBot
 3. Ketul Patani (kpatani)
 4. Ayush Arnav (aarnav)
 
-###Problem Statement
+### Problem Statement
 1. File upload is an important functionality on Slack. SlackBot solves a lot of problems like 
 searching channels within workspace, search messages and members but when it comes to file sharing within a conversation thread, we would like to have a 
 Bot that does basic tasks with our files and even more. Some of the manual, tedious yet important files tasks will be handled by our Bot to give members
@@ -23,7 +23,7 @@ them to the advantage of members.
 4. Often people upload images of note and slack channels, our bot will be able to read through the images and convert them to pdf for 
 better readability.
 
-###Bot Description
+### Bot Description
 
 1. User will tell the Bot as a text input, what task it wants to perform from one of these options:
     - Upload files to either permanent storage or temporary storage with specific validity.
