@@ -1,28 +1,16 @@
-### Problem Statement
-1. File upload is an important functionality on Slack. SlackBot solves a lot of problems like 
-searching channels within workspace, search messages and members but when it comes to file sharing within a conversation thread, we would like to have a 
-Bot that does basic tasks with our files and even more. Some of the manual, tedious yet important files tasks will be handled by our Bot to give members
-a good 'Slack' experience.
-2. No doubt Slack does a really good job in uploading the files and saving them in a 'shared' folder. However, our Bot will give members 
-an opportunity to access the files through a shared link. Temporary link generation helps to speed up the process of manually uploading a file, providing ease
-of access  
-and the link comes with a validity period. 
-3. Slack does not give heed to the type of file that is uploaded and treats every file the same. Our bot can recognise file types and use 
-them to the advantage of members.
-3. Handling tasks like adding/deleting files asynchronously and renaming files without going to the storage facility reduces human effort and time.
-4. Often people upload images of note and slack channels, our bot will be able to read through the images and convert them to pdf for 
-better readability.
+# Design
 
-### Bot Description
+## Problem Statement:
+In daily life, we come across various ways and processes to store files. It can be maintaining bank account details, salary details, payment details, student information, student reports, books in the library etc. File management and processing is a tedious job which consists of a lot of manual steps which take up a lot of time and introduce human errors. When latency and human error is considered for the file system, they have a tendency to accumulate and become a serious problem.
 
-1. User will tell the Bot as a text input, what task it wants to perform from one of these options:
-    - Upload files to either permanent storage or temporary storage with specific validity.
-    - Zip/Unzip file or folder
-    - Convert image text to pdf and vice versa.
-    - Rename specific file/folder.
-    - Delete file/folder.
-    - Add watermark to image/pdf.
-2. Then our bot will perform the specific task in asynchronously manner and then ask for further instructions.
-3. While uploading a file, if the user does not specify any instruction as text, The Bot will study the file type and suggest related options or tasks
-to user. For example, if a zip file is uploaded, Bot will ask the user to unzip it. 
-4. Since our Bot responds to user's instructions, maintains a memory and knows the user it can be categorised under 'Responders'
+## Bot Description:
+**Tagline** - **FiBot**, one stop bot for File Processing.\
+\
+We propose a bot which can chat in spoken english with the user and understand the user’s need. The bot can act upon the input and automate the process of handling files and processing them, saving both time and removing human errors. Slack is a fast growing platform for team collaboration leading to sharing of files amongst them. File upload is an important functionality on Slack and it also gives us the functionality to build a bot to search channels, messages and members or talk to a user. We take advantage of these abilities to make the bot understand what the user wants. The Bot responds to user's instructions, maintains a memory and knows the user, it can be categorised under 'Responders'.
+
+### Bot’s Functionality:
+- Sharing link generation: Bot can generate temporary or permanent link to share files.
+- Compressing/ decompressing file: Bot can take files from the user to zip or unzip files.
+- File Versioning: Bot can help keep different versions of the file.
+- Watermarking: Bot can help to watermark documents.
+- Basic file operations: Bot can perform file operation on file saved on slack like deleting a file from slack when asked.
