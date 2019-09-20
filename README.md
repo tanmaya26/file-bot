@@ -8,5 +8,7 @@ FileBot
 3. Ketul Patani (kpatani)
 4. Ayush Arnav (aarnav)
 
+### Design Doc
 
+[DESIGN.md](DESIGN.md)
 
