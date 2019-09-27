@@ -132,6 +132,6 @@ User will ask the bot to delete a single file or all files under a specific proj
 4. Alternative Flows  
 [E1] Catalog name or file name does not exist or is not in this channel then bot displays an appropriate message.  
 
-#StoryBoard
+## StoryBoard
 
 
