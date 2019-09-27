@@ -10,4 +10,4 @@
 4. Ayush Arnav (aarnav)
 
 ## Design
-[Design Document](DESIGN.md)
+[Design Document](Design/DESIGN.md)
