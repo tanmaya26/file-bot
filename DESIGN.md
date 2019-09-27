@@ -1,9 +1,9 @@
 # Design
 
 ## Problem Statement:
-This project solves the problem of file processing on slack. First, in a company if there is a slack channel, everyone on the team is added to that slack channel even though a lot of people are working on different projects. So if someone wants to add a file to that slack channel and tag that file for his/her project, slack doesn't give them that flexibility. Slack only allows 5GB storage space in the workspace and because of this users can't see files which has been archived by slack as thry reached their storage quota. Our bot will alert the users about this quota consumption.
+This project solves the problem of file processing on slack. First, in a company if there is a slack channel, everyone on the team is added to that slack channel even though a lot of people are working on different projects. So if someone wants to add a file to that slack channel and tag that file for his/her project, slack doesn't give them that flexibility. Slack only allows 5GB storage space in the workspace and because of this users can't see files which has been archived by slack as thry reached their storage quota. Our bot will alert the users about this quota consumption.  
 Second, people on slack want to add a watermark of there team or company on there official documents before sending the document to someone else. Slack doesn't give them to do this on the go and a user has to download a file and then add watermark to the document either using photoshop or a 3rd party softwares which are usually not free. 
-Third, a lot of times user want to add comments/memo to PDF's on a specific page or a general memo for the the whole PDF. So user will have to download the PDF and make changes to it and then upload the document and can't do this dirctly on Slack.
+Third, a lot of times user want to add comments/memo to PDF's on a specific page or a general memo for the the whole PDF. So user will have to download the PDF and make changes to it and then upload the document and can't do this dirctly on Slack.  
 
 
 ## Bot Description:
@@ -19,17 +19,17 @@ We propose a bot which can chat in english with the user and understand the user
 
 ## Use Cases:
 **USE CASE: Register Watermark**
-1. Preconditions
-FileNinja is installed on slack.
-User is logged into slack and can chat with the bot.
-2. Main Flow 
-User will upload an image[S1] and then tell the bot to keep this image as a watermark[S2] and will provide the name of the watermark[S2]. Bot saves the file in s3 and metadata in DynamoDB[S3].
-3. Sub Flows 
-[S1] User uploads image
+1. Preconditions  
+FileNinja is installed on slack.  
+User is logged into slack and can chat with the bot.  
+2. Main Flow  
+User will upload an image[S1] and then tell the bot to keep this image as a watermark[S2] and will provide the name of the watermark[S2]. Bot saves the file in s3 and metadata in DynamoDB[S3].  
+3. Sub Flows  
+[S1] User uploads image  
 [S2] User will give name to the watermark and ask the bot to save it with @fileNinja --watermark SE-Project file1.png(format is: @botName --watermark watermarkName fileName).
-[S3] Bot will save the file on S3 and makes an entry in database with name, file path and channel.
-4. Alternative Flows 
-[E1] File is not in PNG or JPEG format then bot displays an appropriate message.
+[S3] Bot will save the file on S3 and makes an entry in database with name, file path and channel.  
+4. Alternative Flows  
+[E1] File is not in PNG or JPEG format then bot displays an appropriate message.  
 
 
 **USE CASE: Add Watermark to PDF**
