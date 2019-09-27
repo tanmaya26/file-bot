@@ -1,7 +1,7 @@
 # CSC510-7
 
 ## Project
-**FiBot** - one stop bot for File Processing
+**FileNinja** - one stop bot for File Processing
 
 ## Team Members 
 1. Tanmaya Nanda (tnanda)
@@ -10,4 +10,4 @@
 4. Ayush Arnav (aarnav)
 
 ## Design
-[Design Document](DESIGN.md)
+[Design Document](Design/DESIGN.md)
