@@ -26,7 +26,7 @@ User is logged into slack and can chat with the bot.
 User will upload an image[S1] and then tell the bot to keep this image as a watermark[S2] and will provide the name of the watermark[S2]. Bot saves the file in s3 and metadata in DynamoDB[S3].  
 3. Sub Flows  
 [S1] User uploads image  
-[S2] User will give name to the watermark and ask the bot to save it with @fileNinja --watermark SE-Project file1.png(format is: @botName --watermark watermarkName fileName).
+[S2] User will give name to the watermark and ask the bot to save it with @fileNinja --watermark SE-Project file1.png(format is: @botName --watermark watermarkName fileName).    
 [S3] Bot will save the file on S3 and makes an entry in database with name, file path and channel.  
 4. Alternative Flows  
 [E1] File is not in PNG or JPEG format then bot displays an appropriate message.  
@@ -37,11 +37,11 @@ User will upload an image[S1] and then tell the bot to keep this image as a wate
 User is logged into slack. FileNinja is installed on slack. User can chat with the bot.  
 2. Main Flow  
 User will upload the PDF[S1] and then request the bot to add watermark to the PDF with the name of the watermark to be added to the PDF [S2]. Bot will add watermark to the file and return a new file to slack with watermark added [S3].  
-3. Sub Flows. 
-[S1] User uploads PDF. 
-[S2] User will give name of the watermark to be added to the PDF as @fileNinja --addWatermark SE-Project se-reprt.pdf (format is: @botName --addWatermark watermarkName fileName).  
-[S3] Bot will add watermark to the PDF, upload the watermarked PDF.  
-4. Alternative Flows  
+3. Sub Flows   
+[S1] User uploads PDF.   
+[S2] User will give name of the watermark to be added to the PDF as @fileNinja --addWatermark SE-Project se-reprt.pdf (format is: @botName --addWatermark watermarkName fileName).   
+[S3] Bot will add watermark to the PDF, upload the watermarked PDF.    
+4. Alternative Flows   
 [E1] Watermark name or file name does not exist or is not in this channel then bot displays an appropriate message.  
 [E2] File is not a PDF then bot displays an appropriate message.  
 
@@ -52,7 +52,7 @@ User is logged into slack and can chat with the bot.
 2. Main Flow  
 User will ask the bot to show the list of all watermarks added[S1] and bot then show the watermark list to the user [S2].  
 3. Sub Flows  
-[S1] User asks bot to list all watermarks with command @fileNinja --listWatermarks. 
+[S1] User asks bot to list all watermarks with command @fileNinja --listWatermarks.   
 [S2] Bot will query through DynamoDB and get all the watermarks for the specific channel user asked in and show them to the user.  
 4. Alternative Flows  
 [E1] If no watermark exists then bot displays an appropriate message.  
@@ -64,10 +64,10 @@ User is logged into slack. FileNinja is installed on slack. User can chat with t
 2. Main Flow  
 User will upload the PDF[S1]. Then user requests the bot to add memo to the PDF on specific page and corner[S2]. Bot will process the user’s request and return the PDF with added memo [S3].  
 3. Sub Flows  
-[S1] User uploads PDF. 
-[S2] User will instruct bot to add the memo to the PDF as @fileNinja --addMemo “hi, this is a memo message” 2 footer se-reprt.pdf (format is: @botName --addMemo memoMessage pageNumber memoLocation filename).  
-[S3] Bot will add memo to the PDF and return it to slack.  
-4. Alternative Flows  
+[S1] User uploads PDF.   
+[S2] User will instruct bot to add the memo to the PDF as @fileNinja --addMemo “hi, this is a memo message” 2 footer se-reprt.pdf (format is: @botName --addMemo memoMessage pageNumber memoLocation filename).    
+[S3] Bot will add memo to the PDF and return it to slack.    
+4. Alternative Flows    
 [E1] File name does not exist or is not in this channel then bot displays an appropriate message.  
 [E2] File is not a PDF then bot displays an appropriate message.  
 
@@ -102,7 +102,7 @@ User is logged into slack. FileNinja is installed on slack. User can chat with t
 2. Main Flow  
 User will upload the PDF[S1] and then request the bot to give the PDF a tag from the catalog [S2]. Bot will save the file under the following tag and make an entry in database [S2].  
 3. Sub Flows  
-[S1] User uploads PDF. 
+[S1] User uploads PDF.   
 [S2] User will give name of the Catalog the file should be added in as @fileNinja --addCatalog homework se-reprt.pdf (format is: @botName --addCatalog catalogName filename).  
 [S3] Bot will add watermark to the PDF and return it to slack.  
 4. Alternative Flows  
