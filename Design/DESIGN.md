@@ -146,6 +146,6 @@ User will ask the bot to delete a single file or all files under a specific proj
 ![storage-alert-wireframe](./Images/Storage%20Alert.jpg)
 
 ### StoryBoard
-![Alt text](https://media.github.ncsu.edu/user/10629/files/c3136580-e112-11e9-8ed7-ba7c9f1ab93c)
+![Alt text](https://media.github.ncsu.edu/user/10629/files/7721ea00-e12d-11e9-947e-7be7f6887fe3)
 
 
