@@ -136,14 +136,14 @@ User will ask the bot to delete a single file or all files under a specific proj
 
 ### Wireframes:
 #### Wireframe 1: Teammate registers a watermark and asks FileBot to use for watermarking
-![watermark-wireframe](./Images/Watermark.jpg)
-
+![watermark-register-wireframe](./Images/watermark_register.jpg)
+![watermark-add-wireframe](./Images/watermark_add.jpg)
 
 #### Wireframe 2: Teammate adding memo to a particular page in a pdf
-![memo-wireframe](./Images/Memo.jpg)
+![memo-wireframe](./Images/memo_updated.jpg)
 
 #### Wireframe 3: FileBot alerting the user regarding the Slack's file storage quota
-![storage-alert-wireframe](./Images/Storage%20Alert.jpg)
+![storage-alert-wireframe](./Images/storage_alert.jpg)
 
 ### Story Board:
 ![storyboard](./Images/storyboard.png)
