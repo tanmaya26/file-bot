@@ -194,4 +194,8 @@ The breakdown of the numbered components in the figure are as follows:
 1. The bot cannot watermark registered in channel in another channel as the watermark itself maybe sensitive, like a authoritative seal.
 2. The bot cannot modify orignal file for watermarking. It will create an additional copy with the watermark.
 3. The Bot cannot interact or send data between channels or users.
-4. The Bot will not catalog files unless asked to do so.
+4. The Bot will not catalog files unless asked to do so.  
+
+### Additional Design Patterns:  
+1. Command Pattern: Our architecture will use Command Pattern as when a user gives a command to the bot, the request will go to the Routing Layer which will decide which controller to call, based on the type of user command.  
+2. Observer Pattern: The system will also make use of the Observer Pattern. When a user gives a command to the bot on a channel, after completing the task, the bot will notify everyone on that channel.  
