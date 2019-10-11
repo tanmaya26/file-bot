@@ -151,7 +151,7 @@ User will ask the bot to delete a single file or all files under a specific cate
 ![storage-alert-wireframe](./Images/storage_alert.jpg)
 
 ### Story Board:
-![storyboard](./Images/sb.png)
+![storyboard](./Images/sb_final.png)
 
 
 ## Architecture Design:
