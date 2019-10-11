@@ -1,21 +1,26 @@
 # Design
 
 ## Problem Statement:
-This project solves the problem of file processing on slack. First, in a company if there is a slack channel, everyone on the team is added to that slack channel even though a lot of people are working on different projects. So if someone wants to add a file to that slack channel and tag that file for his/her project, slack doesn't give them that flexibility. Slack only allows 5GB storage space in the workspace and because of this users can't see files which has been archived by slack as thry reached their storage quota. Our bot will alert the users about this quota consumption.  
-Second, people on slack want to add a watermark of there team or company on there official documents before sending the document to someone else. Slack doesn't give them to do this on the go and a user has to download a file and then add watermark to the document either using photoshop or a 3rd party softwares which are usually not free. 
-Third, a lot of times user want to add comments/memo to PDF's on a specific page or a general memo for the the whole PDF. So user will have to download the PDF and make changes to it and then upload the document and can't do this dirctly on Slack.  
+This project solves the problem of file management on slack. First, in a company if there is a slack channel, everyone on the team is added to that slack channel even though a lot of people are working on different projects. So if someone wants to add a file to that slack channel and catalog that file into a folder/project, slack doesn't give them that flexibility. Also, Slack only allows 5GB storage in a workspace and because of this users can't see files which have been archived, as they have utilized the storage quota. Our bot will alert the users about this quota consumption.  
+Currently, Slack archives older file when the storage limit is exceeded. The user has to pay extra to increase the storage or retrieve the older files. Our bot will allow the user to export an entire project/folder to an external drive. The user can also have the option to delete or search via category.  
+Finally, members want to add watermarks of their team or company on their official documents before sending it to someone else. Slack doesn't provide them the feature to do this on the go. The user has to download the file and then add watermark to it, using a 3rd party software which is usually not free.  
 
 
 ## Bot Description:
-**Tagline** - **FileNinja**, one stop bot for File Processing.
+**Tagline** - **FileNinja**, one stop bot for File Management.
 
-We propose a bot which can chat in english with the user and understand the user’s need. The bot can act upon the input and automate the process of handling files and processing them, saving both time and removing human errors. Slack is a fast growing platform for team collaboration leading to sharing of files amongst them. File upload is an important functionality on Slack and it also gives us the functionality to build a bot to tag/delete files and modify files on the go. We take advantage of these abilities to make the bot understand what the user wants. The Bot responds to user's instructions, maintains a memory and knows the user, it can be categorised under 'Responders'.
+We propose a bot which can chat in english with the user and understand the user’s need. The bot can act upon the input and automate the process of handling files and processing them, saving both time and human errors. Slack is a fast growing platform for team collaboration, which allows sharing of files amongst members. File upload is an important feature on Slack and it also gives us the functionality to build a bot to manage these files on the go. We take advantage of these abilities to make the bot understand what the user wants. The Bot responds to user's instructions and maintains a memory. This bot can be categorised under 'Responders'.
 
 ### Bot’s Functionality:
 - Watermarking: Bot can help to watermark documents.
-- Adding Memo: Bot can help to add memos to specific page/corner of PDF documents.
-- Tagging Files: Bot can help to add tags to files, making it easy for users to search for files related to specific project. This functionality also gives them flexibility to delete files related to a specific project once it's deprecated.
-
+- Storage Management:
+  - The bot will give updates on the storage capacity limit (as set by the user) after every upload.
+  - Can catalog file under at most one category( Eg. project or folder name). Currently, Slack only tags on the basis of file extensions, file name, date and content inside the file. It doesnt allow grouping on the basis of an external tag (like the project, the file is a part of).
+  - Can Search and delete on the basis of a given category.
+- Exporting catalog:
+  - Currently, Slack archives older file when the storage limit is exceeded. The user has to pay extra to increase the storage or retrieve the older files.
+  - The bot will allow the user to export the files of a given category to an external drive in it's entirety. It will then delete those files from the Slack database, hence, freeing up the workspace. 
+  - Will provide an external link which will have the contents of that catalog in one location, making it easy to look up the files.
 
 ## Use Cases:
 **USE CASE: Register Watermark**
@@ -57,19 +62,6 @@ User will ask the bot to show the list of all watermarks added[S1] and bot then 
 4. Alternative Flows  
 [E1] If no watermark exists then bot displays an appropriate message.  
 
-
-**USE CASE: Add Memo to PDF**
-1. Preconditions  
-User is logged into slack. FileNinja is installed on slack. User can chat with the bot.  
-2. Main Flow  
-User will upload the PDF[S1]. Then user requests the bot to add memo to the PDF on specific page and corner[S2]. Bot will process the user’s request and return the PDF with added memo [S3].  
-3. Sub Flows  
-[S1] User uploads PDF.   
-[S2] User will instruct bot to add the memo to the PDF as `@fileNinja --addMemo “hi, this is a memo message” 2 footer se-reprt.pdf` (format is: `@botName --addMemo memoMessage pageNumber memoLocation filename`).    
-[S3] Bot will add memo to the PDF and return it to slack.    
-4. Alternative Flows    
-[E1] File name does not exist or is not in this channel then bot displays an appropriate message.  
-[E2] File is not a PDF then bot displays an appropriate message.  
 
 **USE CASE: Set storage warning sign**
 1. Preconditions  
