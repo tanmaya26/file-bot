@@ -2,7 +2,7 @@
 
 ## Problem Statement:
 This project solves the problem of file management on slack. First, in a company if there is a slack channel, everyone on the team is added to that slack channel even though a lot of people are working on different projects. So if someone wants to add a file to that slack channel and catalog that file into a folder/project, slack doesn't give them that flexibility. Also, Slack only allows 5GB storage in a workspace and because of this users can't see files which have been archived, as they have utilized the storage quota. Our bot will alert the users about this quota consumption.  
-Currently, Slack archives older file when the storage limit is exceeded. The user has to pay extra to increase the storage or retrieve the older files. Our bot will allow the user to export an entire project/folder to an external drive. The user can also have the option to delete or search via category.  
+Currently, Slack archives older file when the storage limit is exceeded. The user has to pay extra to increase the storage or retrieve the older files. Our bot will allow the user to export an entire project/folder to an external cloud drive. The user can also have the option to delete or search via category.  
 Finally, members want to add watermarks of their team or company on their official documents before sending it to someone else. Slack doesn't provide them the feature to do this on the go. The user has to download the file and then add watermark to it, using a 3rd party software which is usually not free.  
 
 
@@ -19,7 +19,8 @@ We propose a bot which can chat in english with the user and understand the user
   - Can Search and delete on the basis of a given category.
 - Exporting catalog:
   - Currently, Slack archives older file when the storage limit is exceeded. The user has to pay extra to increase the storage or retrieve the older files.
-  - The bot will allow the user to export the files of a given category to an external drive in it's entirety. It will then delete those files from the Slack database, hence, freeing up the workspace. 
+  - The bot will have the feature to register external cloud drives with it.
+  - The bot will allow the user to export the files of a given category to an external cloud drive, in it's entirety. It will then delete those files from the Slack database, hence, freeing up the workspace.  
   - Will provide an external link which will have the contents of that catalog in one location, making it easy to look up the files.
 
 ## Use Cases:
@@ -164,11 +165,11 @@ The breakdown of the numbered components in the figure are as follows:
 
 4. Next the request will reach our server where it will begin its interaction at the routing layer which is essentially the index.js file. Here it will listen to the request and based on the type of message in the received JSON, it will instantiate the corresponding controller.
 
-5. The controller layer is where the business logic of the bot will be present. Each feature like Adding Watermark, Cataloging files,adding memo and setting storage limit will have a separate controller with their corresponding logic. These will be written in JavaScript.
+5. The controller layer is where the business logic of the bot will be present. Each feature like Adding Watermark, Cataloging files, export catalog and setting storage limit will have a separate controller with their corresponding logic. These will be written in JavaScript.
 
-6. The controller logic will use the services in the Service layer to perform atomic actions like registerWatermark(), getAllWatermarks(), getAllCatalogs() etc. The Service layer will also be in JavaScript.The figure beow displays the service layer functionalities<br/>
+6. The controller logic will use the services in the Service layer to perform atomic actions like registerWatermark(), getAllWatermarks(), getAllCatalogs(), exportCatalog() etc. The Service layer will also be in JavaScript.The figure beow displays the service layer functionalities<br/>
 <p align="center">
-  <img src="./Images/service_layer.jpg">
+  <img src="./Images/service_layer.png">
 </p>
 
 7. The Service layer will be using and have dependencies on third party libraries like pdf-lib and pdf.js.
@@ -187,6 +188,7 @@ The breakdown of the numbered components in the figure are as follows:
 2. The bot cannot modify orignal file for watermarking. It will create an additional copy with the watermark.
 3. The Bot cannot interact or send data between channels or users.
 4. The Bot will not catalog files unless asked to do so.  
+5. The Bot will not export/archive files unless asked to do so.  
 
 ### Additional Design Patterns:  
 1. Command Pattern: Our architecture will use Command Pattern as when a user gives a command to the bot, the request will go to the Routing Layer which will decide which controller to call, based on the type of user command.  
