@@ -26,10 +26,10 @@ We propose a bot which can chat in english with the user and understand the user
 ## Use Cases:
 **USE CASE: Register Watermark**
 1. Preconditions  
-FileNinja is installed on slack.  
-User is logged into slack and can chat with the bot.  
+FileNinja is installed on Slack.  
+User is logged into Slack and can chat with the bot.  
 2. Main Flow  
-User will upload an image[S1] and then tell the bot to keep this image as a watermark[S2] and will provide the name of the watermark[S2]. Bot saves the file in s3 and metadata in DynamoDB[S3].  
+User will upload an image[S1] and then tell the bot to keep this image as a watermark[S2] and will provide the name of the watermark[S2]. Bot saves the file in S3 and metadata in DynamoDB[S3].  
 3. Sub Flows  
 [S1] User uploads image  
 [S2] User will give name to the watermark and ask the bot to save it with `@fileNinja --watermark SE-Project file1.png`(format is: `@botName --watermark watermarkName fileName`).    
@@ -40,90 +40,102 @@ User will upload an image[S1] and then tell the bot to keep this image as a wate
 
 **USE CASE: Add Watermark to PDF**
 1. Preconditions  
-User is logged into slack. FileNinja is installed on slack. User can chat with the bot.  
+User is logged into Slack. FileNinja is installed on slack. User can chat with the bot.  
 2. Main Flow  
-User will upload the PDF[S1] and then request the bot to add watermark to the PDF with the name of the watermark to be added to the PDF [S2]. Bot will add watermark to the file and return a new file to slack with watermark added [S3].  
+User will upload the PDF [S1] and then request the bot to add watermark to the PDF with the name of the watermark to be added [S2]. Bot will add the watermark to the file and return that new file to Slack [S3].  
 3. Sub Flows   
 [S1] User uploads PDF.   
-[S2] User will give name of the watermark to be added to the PDF as `@fileNinja --addWatermark SE-Project se-reprt.pdf` (format is: `@botName --addWatermark watermarkName fileName`).   
-[S3] Bot will add watermark to the PDF, upload the watermarked PDF.    
+[S2] User will give name of the watermark to be added as `@fileNinja --addWatermark SE-Project se-report.pdf` (format is: `@botName --addWatermark watermarkName fileName`).   
+[S3] Bot will add watermark to the PDF, then upload the watermarked PDF.    
 4. Alternative Flows   
 [E1] Watermark name or file name does not exist or is not in this channel then bot displays an appropriate message.  
 [E2] File is not a PDF then bot displays an appropriate message.  
 
 **USE CASE: Get all watermarks**
 1. Preconditions  
-FileNinja is installed on slack.  
-User is logged into slack and can chat with the bot.  
+FileNinja is installed on Slack.  
+User is logged into Slack and can chat with the bot.  
 2. Main Flow  
-User will ask the bot to show the list of all watermarks added[S1] and bot then show the watermark list to the user [S2].  
+User will ask the bot to show the list of all watermarks added [S1] and bot then shows the watermark list to the user [S2].  
 3. Sub Flows  
 [S1] User asks bot to list all watermarks with command `@fileNinja --listWatermarks`.   
-[S2] Bot will query through DynamoDB and get all the watermarks for the specific channel user asked in and show them to the user.  
+[S2] Bot will query through DynamoDB and get all the watermarks for the specific channel user queried in and then show them to the user.  
 4. Alternative Flows  
 [E1] If no watermark exists then bot displays an appropriate message.  
 
 
 **USE CASE: Set storage warning sign**
 1. Preconditions  
-FileNinja is installed on slack.  
-User is logged into slack and can chat with the bot.  
+FileNinja is installed on Slack.  
+User is logged into Slack and can chat with the bot.  
 2. Main Flow  
-User will tell the bot the maximum file storage for the workspace [S1], after which the bot should alert user for clean-up[S2] (maximum storage allowed by slack is 5GB). 
+User will tell the bot the maximum file storage for the workspace [S1], after which the bot should alert user for clean-up [S2] (maximum storage allowed by slack is 5GB). 
 3. Sub Flows  
 [S1] User will ask the bot to save the file storage limit as `@fileNinja --setStorageSize 3` (format is: `@botName --setStorageSize sizeInGB`).  
 [S2] Bot will save the storage requirement in database.  
 4. Alternative Flows  
 [E1] Storage size given is more than 5GB then bot displays an appropriate message.  
-[E2] If user doesn’t give any storage limit and uploads file, bot asks the user to either set it himself or the bot sets it to 3GB by default.  
+[E2] If the user doesn’t give any storage limit and uploads a file, bot asks the user to either set it himself or the bot sets it to 3GB by default.  
 
-**USE CASE: Register Project in catalog**
+**USE CASE: Register a name for a category**
 1. Preconditions  
-FileNinja is installed on slack.  
-User is logged into slack and can chat with the bot.  
+FileNinja is installed on Slack.  
+User is logged into Slack and can chat with the bot.  
 2. Main Flow  
-User will ask the bot to save the corresponding project name in catalog [S1]. Bot saves the name in DynamoDB[S2].  
+User will ask the bot to save a category name for a project/folder [S1]. Bot saves the name in DynamoDB[S2].  
 3. Sub Flows  
-[S1] User will give name to the project to be saved in catalog and asks the bot to save it with `@fileNinja --registerProject Project1` (format is: `@botName --registerProject projectName`).  
-[S2] Bot makes an entry in database with corresponding meta data.  
+[S1] User will give a name to be saved for a category with `@fileNinja --registerCategory Project1` (format is: `@botName --registerCategory projectName`).  
+[S2] Bot makes an entry in database with corresponding data.  
 4. Alternative Flows  
-[E1] If project name already exists in catalog, then bot displays an appropriate message.  
+[E1] If category name already exists, then bot displays an appropriate message.  
 
-**USE CASE: Give file a project tag**
+**USE CASE: Add file to a category**
 1. Preconditions  
-User is logged into slack. FileNinja is installed on slack. User can chat with the bot.  
+User is logged into Slack. FileNinja is installed on Slack. User can chat with the bot.  
 2. Main Flow  
-User will upload the PDF[S1] and then request the bot to give the PDF a tag from the catalog [S2]. Bot will save the file under the following tag and make an entry in database [S2].  
+User will upload the PDF [S1] and then request the bot to add the PDF to a specific category [S2]. Bot will save the file under the corresponding category [S3].  
 3. Sub Flows  
 [S1] User uploads PDF.   
-[S2] User will give name of the Catalog the file should be added in as `@fileNinja --addCatalog homework se-reprt.pdf` (format is: `@botName --addCatalog catalogName filename`).  
-[S3] Bot will add watermark to the PDF and return it to slack.  
+[S2] User will give the category name in which the file should be added in as `@fileNinja --addCategory homework se-report.pdf` (format is: `@botName --addCategory categoryName filename`).  
+[S3] Bot will make an entry in database and add the file under the category.  
 4. Alternative Flows  
-[E1] Tag name or file name does not exist or is not in this channel then bot displays an appropriate message.  
+[E1] Category name does not exist, then the bot displays an appropriate message.  
 
-**USE CASE: Show all files in a specific project**
+**USE CASE: Export files under a specific category**
+1. Preconditions  
+FileNinja is installed on slack.  
+User is logged into slack and can chat with the bot.    
+2. Main Flow  
+User will ask the bot to export a single file or files under a specific category [S1]. Bot will export the files from Slack to an external drive and gives the user a link to access the files [S2].  
+3. Sub Flows  
+[S1] User asks the bot to export files under a specific category with command `@fileNinja --export Project1 googleDrive` (format is: `@botName --export categoryName externalStorageName`) to export all files in a category or `@fileNinja --export se-report.pdf googleDrive` (format is: `@botName --export fileName externalStorageName`) to export a single file.  
+[S2] After saving the files to an external drive, bot gives a link to the user to access the files and also deletes all the files from Slack.    
+4. Alternative Flows  
+[E1] Cateogry name or file name does not exist, then bot displays an appropriate message.  
+
+**USE CASE: Show all files under a category**
 1. Preconditions  
 User is logged into slack. FileNinja is installed on slack. User can chat with the bot.  
 2. Main Flow  
-User will ask the bot to show all files under a specific tag/ project [S1]. Bot displays all corresponding files to the user [S2].  
+User will ask the bot to show all files under a specific category [S1]. Bot displays all corresponding files to the user [S2].  
 3. Sub Flows  
-[S1] User asks bot to list all files under a project with command `@fileNinja --showFiles Project1` (format is: `@botName --showFiles projectName`).  
-[S2] Bot will get all the file names from the database and their paths and then show them to user.   
+[S1] User asks the bot to list all files under a category with command `@fileNinja --showFiles Project1` (format is: `@botName --showFiles categoryName`).  
+[S2] Bot will get all the corresponding files from the database and then show them to user.   
 4. Alternative Flows   
-[E1] Tag name does not exist then bot displays an appropriate message.  
+[E1] Category name does not exist, then bot displays an appropriate message.  
 
 
-**USE CASE: Delete files under a specific tag**
+**USE CASE: Delete files under a specific category**
 1. Preconditions  
 FileNinja is installed on slack.  
 User is logged into slack and can chat with the bot.  
 2. Main Flow  
-User will ask the bot to delete a single file or all files under a specific project [S1]. Bot will confirm once again and then deletes the files [S2].  
+User will ask the bot to delete a single file or all files under a specific category [S1]. Bot will confirm once again and then delete the files [S2].  
 3. Sub Flows  
-[S1] User asks bot to delete files under a specific project with command `@fileNinja --deleteProject Project1 se-report.pdf` (format is: `@botName --deleteProject projectName fileName`) or `@fileNinja --deleteProject Project1` (format is: `@botName --deleteProject projectName`) to delete all files in a project.  
-[S2] Bot will confirm from user if he wants to delete the files or not, and if user says yes, bot will delete those files.  
+[S1] User asks the bot to delete files under a specific category with command `@fileNinja --deleteCategory Project1 se-report.pdf` (format is: `@botName --deleteCategory categoryName fileName`) to delete a single file or `@fileNinja --deleteCategory Project1` (format is: `@botName --deleteCategory categoryName`) to delete all files in a category.  
+[S2] Bot will confirm from user if he wants to delete the files or not, and if user says yes, bot will delete those files and all the corresponding entries from the database.  
 4. Alternative Flows  
-[E1] Catalog name or file name does not exist or is not in this channel then bot displays an appropriate message.  
+[E1] Cateogry name does not exist, then bot displays an appropriate message.   
 
 ## Design Sketches
 
