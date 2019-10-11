@@ -138,7 +138,7 @@ User will ask the bot to delete a single file or all files under a specific proj
 ![storage-alert-wireframe](./Images/storage_alert.jpg)
 
 ### Story Board:
-![storyboard](./Images/storyboard.png)
+![storyboard](./Images/sb.png)
 
 
 ## Architecture Design:
