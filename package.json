@@ -1,0 +1,23 @@
+{
+  "name": "script-bot",
+  "version": "1.0.0",
+  "description": "Slack Bot to run scripts",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "marcogbarcellos",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^2.0.0",
+    "nodejslack": "^1.1.1",
+    "slackbots": "^0.5.3",
+    "pdfjs-dist": "^2.0.0",
+    "node-fetch": "^2.0.0",
+    "pdf-lib": "1.2.0",
+    "node-blob": "0.0.2",
+    "jimp": "0.8.4",
+    "aws-sdk": "2.553.0"
+  }
+}
