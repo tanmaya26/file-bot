@@ -1,7 +1,7 @@
 var AWS = require("aws-sdk");
-var creds = new AWS.Credentials('ASIA23XI3UCH7PJ2GU5V',
-    'pAELQ+v2kYhhO/XTEVY5tf9POBiVuUQsuvlomcy5',
-    'FQoGZXIvYXdzENz//////////wEaDPxl2GBwdQMfRmg5riL/AWD7W2Ay9m0bzES42EX0UsCsKXOctwBSOPN2bYjaBiTW6qnEdUoCIDgd3F2g3Rk6emf+3vJP/tWzTaHKMk0JMfNgTcgbbw5QsVrYuv0LWXnwzoRhgpKAP4AmSSQNB/jjYF66ED27UdcB+FpGqXqNs1+8a6SmvXdjjLfT+jJPP+Q/g4ONl922nTaJWIkw3Xl9SD3H0CQ08JFv3NNjdyhvM+tnKIiXLlL08Nwyf0HYlTcil3ueWGB1d9N5v2n9h7EBiYFoMH4rOHUcYQ4wUZxjdkFLaiY8+0CQwcg2iBUxqvtvyIMDFJjd7pF3aKaXydhP4+MpKrZydkrpzByREROqaCiO0bLtBQ==');
+var creds = new AWS.Credentials('ASIA23XI3UCH57IW2657',
+    '1PPH8dPASFURsXw0ILL9Sxun3foNJgWwc8T21i4g',
+    'FQoGZXIvYXdzEN7//////////wEaDAkoFUecIn5czYo40yL/AeTP184RPBIpBAFzgHjFoEsMCxJC9Y6YCLjjBYx2QunZFeb8kyWCwYoeVVMo1fIePZA7Caquk8qr/J0pQ8IiQM0zkdNUfJUlcBt3Y2TqI7g+C8HV1FVLNwRzmrlUOvRRFvRe2l77J+8iQWip+1LD8JgON6oXEy1vrTrfn+66G6oeIXz6JeXJQvEBDQRg+DtBAszc+0Vk9Rq5ZE6mEFsKpdJDa9VVM0Z8Tls4JiT5cEwSDjlYEUihQUHxdXNAjnkDHeC7gf2ksbSNglJ1KhdZD6QERImRm3IYgn7tfHHKoEQX/LgROFVK3V/FVkvO0eDiFAXf+dm8a/VdOGl5V/OsnijvlbPtBQ==');
 AWS.config.update({
     region: "us-east-1",
     endpoint: "http://dynamodb.us-east-1.amazonaws.com",
@@ -46,12 +46,7 @@ async function get(watermark_name, channel_name) {
                 console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
             } else {
                 console.log("GetItem succeeded:", JSON.stringify(data, null, 2));
-                if (typeof data.Item != 'undefined') {
-                    resolve(data);
-                }
-                else{
-                    reject(new Error('Could not find the watermark'));
-                }
+                resolve(data);
             }
         })
     });

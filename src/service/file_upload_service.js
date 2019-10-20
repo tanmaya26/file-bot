@@ -2,7 +2,7 @@ var fs = require('fs');
 var slack_bot_service = require('./slack_bot_service');
 var slack = slack_bot_service.slack
 
-function upload_file_via_bot(filepath, filename, channels) {
+async function upload_file_via_bot(filepath, filename, channels) {
 	var form = {
 		file: fs.createReadStream(filepath), // Optional, via multipart/form-data. If omitting this parameter, you MUST submit content
 		// content: 'Your text here', // Optional, File contents. If omitting this parameter, you must provide a `file` 
@@ -11,7 +11,7 @@ function upload_file_via_bot(filepath, filename, channels) {
 		channels: channels //Optional, If you want to put more than one channel, separate using comma, example: 'general,random'
 	};
 
-	slack.fileUpload(form)
+	const res = await slack.fileUpload(form)
 		.then(function (response) {
 			// Slack sends a json with a boolean var ok. 
 			// Error example : data = { ok: false, error: 'user_not_found' }
@@ -28,6 +28,7 @@ function upload_file_via_bot(filepath, filename, channels) {
 
 			return Promise.reject(err);
 		});
+	return res.ok
 }
 
 module.exports.upload_file_via_bot = upload_file_via_bot;

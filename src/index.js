@@ -13,8 +13,10 @@ var bot = slack_bot_service.bot
 
 bot.on('start', function () {
 	//Do something when the BOT starts 
+
 	console.log('BOT started listening...');
 });
+
 
 // Event to listen all slack messages, to see all possible events check: https://api.slack.com/events-api
 bot.on('message', function (data) {
