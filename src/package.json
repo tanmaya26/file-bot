@@ -17,7 +17,11 @@
     "node-fetch": "^2.0.0",
     "nodejslack": "^1.1.1",
     "pdf-lib": "1.2.0",
+    "node-blob": "0.0.2",
+    "jimp": "0.8.4",
+    "aws-sdk": "2.553.0",
     "pdfjs-dist": "^2.0.0",
+    "selenium-webdriver": "^4.0.0-alpha.5",
     "slackbots": "^0.5.3"
   }
 }
