@@ -1,4 +1,6 @@
 var file_upload_service = require('../service/file_upload_service');
+var watermark_dbservice = require('../dbservice/watermark_dbservice');
+var utils_service = require('../service/utils_service');
 var fs = require('fs');
 var PDFLib = require('pdf-lib');
 const fetch = require("node-fetch");
@@ -8,15 +10,29 @@ var rgb = PDFLib.rgb;
 var degrees = PDFLib.degrees;
 var StandardFonts = PDFLib.StandardFonts;
 
-function init(data) {
-	if (data.files) {
-		watermark_files(data)
+function init(command, data) {
+	if (command.length == 2 && data.files) {
+		watermark_files(data, command[1])
+	}
+	else if (command[1] == 'register' && data.files.length == 1) {
+		if( utils_service.get_file_extension(data.files[0].name) == 'png'){
+			if (command.length == 3) {
+				register_watermark(command[2], data.files[0].url_private, data.channel)
+			}
+			else {
+				// Provide a name for this watermark
+			}
+		}
+		else{
+			// Wrong format. Only accept .png
+		}
+
 	}
 }
 
-function watermark_files(data) {
+function watermark_files(data, watermark_name) {
 	data.files.forEach(f => {
-		image_watermark_PDF(f.url_private).then((water_marked_file) => {
+		image_watermark_PDF(f.url_private, watermark_name, data.channel).then((water_marked_file) => {
 			fs.writeFile("temp_" + f.name, water_marked_file, function (err, result) {
 				file_upload_service.upload_file_via_bot("temp_" + f.name, "watermark_" + f.name, data.channel);
 			});
@@ -49,7 +65,7 @@ async function text_watermark_Pdf(pdf_url, watermark_text) {
 	return pdfBytes;
 }
 
-async function image_watermark_PDF(pdf_url) {
+async function image_watermark_PDF(pdf_url, watermark_name, channel_name) {
 	const url = pdf_url
 	pdfBytes = {}
 	const existingPdfBytes = await get_slack_resource_from_url(url)
@@ -57,7 +73,7 @@ async function image_watermark_PDF(pdf_url) {
 	const pdfDoc = await PDFDocument.load(existingPdfBytes).catch(function (error) {
 		console.log(error);
 	});
-	const pngUrl = 'https://files.slack.com/files-pri/TNTGTLN5U-FPCT4L5G9/383groudon.png'
+	const pngUrl = await watermark_dbservice.get(watermark_name, channel_name).then((res) => res.Item.url)
 	const pngImageBytes = await get_slack_resource_from_url(pngUrl)
 
 	await Jimp.read(pngImageBytes)
@@ -93,6 +109,15 @@ async function get_slack_resource_from_url(url) {
 		}
 	}).then((res) => res.arrayBuffer())
 	return resource
+}
+
+function register_watermark(name, url, channel) {
+	obj = {
+		name: name,
+		channel: channel,
+		url: url
+	}
+	watermark_dbservice.create(obj)
 }
 
 module.exports.init = init;

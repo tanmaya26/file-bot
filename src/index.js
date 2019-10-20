@@ -3,6 +3,7 @@ require('dotenv').config();
 
 var watermark_controller = require('./controller/watermark_controller');
 var slack_bot_service = require('./service/slack_bot_service');
+var utils_service = require('./service/utils_service');
 
 // Creating instance to connect to Slack. check: https://github.com/marcogbarcellos/nodejslack
 var slack = slack_bot_service.slack
@@ -19,14 +20,16 @@ bot.on('start', function () {
 bot.on('message', function (data) {
 
 	//Extract base command here
+	if (typeof data.text != 'undefined') {
+		cmd = utils_service.split_command(data.text)
+		if (cmd[0] == '--watermark') {
+			watermark_controller.init(cmd, data)
+		}
 
-	if (data.text == '--watermark') {
-		watermark_controller.init(data)
-	}
-
-	//When someone types "uploadPicture" the bot will upload the file on the #general channel
-	if (data.text == 'uploadFile') {
+		//When someone types "uploadPicture" the bot will upload the file on the #general channel
+		if (data.text == 'uploadFile') {
 
 
+		}
 	}
 });
