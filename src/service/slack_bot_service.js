@@ -3,6 +3,8 @@ var Slack = require('nodejslack');
 const fetch = require("node-fetch");
 
 // Creating instance to connect to Slack. check: https://github.com/marcogbarcellos/nodejslack
+// uncomment to run mock test
+// process.env.SLACK_TOKEN = "xoxb-775571702198-775695559382-MSox8rQEc2qhmuGa9wz3JiNJ"  
 var slack = new Slack(process.env.SLACK_TOKEN);
 
 // creating a bot, for more options check: https://github.com/mishk0/slack-bot-api
