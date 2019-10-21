@@ -12,27 +12,39 @@ var degrees = PDFLib.degrees;
 var StandardFonts = PDFLib.StandardFonts;
 var bot = slack_bot_service.bot
 
-function init(command, data) {
-	if (command[1] == 'register' && data.files.length == 1) {
-		if (utils_service.get_file_extension(data.files[0].name) == 'png') {
+async function init(command, data) {
+	var bot_response = ""
+	if (command[1] == 'register') {
+		if (data.files.length == 0) {
+			bot_response = "No file associated with command. Upload a PNG file with command to create watermark."
+		}
+		else if (data.files.length > 1) {
+			bot_response = "Only one file should be associated with the command. Upload only file to create watermark."
+		}
+		else if (utils_service.get_file_extension(data.files[0].name) == 'png') {
 			if (command.length == 3) {
-				register_watermark(command[2], data.files[0].url_private, data.channel)
-				bot.postMessage(data.channel, 'Watermark created successfully');
+				var register_success = await register_watermark(command[2], data.files[0].url_private, data.channel)
+				if (register_success) {
+					bot_response = "Watermark created successfully."
+				}
+
 			}
 			else {
 				// Provide a name for this watermark
-				bot.postMessage(data.channel, 'Please Provide a name for this watermark');
+				bot_response = "Please Provide a name for this watermark"
 			}
 		}
 		else {
 			// Wrong format. Only accept .png
-			bot.postMessage(data.channel, 'Wrong format for file . Watermark only accepts .png files');
+			bot_response = "Wrong format for file . Watermark only accepts .png files"
 		}
 
 	}
 	else if (command.length == 2 && data.files) {
 		watermark_files(data, command[1])
 	}
+	bot.postMessage(data.channel, bot_response);
+	return bot_response
 }
 
 function watermark_files(data, watermark_name) {
@@ -42,7 +54,7 @@ function watermark_files(data, watermark_name) {
 				fs.writeFile("temp_" + f.name, water_marked_file, function (err, result) {
 					file_upload_service.upload_file_via_bot("temp_" + f.name, "watermark_" + f.name, data.channel)
 						.then((res) => {
-							if (res.ok) {
+							if (res) {
 								bot.postMessage(data.channel, 'File watermarked successfully');
 							}
 						})
@@ -120,26 +132,28 @@ async function image_watermark_PDF(pdf_url, watermark_name, channel_name) {
 	return pdfBytes;
 }
 
-function register_watermark(name, url, channel) {
+async function register_watermark(name, url, channel) {
 	obj = {
 		name: name,
 		channel: channel,
 		url: url
 	}
-	watermark_dbservice.create(obj)
+	var result = await watermark_dbservice.create(obj).then((res) => res)
+	return result
+
 }
 
-async function get_watermark(watermark_name, channel_name){
+async function get_watermark(watermark_name, channel_name) {
 	var watermark_image_url = await watermark_dbservice.get(watermark_name, channel_name).
-	then((res) => {
-		if (typeof res.Item != 'undefined') {
-			return Promise.resolve(res.Item.url);
-		}
-		else{
-			bot.postMessage(channel_name, 'Could not find watermark with name ' + watermark_name + " and channel " + channel_name);
-			return Promise.reject(new Error('Could not find the watermark'));
-		}
-	});
+		then((res) => {
+			if (typeof res.Item != 'undefined') {
+				return Promise.resolve(res.Item.url);
+			}
+			else {
+				bot.postMessage(channel_name, 'Could not find watermark with name ' + watermark_name + " and channel " + channel_name);
+				return Promise.reject(new Error('Could not find the watermark'));
+			}
+		});
 	return watermark_image_url
 }
 
