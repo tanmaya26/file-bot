@@ -130,6 +130,75 @@ async function UseCaseRegisterCategoryWithoutParams(driver) {
     });
 }
 
+async function UseCaseAddFilesToCategoryWithFilename(driver) {
+
+    // Add files to category with filename and category name
+    await driver.findElement(By.xpath("/html/body/div[2]/div/div/div[4]/div/div/footer/div/div/div[1]/div/div[1]")).sendKeys("@fileninja --addCategory Project1 sample.png", Key.RETURN);
+    await driver.sleep(2000);
+
+    driver.findElements(By.className("c-message__body")).then(function (elements) {
+        elements[elements.length - 1].getText().then(function (text) {
+            try {
+                assert.equal("File has been added under the category 'Project1'.", text);
+                console.log('Usecase 6: "Add files to category" expectedly passed when filename given');
+            } catch (e) {
+                console.log('Usecase 6: "Add files to category" unexpectedly failed.');
+                return Promise.resolve('Usecase to add files to category failed.');
+            }
+        })
+    });
+    // Add files to category without category name
+    await driver.findElement(By.xpath("/html/body/div[2]/div/div/div[4]/div/div/footer/div/div/div[1]/div/div[1]")).sendKeys("@fileninja --addCategory sample.png", Key.RETURN);
+    await driver.sleep(2000);
+
+    driver.findElements(By.className("c-message__body")).then(function (elements) {
+        elements[elements.length - 1].getText().then(function (text) {
+            try {
+                assert.equal("Error. Category name: sample.png does not exists.", text);
+                console.log('Usecase 6: "Add files to category" expectedly failed when no category name given');
+            } catch (e) {
+                console.log('Usecase 6: "Add files to category" unexpectedly failed.');
+                return Promise.resolve('Usecase to add files to category failed.');
+            }
+        })
+    });
+}
+
+async function UseCaseAddFilesToCategoryWithoutFilename(driver) {
+
+    // Add files to category without filename.
+    await driver.findElement(By.xpath("/html/body/div[2]/div/div/div[4]/div/div/footer/div/div/div[1]/div/div[1]")).sendKeys("@fileninja --addCategory Project1", Key.RETURN);
+    await driver.sleep(2000);
+
+    driver.findElements(By.className("c-message__body")).then(function (elements) {
+        elements[elements.length - 1].getText().then(function (text) {
+            try {
+                assert.equal("File has been added under the category 'Project1'.", text);
+                console.log('Usecase 6: "Add files to category" expectedly passed when filename given');
+            } catch (e) {
+                console.log('Usecase 6: "Add files to category" unexpectedly failed.');
+                return Promise.resolve('Usecase to add files to category failed.');
+            }
+        })
+    });
+    // Add files to category without filename and without category name
+    await driver.findElement(By.xpath("/html/body/div[2]/div/div/div[4]/div/div/footer/div/div/div[1]/div/div[1]")).sendKeys("@fileninja --addCategory", Key.RETURN);
+    await driver.sleep(2000);
+
+    driver.findElements(By.className("c-message__body")).then(function (elements) {
+        elements[elements.length - 1].getText().then(function (text) {
+            try {
+                assert.equal("Error. Category name: sample.png does not exists.", text);
+                console.log('Usecase 6: "Add files to category" expectedly failed when no category name given');
+            } catch (e) {
+                console.log('Usecase 6: "Add files to category" unexpectedly failed.');
+                return Promise.resolve('Usecase to add files to category failed.');
+            }
+        })
+    });
+}
+
+
 (async () => {
 
     let driver = await new Builder().forBrowser("chrome").build();
@@ -139,6 +208,8 @@ async function UseCaseRegisterCategoryWithoutParams(driver) {
     await UseCaseSetStorageLimitWithoutParams(driver);
     await UseCaseGetStorage(driver);
     await UseCaseRegisterCategoryWithParams(driver);
+    await UseCaseAddFilesToCategoryWithFilename(driver);
+    //await UseCaseAddFilesToCategoryWithoutFilename(driver);
     //await UseCaseRegisterCategoryWithoutParams(driver);
     //await logout(driver, "https://csc510workspace.slack.com");
 })()
