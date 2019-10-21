@@ -185,8 +185,8 @@ async function UseCaseUploadFileWithWrongCategoryName(driver) {
 }
 
 // List all watermarks
-async function UseCaseListWaterMarks(driver, url) {
-    await driver.findElement(By.className("ql-editor ql-blank")).sendKeys("@fileninja --watermark --list", Key.RETURN);
+async function UseCaseListWaterMarks(driver) {
+    await driver.findElement(By.className("ql-editor ql-blank")).sendKeys("@fileninja --watermark list", Key.RETURN);
     await driver.sleep(2000);
 }
 
@@ -204,5 +204,8 @@ await UseCaseRegisterWaterMarkWhenJPGIsUploaded(driver);
 // Watermark files
 await UseCaseWatermarkFileGood(driver);
 await UseCaseUploadFileWithWrongCategoryName(driver);
+
+//List Watermark
+await UseCaseListWaterMarks(driver);
 
 })()
