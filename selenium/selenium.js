@@ -25,13 +25,19 @@ async function logout(driver, url) {
 
 async function askFilebot(driver) {
     await driver.sleep(2000);
-
-    await driver.findElement(By.xpath("//a[@href='https://csc510workspace.slack.com/messages/DNE0ELZNX']")).click();
+    await driver.findElement(By.xpath("//a[@href='https://csc510workspace.slack.com/messages/CNK1N4V5F']")).click();
 }
 
-async function UseCaseSendStorageWarning(driver) {
+async function UseCaseSendStorageWarningWithParams(driver) {
     
     await driver.findElement(By.xpath("/html/body/div[2]/div/div/div[4]/div/div/footer/div/div/div[1]/div/div[1]")).sendKeys("@fileninja --setStorageSize 3", Key.RETURN);
+    await driver.sleep(3000);
+
+}
+
+async function UseCaseSendStorageWarningWithoutParams(driver) {
+    
+    await driver.findElement(By.xpath("/html/body/div[2]/div/div/div[4]/div/div/footer/div/div/div[1]/div/div[1]")).sendKeys("@fileninja --setStorageSize", Key.RETURN);
     await driver.sleep(1000);
 
 }
@@ -41,6 +47,7 @@ async function UseCaseSendStorageWarning(driver) {
     let driver = await new Builder().forBrowser("chrome").build();
     await login(driver, slackUrl);
     await askFilebot(driver);
-    await UseCaseSendStorageWarning(driver);
+    await UseCaseSendStorageWarningWithParams(driver);
+    await UseCaseSendStorageWarningWithoutParams(driver);
     //await logout(driver, "https://csc510workspace.slack.com");
 })()
