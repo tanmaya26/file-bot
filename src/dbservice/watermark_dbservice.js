@@ -1,18 +1,17 @@
 var AWS = require("aws-sdk");
-var creds = new AWS.Credentials('ASIA23XI3UCH57IW2657',
-    '1PPH8dPASFURsXw0ILL9Sxun3foNJgWwc8T21i4g',
-    'FQoGZXIvYXdzEN7//////////wEaDAkoFUecIn5czYo40yL/AeTP184RPBIpBAFzgHjFoEsMCxJC9Y6YCLjjBYx2QunZFeb8kyWCwYoeVVMo1fIePZA7Caquk8qr/J0pQ8IiQM0zkdNUfJUlcBt3Y2TqI7g+C8HV1FVLNwRzmrlUOvRRFvRe2l77J+8iQWip+1LD8JgON6oXEy1vrTrfn+66G6oeIXz6JeXJQvEBDQRg+DtBAszc+0Vk9Rq5ZE6mEFsKpdJDa9VVM0Z8Tls4JiT5cEwSDjlYEUihQUHxdXNAjnkDHeC7gf2ksbSNglJ1KhdZD6QERImRm3IYgn7tfHHKoEQX/LgROFVK3V/FVkvO0eDiFAXf+dm8a/VdOGl5V/OsnijvlbPtBQ==');
+var creds = new AWS.Credentials('ASIA23XI3UCH246SYUPB',
+    '1Yi32fp+sfS5yjg0GKFSz2z4zHQVFRMrAyukticC',
+    'FQoGZXIvYXdzEOX//////////wEaDLOY2ip1zlWXwXse1CL/AZ+0ArNN3FQMPyEd2Vm6Fy/ItmrlcG2N3hTbRUB93GLQwxKpMBy6h894L6L316bHW+KXUNPdDpiCEPTMnVkBKqywewIyLcQ4dobaNKXgdVqO85120NExQS2MikTft4fpRSczFDEyvC7zsp9QXt529317WA8NMKasNkRuZN4WXerOOzLg7CHypJkdLVuW46yV7JnxxXevroveoerw5vsSGXmW8HzHQScpsDDDViqYKijwBE10bgzWWEsHTXvZE1xG1vBH+mQs1hhzNzQUFz0Zj92AeCnFJh5NxDnR83CwLtTMAMYqlkkG6byDTPZro3IGz5Hk5al5DKKx/lzk4OcvOijG2rTtBQ==');
 AWS.config.update({
     region: "us-east-1",
     endpoint: "http://dynamodb.us-east-1.amazonaws.com",
     credentials: creds
 });
 
-var docClient = new AWS.DynamoDB.DocumentClient();
-
 var table = "watermark";
 
-function create(create_obj) {
+async function create(create_obj) {
+    var docClient = new AWS.DynamoDB.DocumentClient();
     var params = {
         TableName: table,
         Item: {
@@ -23,16 +22,20 @@ function create(create_obj) {
     };
 
     console.log("Adding a new item...");
-    docClient.put(params, function (err, data) {
-        if (err) {
-            console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
-        } else {
-            console.log("Added item:", JSON.stringify(data, null, 2));
-        }
+    return await new Promise((resolve, reject) => {
+        docClient.put(params, function (err, data) {
+            if (err) {
+                console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
+            } else {
+                console.log("Added item:", JSON.stringify(data, null, 2));
+                resolve(true);
+            }
+        });
     });
 }
 
 async function get(watermark_name, channel_name) {
+    var docClient = new AWS.DynamoDB.DocumentClient();
     var params = {
         TableName: table,
         Key: {
