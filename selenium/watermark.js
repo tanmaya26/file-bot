@@ -186,8 +186,24 @@ async function UseCaseUploadFileWithWrongCategoryName(driver) {
 
 // List all watermarks
 async function UseCaseListWaterMarks(driver) {
-    await driver.findElement(By.className("ql-editor ql-blank")).sendKeys("@fileninja --watermark list", Key.RETURN);
+    await driver.findElement(By.className("ql-editor ql-blank")).sendKeys("--watermark list", Key.RETURN);
     await driver.sleep(2000);
+    
+
+    driver.findElements(By.className("c-message__body")).then(function(elements){
+        elements[elements.length -1].getText().then(function (text){
+            try {
+                assert.equal("Watermarks for this channel are: wm1,wm2,wm3",text);
+                console.log('Usecase 4: Expectedly passed listing watermarks');
+            } catch (e) {
+                console.log('Usecase 4: Unexpectedly failed listing watermarks');
+                return Promise.resolve('Usecase to list watermark failed');
+            }
+        })
+    });
+
+
+
 }
 
 (async () => {
@@ -197,13 +213,13 @@ await console.log("Test Results:")
 await login(driver, slackUrl);
 await switchChannel(driver);
 
-// Register
-await UseCaseRegisterWaterMarkGood(driver);
-await UseCaseRegisterWaterMarkWhenJPGIsUploaded(driver);
+// // Register
+// await UseCaseRegisterWaterMarkGood(driver);
+// await UseCaseRegisterWaterMarkWhenJPGIsUploaded(driver);
 
-// Watermark files
-await UseCaseWatermarkFileGood(driver);
-await UseCaseUploadFileWithWrongCategoryName(driver);
+// // Watermark files
+// await UseCaseWatermarkFileGood(driver);
+// await UseCaseUploadFileWithWrongCategoryName(driver);
 
 //List Watermark
 await UseCaseListWaterMarks(driver);
