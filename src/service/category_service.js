@@ -2,7 +2,7 @@ var slack_bot_service = require('./slack_bot_service');
 var slack = slack_bot_service.slack
 var got_service = require('./got_service');
 const nock = require("nock");
-const mock_data = require("../../mock.json")
+const mock_data = require("../mock.json")
 const got  = require('got');
 
 var category_map = {};

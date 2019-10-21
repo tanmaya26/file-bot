@@ -2,7 +2,7 @@ var slack_bot_service = require('./slack_bot_service');
 var got_service = require('./got_service');
 const nock = require("nock");
 var slack = slack_bot_service.slack
-const mock_data = require("../../mock.json")
+const mock_data = require("../mock.json")
 const got  = require('got');
 
 async function update_alert_size_for_workspace(size, data) {
