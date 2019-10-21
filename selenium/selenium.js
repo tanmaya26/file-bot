@@ -6,7 +6,7 @@ var slack = new Slack(SLACK_TOKEN);
 const loginEmail = process.env.LOGIN_EMAIL;
 const loginPassword = process.env.LOGIN_PWD;
 const slackUrl = "https://csc510workspace.slack.com";
-
+const textbox_xpath = "/html/body/div[2]/div/div/div[4]/div/div/footer/div/div/div[1]/div/div[1]";
 async function example() {
     let driver = await new Builder().forBrowser("chrome").build();
     await driver.get("http://google.com");
@@ -30,7 +30,7 @@ async function askFilebot(driver) {
 }
 
 async function UseCaseSetStorageLimitWithParams(driver) {
-    await driver.findElement(By.xpath("/html/body/div[2]/div/div/div[4]/div/div/footer/div/div/div[1]/div/div[1]")).sendKeys("@fileninja --setStorageSize 3", Key.RETURN);
+    await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --setStorageSize 3", Key.RETURN);
     await driver.sleep(3000);
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
@@ -46,7 +46,7 @@ async function UseCaseSetStorageLimitWithParams(driver) {
 }
 
 async function UseCaseSetGreaterStorageLimitWithParams(driver) {
-    await driver.findElement(By.xpath("/html/body/div[2]/div/div/div[4]/div/div/footer/div/div/div[1]/div/div[1]")).sendKeys("@fileninja --setStorageSize 6", Key.RETURN);
+    await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --setStorageSize 6", Key.RETURN);
     await driver.sleep(3000);
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
@@ -62,7 +62,7 @@ async function UseCaseSetGreaterStorageLimitWithParams(driver) {
 }
 
 async function UseCaseSetStorageLimitWithoutParams(driver) {
-    await driver.findElement(By.xpath("/html/body/div[2]/div/div/div[4]/div/div/footer/div/div/div[1]/div/div[1]")).sendKeys("@fileninja --setStorageSize", Key.RETURN);
+    await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --setStorageSize", Key.RETURN);
     await driver.sleep(2000);
 
     driver.findElements(By.className("c-message__body")).then(function (elements) {
@@ -79,7 +79,7 @@ async function UseCaseSetStorageLimitWithoutParams(driver) {
 }
 
 async function UseCaseGetStorage(driver) {
-    await driver.findElement(By.xpath("/html/body/div[2]/div/div/div[4]/div/div/footer/div/div/div[1]/div/div[1]")).sendKeys("@fileninja --getStorageSize", Key.RETURN);
+    await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --getStorageSize", Key.RETURN);
     await driver.sleep(2000);
 
     driver.findElements(By.className("c-message__body")).then(function (elements) {
@@ -97,7 +97,7 @@ async function UseCaseGetStorage(driver) {
 
 async function UseCaseRegisterCategoryWithParams(driver) {
 
-    await driver.findElement(By.xpath("/html/body/div[2]/div/div/div[4]/div/div/footer/div/div/div[1]/div/div[1]")).sendKeys("@fileninja --registerCategory Project1", Key.RETURN);
+    await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --registerCategory Project1", Key.RETURN);
     await driver.sleep(2000);
 
     driver.findElements(By.className("c-message__body")).then(function (elements) {
@@ -114,7 +114,7 @@ async function UseCaseRegisterCategoryWithParams(driver) {
 
 }
 async function UseCaseRegisterCategoryAgainWithParams(driver) {
-    await driver.findElement(By.xpath("/html/body/div[2]/div/div/div[4]/div/div/footer/div/div/div[1]/div/div[1]")).sendKeys("@fileninja --registerCategory Project1", Key.RETURN);
+    await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --registerCategory Project1", Key.RETURN);
     await driver.sleep(2000);
 
     driver.findElements(By.className("c-message__body")).then(function (elements) {
@@ -132,7 +132,7 @@ async function UseCaseRegisterCategoryAgainWithParams(driver) {
 
 async function UseCaseRegisterCategoryWithoutParams(driver) {
 
-    await driver.findElement(By.xpath("/html/body/div[2]/div/div/div[4]/div/div/footer/div/div/div[1]/div/div[1]")).sendKeys("@fileninja --registerCategory", Key.RETURN);
+    await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --registerCategory", Key.RETURN);
     await driver.sleep(2000);
 
     driver.findElements(By.className("c-message__body")).then(function (elements) {
@@ -151,7 +151,7 @@ async function UseCaseRegisterCategoryWithoutParams(driver) {
 async function UseCaseAddFilesToCategoryWithFilename(driver) {
 
     // Add files to category with filename and category name
-    await driver.findElement(By.xpath("/html/body/div[2]/div/div/div[4]/div/div/footer/div/div/div[1]/div/div[1]")).sendKeys("@fileninja --addCategory Project1 sample.png", Key.RETURN);
+    await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --addCategory Project1 sample.png", Key.RETURN);
     await driver.sleep(2000);
 
     driver.findElements(By.className("c-message__body")).then(function (elements) {
@@ -166,7 +166,7 @@ async function UseCaseAddFilesToCategoryWithFilename(driver) {
         })
     });
     // Add files to category without category name
-    await driver.findElement(By.xpath("/html/body/div[2]/div/div/div[4]/div/div/footer/div/div/div[1]/div/div[1]")).sendKeys("@fileninja --addCategory sample.png", Key.RETURN);
+    await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --addCategory sample.png", Key.RETURN);
     await driver.sleep(2000);
 
     driver.findElements(By.className("c-message__body")).then(function (elements) {
@@ -185,7 +185,7 @@ async function UseCaseAddFilesToCategoryWithFilename(driver) {
 async function UseCaseAddFilesToCategoryWithoutFilename(driver) {
 
     // Add files to category without filename.
-    await driver.findElement(By.xpath("/html/body/div[2]/div/div/div[4]/div/div/footer/div/div/div[1]/div/div[1]")).sendKeys("@fileninja --addCategory Project1", Key.RETURN);
+    await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --addCategory Project1", Key.RETURN);
     await driver.sleep(2000);
 
     driver.findElements(By.className("c-message__body")).then(function (elements) {
@@ -200,7 +200,7 @@ async function UseCaseAddFilesToCategoryWithoutFilename(driver) {
         })
     });
     // Add files to category without filename and without category name
-    await driver.findElement(By.xpath("/html/body/div[2]/div/div/div[4]/div/div/footer/div/div/div[1]/div/div[1]")).sendKeys("@fileninja --addCategory", Key.RETURN);
+    await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --addCategory", Key.RETURN);
     await driver.sleep(2000);
 
     driver.findElements(By.className("c-message__body")).then(function (elements) {
