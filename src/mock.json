@@ -193,5 +193,12 @@
       32,
       111
     ]
+  },
+  "get_watermark_result": {
+    "Item": {
+      "url": "https://files.slack.com/files-pri/TNTGTLN5U-FPKEGRLJ0/lugia_tribal_by_katlyon-d7u5u9p.png",
+      "name": "wm2",
+      "channel": "CNK1N4V5F"
+    }
   }
 }

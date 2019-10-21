@@ -1,17 +1,20 @@
 var AWS = require("aws-sdk");
-var creds = new AWS.Credentials('ASIA23XI3UCH246SYUPB',
-    '1Yi32fp+sfS5yjg0GKFSz2z4zHQVFRMrAyukticC',
-    'FQoGZXIvYXdzEOX//////////wEaDLOY2ip1zlWXwXse1CL/AZ+0ArNN3FQMPyEd2Vm6Fy/ItmrlcG2N3hTbRUB93GLQwxKpMBy6h894L6L316bHW+KXUNPdDpiCEPTMnVkBKqywewIyLcQ4dobaNKXgdVqO85120NExQS2MikTft4fpRSczFDEyvC7zsp9QXt529317WA8NMKasNkRuZN4WXerOOzLg7CHypJkdLVuW46yV7JnxxXevroveoerw5vsSGXmW8HzHQScpsDDDViqYKijwBE10bgzWWEsHTXvZE1xG1vBH+mQs1hhzNzQUFz0Zj92AeCnFJh5NxDnR83CwLtTMAMYqlkkG6byDTPZro3IGz5Hk5al5DKKx/lzk4OcvOijG2rTtBQ==');
-AWS.config.update({
-    region: "us-east-1",
-    endpoint: "http://dynamodb.us-east-1.amazonaws.com",
-    credentials: creds
-});
+var AWSMOCK = require('aws-sdk-mock');
+const MOCK_DATA = require("../mock.json")
+
+AWSMOCK.mock('DynamoDB.DocumentClient', 'put', function (params, callback){
+    callback(null, "successfully put item in database");
+  });
+
+  AWSMOCK.mock('DynamoDB.DocumentClient', 'get', function (params, callback){
+    callback(null, MOCK_DATA.get_watermark_result);
+  });
 
 var table = "watermark";
 
 async function create(create_obj) {
     var docClient = new AWS.DynamoDB.DocumentClient();
+
     var params = {
         TableName: table,
         Item: {
