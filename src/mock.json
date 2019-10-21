@@ -200,5 +200,26 @@
       "name": "wm2",
       "channel": "CNK1N4V5F"
     }
-  }
+  },
+  "get_all_watermarks_result": [
+    {
+      "Item": {
+        "url": "https://files.slack.com/files-pri/TNTGTLN5U-FPKEGRLJ0/lugia_tribal_by_katlyon-d7u5u9p.png",
+        "name": "wm1",
+        "channel": "CNK1N4V5F"
+      }
+    },    {
+      "Item": {
+        "url": "https://files.slack.com/files-pri/TNTGTLN5U-FPKEGRLJ0/lugia_tribal_by_katlyon-d7u5u9p.png",
+        "name": "wm2",
+        "channel": "CNK1N4V5F"
+      }
+    },    {
+      "Item": {
+        "url": "https://files.slack.com/files-pri/TNTGTLN5U-FPKEGRLJ0/lugia_tribal_by_katlyon-d7u5u9p.png",
+        "name": "wm3",
+        "channel": "CNK1N4V5F"
+      }
+    }
+  ]
 }

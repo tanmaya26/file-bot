@@ -28,6 +28,20 @@ async function get_watermark(watermark_name, channel_name) {
 	return watermark_image_url
 }
 
+async function get_all_watermarks(channel_name) {
+	var watermark_list = await watermark_dbservice.get_all(channel_name).
+		then((res) => {
+			if (res.length > 0) {
+                var list = res.map(a => a.Item.name);
+                return Promise.resolve('Watermarks for this channel are: ' + list.join())
+			}
+			else {
+				return Promise.resolve('No watermark registered');
+			}
+		});
+	return watermark_list
+}
+
 function check_if_all_pdf(data) {
 	var result = true
 	data.files.forEach(f => {
@@ -40,5 +54,6 @@ function check_if_all_pdf(data) {
 }
 
 module.exports.get_watermark = get_watermark;
+module.exports.get_all_watermarks = get_all_watermarks;
 module.exports.register_watermark = register_watermark;
 module.exports.check_if_all_pdf = check_if_all_pdf;

@@ -33,6 +33,9 @@ async function init(command, data) {
 		}
 
 	}
+	else if (command[1] == 'list') {
+		bot_response = await watermark_service.get_all_watermarks(data.channel)
+	}
 	else if (command.length == 2 && data.files) {
 		watermark_files(data, command[1])
 	}

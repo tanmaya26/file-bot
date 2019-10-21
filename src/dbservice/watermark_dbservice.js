@@ -2,13 +2,17 @@ var AWS = require("aws-sdk");
 var AWSMOCK = require('aws-sdk-mock');
 const MOCK_DATA = require("../mock.json")
 
-AWSMOCK.mock('DynamoDB.DocumentClient', 'put', function (params, callback){
+AWSMOCK.mock('DynamoDB.DocumentClient', 'put', function (params, callback) {
     callback(null, "successfully put item in database");
-  });
+});
 
-  AWSMOCK.mock('DynamoDB.DocumentClient', 'get', function (params, callback){
+AWSMOCK.mock('DynamoDB.DocumentClient', 'get', function (params, callback) {
     callback(null, MOCK_DATA.get_watermark_result);
-  });
+});
+
+AWSMOCK.mock('DynamoDB.DocumentClient', 'query', function (params, callback) {
+    callback(null, MOCK_DATA.get_all_watermarks_result);
+});
 
 var table = "watermark";
 
@@ -58,5 +62,26 @@ async function get(watermark_name, channel_name) {
     });
 }
 
+async function get_all(channel_name) {
+    var docClient = new AWS.DynamoDB.DocumentClient();
+    var params = {
+        TableName: table,
+        Key: {
+            "channel": channel_name
+        }
+    };
+    return await new Promise((resolve, reject) => {
+        docClient.query(params, function (err, data) {
+            if (err) {
+                console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
+            } else {
+                console.log("GetItem succeeded:", JSON.stringify(data, null, 2));
+                resolve(data);
+            }
+        })
+    });
+}
+
 module.exports.create = create;
 module.exports.get = get;
+module.exports.get_all = get_all;
