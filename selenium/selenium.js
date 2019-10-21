@@ -7,6 +7,7 @@ const loginEmail = process.env.LOGIN_EMAIL;
 const loginPassword = process.env.LOGIN_PWD;
 const slackUrl = "https://csc510workspace.slack.com";
 const textbox_xpath = "/html/body/div[2]/div/div/div[4]/div/div/footer/div/div/div[1]/div/div[1]";
+const channel_xpath = "/html/body/div[2]/div/div/div[3]/div/nav/div[2]/div[1]/div/div[1]/div/div/div[11]/a/span";
 async function example() {
     let driver = await new Builder().forBrowser("chrome").build();
     await driver.get("http://google.com");
@@ -24,9 +25,9 @@ async function logout(driver, url) {
     await driver.findElement(By.xpath("/html/body/div[6]/div/div/div/div/div/div/div[13]/button/div")).click();
 }
 
-async function askFilebot(driver) {
+async function navigateToChannel(driver) {
     await driver.sleep(2000);
-    await driver.findElement(By.xpath("/html/body/div[2]/div/div/div[3]/div/nav/div[2]/div[1]/div/div[1]/div/div/div[11]/a/span")).click();
+    await driver.findElement(By.xpath(channel_xpath)).click();
 }
 
 async function UseCaseSetStorageLimitWithParams(driver) {
@@ -221,7 +222,7 @@ async function UseCaseAddFilesToCategoryWithoutFilename(driver) {
 
     let driver = await new Builder().forBrowser("chrome").build();
     await login(driver, slackUrl);
-    await askFilebot(driver);
+    await navigateToChannel(driver);
     await UseCaseSetStorageLimitWithParams(driver);
     await UseCaseSetGreaterStorageLimitWithParams(driver);
     await UseCaseSetStorageLimitWithoutParams(driver);
