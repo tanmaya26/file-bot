@@ -23,7 +23,6 @@ bot.on('start', function () {
 
 // Event to listen all slack messages, to see all possible events check: https://api.slack.com/events-api
 bot.on('message', function (data) {
-	console.log(data)
 	//Extract base command here
 	if (typeof data.text != 'undefined') {
 		cmd = utils_service.split_command(data.text)
@@ -40,8 +39,6 @@ bot.on('message', function (data) {
 		} else if (cmd[0] == constants.bot_id[0] && cmd[1] == '--addCategory') {
 			category_controller.addFileToCategory(cmd[2], cmd[3], data);
 		} else if (cmd[0] == constants.bot_id[0] && cmd[1] == '--showFiles') {
-			category_controller.showFilesOfACategory(cmd[2], data);
-		} else if (cmd[0] == constants.bot_id[0] && cmd[1] == '--exportCategory') {
 			category_controller.showFilesOfACategory(cmd[2], data);
 		}
 	}
