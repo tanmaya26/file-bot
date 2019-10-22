@@ -10,8 +10,8 @@ Currently, we have implemented test cases for four major features of file bot: W
 1. Watermark
     - USE CASE: *Register Watermark*<br>
         The happy path here, tests for registering a watermark when file format is correct.
-    - USE CASE: *Register Watermark for unacceptable file format*<br>   
-        This is an alternate path for the previous test. This tests for registering a watermark when a user uploads an unacceptable format which is jpeg
+    - USE CASE: *Register Watermark for unacceptable file format*   
+    This is an alternate path for the previous test. This tests for registering a watermark when a user uploads an unacceptable format which is jpeg
         in this case.<br>
     - USE CASE: *Add Watermark to file*<br>
         This test case tests for adding watermark to file.<br>
