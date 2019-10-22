@@ -234,7 +234,7 @@ async function exportDeleteCategory(category_name, storage_name, data, is_export
 	  		throw "Error. Category name: " + category_name + " does not exists.";
 	  	} else {
 	  		var i=0;
-	  		var len = files_to_move.length;\
+	  		var len = files_to_move.length;
 
 	  		for(i=0; i < len; i++) {
 	  			if(is_export){
