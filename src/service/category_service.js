@@ -130,36 +130,22 @@ async function get_all_files_from_slack() {
 		.reply(200, data);
 
 	let response = await got_service.get_request("https://api.slack.com/files.list");
-	// let response = await slack_bot_service.get_json_data_from_url("https://api.slack.com/files.list");
-
 	return response;
 }
 
 async function exportDeleteFile(file_name, storage_name, data, is_export) {
 	try {
-		var response = await get_all_files_from_slack().then((res) =>res);
 
-		// var response = await get_all_files_from_slack();
+		var data = mock_data.file_list.files
+		const scope = nock("https://api.slack.com/files.list")
+						.persist()
+						.log(console.log)
+						.get("")
+						.reply(200, data);
 
-		// let response = await got_service.get_request("https://api.slack.com/files.list");
-
-
-	// 	var data = mock_data.file_list.files
-	// const scope = nock("https://slack.com/files.list")
-	// .persist()
-	// 	.log(console.log)
-	// 	.get("")
-	// 	.reply(200, data);
-
-	// let response = await slack_bot_service.get_json_data_from_url("https://slack.com/files.list");
-
-	// 	scope.persist(false);
-
-
+		let response = await slack_bot_service.get_json_data_from_url("https://api.slack.com/files.list");
 
 		file_data = {}
-
-		console.log(response)
 
 		for(const x of response) {
 			if(x.name == file_name) {
