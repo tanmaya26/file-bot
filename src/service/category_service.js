@@ -121,79 +121,19 @@ async function showFilesOfACategory(category_name, data) {
 	}
 }
 
-async function get_all_files_from_slack() {
-	var data = mock_data.file_list.files
-	var res1 = nock("https://api.slack.com/files.list")
-	.get("")
-	.reply(200, data);
-
-	let response = await got_service.get_request("https://api.slack.com/files.list");
-	return response;
-}
-
-async function exportDeleteFile(file_name, storage_name, data, is_export) {
+async function exportDeleteCategory(category_name, storage_name, data, is_export) {
 	try {
-
 		var data = mock_data.file_list.files
 		const scope = nock("https://api.slack.com/files.list")
-		.persist()
 		.log(console.log)
 		.get("")
 		.reply(200, data);
 
-		let response = await slack_bot_service.get_json_data_from_url("https://api.slack.com/files.list");
+		let temp = await slack_bot_service.get_json_data_from_url("https://api.slack.com/files.list");
 
 		file_data = {}
 
-		for(const x of response) {
-			if(x.name == file_name) {
-				file_data[file_name] = {"id": x.id, "url": x.url_private_download};
-				break;
-			}
-		}
-
-		if (Object.keys(file_data).length === 0) {
-			throw "Error. File name: " + file_name + " does not exists.";
-		} else {
-
-			if (is_export) {
-				reply = mock_data.result_google_drive.output[0]
-				var res = nock("https://www.googleapis.com")
-				.post("/upload/drive/v3/files", {uploadType:'media', url: file_data[file_name].url})
-				.reply(200, JSON.stringify(reply));
-
-				let response1 = await got_service.post_request("https://www.googleapis.com/upload/drive/v3/files", 
-					{uploadType:'media', url: file_data[file_name].url});
-			}
-			
-
-			reply = mock_data.slack_delete_output
-			nock("https://api.slack.com")
-			.post("/files.delete", {"file": file_data[file_name].id})
-			.reply(200, JSON.stringify(reply));
-
-			let response2 = await got_service.post_request("https://api.slack.com/files.delete", {"file": file_data[file_name].id});
-
-			if (is_export) {
-				return "File '" + file_name + "' has been moved to external storage.";
-			} else {
-				return "File '" + file_name + "' has been deleted.";
-			}
-
-			
-		}
-	} catch (err) {
-		console.log("Error Occurred: ", err);
-		return err;
-	}
-}
-
-async function exportDeleteCategory(category_name, storage_name, data, is_export) {
-	try {
-		var response = await get_all_files_from_slack().then((res) =>res);
-		file_data = {}
-
-		for(const x of response) {
+		for(const x of temp) {
 			file_data[x.name] = {"id": x.id, "url": x.url_private_download};
 		}
 
@@ -230,7 +170,7 @@ async function exportDeleteCategory(category_name, storage_name, data, is_export
 					let response1 = await got_service.post_request("https://www.googleapis.com/upload/drive/v3/files", 
 						{uploadType:'media', url: files_to_move[i].url});
 				}
-				
+
 
 				reply = mock_data.slack_delete_output
 				nock("https://api.slack.com")
@@ -256,6 +196,5 @@ module.exports.setCategory = setCategory;
 module.exports.getCategories = getCategories;
 module.exports.addFileToCategory = addFileToCategory;
 module.exports.showFilesOfACategory = showFilesOfACategory;
-module.exports.exportDeleteFile = exportDeleteFile;
 module.exports.exportDeleteCategory = exportDeleteCategory;
 

@@ -23,11 +23,6 @@ async function showFilesOfACategory(category_name, data) {
 	bot.postMessage(data.channel, response);
 }
 
-async function exportDeleteFile(file_name, storage_name, data, is_export) {
-	var response = await category_service.exportDeleteFile(file_name, storage_name, data, is_export).then((res) =>res);
-	bot.postMessage(data.channel, response);
-}
-
 async function exportDeleteCategory(category_name, storage_name, data, is_export) {
 	var response = await category_service.exportDeleteCategory(category_name, storage_name, data, is_export).then((res) =>res);
 	bot.postMessage(data.channel, response);
@@ -37,5 +32,4 @@ module.exports.setCategory = setCategory;
 module.exports.getCategories = getCategories;
 module.exports.addFileToCategory = addFileToCategory;
 module.exports.showFilesOfACategory = showFilesOfACategory;
-module.exports.exportDeleteFile = exportDeleteFile;
 module.exports.exportDeleteCategory = exportDeleteCategory;

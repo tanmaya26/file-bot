@@ -44,12 +44,6 @@ bot.on('message', function (data) {
 			category_controller.addFileToCategory(cmd[1], cmd[2], data);
 		} else if (cmd[0] == '--showFiles') {
 			category_controller.showFilesOfACategory(cmd[1], data);
-		} else if (cmd[0] == '--exportFile' || cmd[0] == '--deleteFile') {
-			if (cmd[0] == '--exportFile') {
-				category_controller.exportDeleteFile(cmd[1], cmd[2], data, true);
-			} else {
-				category_controller.exportDeleteFile(cmd[1], "", data, false);
-			}
 		} else if (cmd[0] == '--exportCategory' || cmd[0] == '--deleteCategory') {
 			if (cmd[0] == '--exportCategory') {
 				category_controller.exportDeleteCategory(cmd[1], cmd[2], data, true);
