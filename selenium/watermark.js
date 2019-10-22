@@ -32,12 +32,12 @@ async function logout(driver, url) {
 
 // Register Watermark Usecases
 
-async function UseCaseRegisterWaterMarkGood(driver) {
+async function UseCaseRegisterWaterMarkGood(driver) { 
     var form = {
-        file: fs.createReadStream("./water-icon.png"), 
-        filename: 'water-icon.png',
-        text: "--watermark register testWM3",
-        initial_comment: '--watermark register testWM3',
+        file: fs.createReadStream("./mock.png"), 
+        filename: 'mock.png', //has to be replaced by tiger png from ayush name abc.png
+        text: "--watermark register wm1",
+        initial_comment: '--watermark register wm1',
         channels: 'watermarktesting'
     };
     
@@ -58,7 +58,7 @@ async function UseCaseRegisterWaterMarkGood(driver) {
       driver.findElements(By.className("c-message__body")).then(function(elements){
         elements[elements.length -1].getText().then(function (text){
             try {
-                assert.equal("Watermark created successfully",text);
+                assert.equal("Watermark created successfully.",text);
                 console.log('Usecase 1: Expecteddly passed to register watermark with images as png');
             } catch (e) {
                 console.log('Usecase 1: Unexpectedly passed to register watermark');
@@ -70,10 +70,10 @@ async function UseCaseRegisterWaterMarkGood(driver) {
 
 async function UseCaseRegisterWaterMarkWhenJPGIsUploaded(driver, url) {
     var form = {
-        file: fs.createReadStream("./water-icon.jpg"), 
-        filename: 'water-icon.jpg',
-        text: "--watermark register testWM3",
-        initial_comment: '--watermark register testWM3',
+        file: fs.createReadStream("./mock.jpg"),  // same tiger png saved as jpg name it abc.jpg
+        filename: 'mock.jpg',
+        text: "--watermark register wm1",
+        initial_comment: '--watermark register wm1',
         channels: 'watermarktesting'
     };
     
@@ -115,8 +115,8 @@ async function UseCaseWatermarkFileGood(driver) {
     var form = {
         file: fs.createReadStream("./sample.pdf"),
         filename: 'sample.pdf', 
-        text: "--watermark testWM3",
-        initial_comment: '--watermark testWM3',
+        text: "--watermark wm1",
+        initial_comment: '--watermark wm1',
         channels: 'watermarktesting'
       };
 
@@ -151,7 +151,7 @@ async function UseCaseUploadFileWithWrongCategoryName(driver) {
     var form = {
         file: fs.createReadStream("./sample.pdf"),
         filename: 'sample.pdf', 
-        text: "--watermark sampleWatermark",
+        text: "--watermark sampleWatermark", //
         initial_comment: '--watermark sampleWatermark',
         channels: 'watermarktesting'
       };
@@ -214,12 +214,12 @@ await login(driver, slackUrl);
 await switchChannel(driver);
 
 // // Register
-// await UseCaseRegisterWaterMarkGood(driver);
-// await UseCaseRegisterWaterMarkWhenJPGIsUploaded(driver);
+await UseCaseRegisterWaterMarkGood(driver);
+await UseCaseRegisterWaterMarkWhenJPGIsUploaded(driver);
 
-// // Watermark files
-// await UseCaseWatermarkFileGood(driver);
-// await UseCaseUploadFileWithWrongCategoryName(driver);
+// Watermark files
+await UseCaseWatermarkFileGood(driver);
+await UseCaseUploadFileWithWrongCategoryName(driver);
 
 //List Watermark
 await UseCaseListWaterMarks(driver);
