@@ -35,13 +35,15 @@ async function update_alert_size_for_workspace(size, data) {
 
 async function get_alert_size_for_workspace() {
 	// get the size from DynamoDB
-	reply = mock_data.workspace_size
-	var res = nock("http://dynamodb.us-east-1.amazonaws.com")
-		.get("/storage")
-		.reply(200, JSON.stringify(reply));
 
-	let response = await got_service.get_request("http://dynamodb.us-east-1.amazonaws.com/storage");
-	return "Current size limit is " + JSON.stringify(response);
+	var data = mock_data.workspace_size
+	const scope = nock("http://dynamodb.us-east-1.amazonaws.com/storage")
+		.log(console.log)
+		.get("")
+		.reply(200, data);
+
+	let temp = await slack_bot_service.get_json_data_from_url("http://dynamodb.us-east-1.amazonaws.com/storage");
+	return "Current size limit is " + JSON.stringify(temp);
 }
 
 module.exports.update_alert_size_for_workspace = update_alert_size_for_workspace;

@@ -5,32 +5,18 @@ const nock = require("nock");
 const mock_data = require("../mock.json")
 const got = require('got');
 
-async function get_all_data_for_catalog() {
-	reply = mock_data.dynamoDB.catalog
-	var res = nock("http://dynamodb.us-east-1.amazonaws.com")
-		.get("/catalog")
-		.reply(200, JSON.stringify(reply));
-
-	let response = await got_service.get_request("http://dynamodb.us-east-1.amazonaws.com/catalog");
-	return response;
-}
-
-async function get_all_files_data() {
-	reply = mock_data.dynamoDB.file_system
-	var res = nock("http://dynamodb.us-east-1.amazonaws.com")
-		.get("/file_system")
-		.reply(200, JSON.stringify(reply));
-
-	let response = await got_service.get_request("http://dynamodb.us-east-1.amazonaws.com/file_system");
-	return response;
-}
-
 async function setCategory(category_name, data) {
 	// set the global to DynamoDB
 	try {
-		var response = await get_all_data_for_catalog().then((res) => res);
+		reply = mock_data.dynamoDB.catalog
+		var res = nock("http://dynamodb.us-east-1.amazonaws.com/catalog")
+			.get("")
+			.reply(200, reply);
+
+		let temp = await slack_bot_service.get_json_data_from_url("http://dynamodb.us-east-1.amazonaws.com/catalog");
+
 		categories = {};
-		for (const x of response) {
+		for (const x of temp) {
 			categories[x.pname] = { "pid": x.pid, "cid": x.cid };
 		}
 
@@ -54,10 +40,16 @@ async function setCategory(category_name, data) {
 
 async function getCategories() {
 	// get the categories from DynamoDB
-	var response = await get_all_data_for_catalog().then((res) => res);
+	reply = mock_data.dynamoDB.catalog
+	var res = nock("http://dynamodb.us-east-1.amazonaws.com/catalog")
+		.get("")
+		.reply(200, reply);
+
+	let temp = await slack_bot_service.get_json_data_from_url("http://dynamodb.us-east-1.amazonaws.com/catalog");
+
 	categories = {};
 	var ans = "";
-	for (const x of response) {
+	for (const x of temp) {
 		categories[x.pname] = { "pid": x.pid, "cid": x.cid };
 		ans = ans + " " + x.pname + ",";
 	}
@@ -66,9 +58,15 @@ async function getCategories() {
 
 async function addFileToCategory(category_name, file_name, data) {
 	try {
-		var response = await get_all_data_for_catalog().then((res) => res);
+		reply = mock_data.dynamoDB.catalog
+		var res = nock("http://dynamodb.us-east-1.amazonaws.com/catalog")
+			.get("")
+			.reply(200, reply);
+
+		let temp = await slack_bot_service.get_json_data_from_url("http://dynamodb.us-east-1.amazonaws.com/catalog");
+
 		categories = {};
-		for (const x of response) {
+		for (const x of temp) {
 			categories[x.pname] = { "pid": x.pid, "cid": x.cid };
 		}
 
@@ -91,11 +89,17 @@ async function addFileToCategory(category_name, file_name, data) {
 
 async function showFilesOfACategory(category_name, data) {
 	try {
-		var response = await get_all_data_for_catalog().then((res) => res);
+		reply = mock_data.dynamoDB.catalog
+		var res = nock("http://dynamodb.us-east-1.amazonaws.com/catalog")
+			.get("")
+			.reply(200, reply);
+
+		let temp = await slack_bot_service.get_json_data_from_url("http://dynamodb.us-east-1.amazonaws.com/catalog");
+
 		categories = {};
 		var pid = 0;
 		var channel_id = data.channel
-		for (const x of response) {
+		for (const x of temp) {
 			categories[x.pname] = { "pid": x.pid, "cid": x.cid };
 			if (x.pname === category_name) {
 				pid = x.pid;
@@ -106,9 +110,16 @@ async function showFilesOfACategory(category_name, data) {
 			throw "Error. Category name: " + category_name + " does not exists.";
 		} else {
 			var ans = "";
-			var response = await get_all_files_data().then((res) => res);
-			for (const x of response) {
-				if (x.catalog_id == pid && channel_id == x.channel_id) {
+			reply = mock_data.dynamoDB.file_system
+			var res = nock("http://dynamodb.us-east-1.amazonaws.com/file_system")
+				.get("")
+				.reply(200, reply);
+
+			let temp = await slack_bot_service.get_json_data_from_url("http://dynamodb.us-east-1.amazonaws.com/file_system");
+
+			for (const x of temp) {
+				if (x.catalog_id == pid) {
+					// && channel_id == x.channel_id
 					ans = ans + " " + x.file_name + ",";
 				}
 			}
@@ -129,26 +140,38 @@ async function exportDeleteCategory(category_name, storage_name, data, is_export
 			.get("")
 			.reply(200, data);
 
-		let temp = await slack_bot_service.get_json_data_from_url("https://api.slack.com/files.list");
+		let temp1 = await slack_bot_service.get_json_data_from_url("https://api.slack.com/files.list");
 
 		file_data = {}
 
-		for (const x of temp) {
+		for (const x of temp1) {
 			file_data[x.name] = { "id": x.id, "url": x.url_private_download };
 		}
 
-		var response = await get_all_data_for_catalog().then((res) => res);
+		reply = mock_data.dynamoDB.catalog
+		var res = nock("http://dynamodb.us-east-1.amazonaws.com/catalog")
+			.get("")
+			.reply(200, reply);
+
+		let temp = await slack_bot_service.get_json_data_from_url("http://dynamodb.us-east-1.amazonaws.com/catalog");
+
 		category_id = -1;
-		for (const x of response) {
+		for (const x of temp) {
 			if (x.pname == category_name) {
 				category_id = x.pid
 				break;
 			}
 		}
 
-		var response = await get_all_files_data().then((res) => res);
+		reply = mock_data.dynamoDB.file_system
+		var res = nock("http://dynamodb.us-east-1.amazonaws.com/file_system")
+			.get("")
+			.reply(200, JSON.stringify(reply));
+
+		let temp2 = await slack_bot_service.get_json_data_from_url("http://dynamodb.us-east-1.amazonaws.com/file_system");
+
 		var files_to_move = []
-		for (const x of response) {
+		for (const x of temp2) {
 			if (x.catalog_id == category_id) {
 				files_to_move.push(file_data[x.file_name]);
 			}

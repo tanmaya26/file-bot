@@ -1,31 +1,15 @@
-const got  = require('got');
+const got = require('got');
 var token = "token";
 
-async function get_request(url) {
+async function post_request(url, body_params) {
 	var url = url;
 	var options = {
-		method: 'GET',
-		headers: {
-			"content-type": "application/json",
-			"Authorization": "tokenToBeAddedLater"
-		},
-		json: true
-	};
-
-	// Send a http request to url
-	let response = (await got(url, options)).body;
-	return response;
-}
-
-async function post_request(url, body_params) {
-  var  url = url;
-  var options = {
 		method: 'POST',
 		headers: {
 			"content-type": "application/json",
 			"Authorization": "tokenToBeAddedLater"
 		},
-    body: JSON.stringify(body_params)
+		body: JSON.stringify(body_params)
 	};
 
 	// Send a http request to url
@@ -33,5 +17,4 @@ async function post_request(url, body_params) {
 	return response;
 }
 
-exports.get_request = get_request;
 exports.post_request = post_request;
