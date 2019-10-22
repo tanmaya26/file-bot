@@ -21,7 +21,7 @@ async function get_slack_resource_from_url(url) {
 		credentials: 'include',
 		headers: {
 			'Content-Type': 'application/json',
-			'Authorization': 'Bearer xoxb-775571702198-775695559382-MSox8rQEc2qhmuGa9wz3JiNJ'
+			'Authorization': 'Bearer temp'
 		}
 	}).then((res) => res.arrayBuffer())
 	return resource
