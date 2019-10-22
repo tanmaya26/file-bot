@@ -28,18 +28,30 @@ bot.on('message', function (data) {
 		cmd = utils_service.split_command(data.text)
 		if (cmd[0] == '--watermark') {
 			watermark_controller.init(cmd, data)
-		} else if (cmd[0] == constants.bot_id[0] && cmd[1] == '--setStorageSize') {
-			storage_limit_controller.setSize(cmd[2], data);
-		} else if (cmd[0] == constants.bot_id[0] && cmd[1] == '--getStorageSize') {
+		} else if (cmd[0] == '--setStorageSize') {
+			storage_limit_controller.setSize(cmd[1], data);
+		} else if (cmd[0] == '--getStorageSize') {
 			storage_limit_controller.getSize(data);
-		} else if (cmd[0] == constants.bot_id[0] && cmd[1] == '--registerCategory') {
-			category_controller.setCategory(cmd[2], data);
-		} else if (cmd[0] == constants.bot_id[0] && cmd[1] == '--getCategories') {
+		} else if (cmd[0] == '--registerCategory') {
+			category_controller.setCategory(cmd[1], data);
+		} else if (cmd[0] == '--getCategories') {
 			category_controller.getCategories(data);
-		} else if (cmd[0] == constants.bot_id[0] && cmd[1] == '--addCategory') {
-			category_controller.addFileToCategory(cmd[2], cmd[3], data);
-		} else if (cmd[0] == constants.bot_id[0] && cmd[1] == '--showFiles') {
-			category_controller.showFilesOfACategory(cmd[2], data);
+		} else if (cmd[0] == '--addCategory') {
+			category_controller.addFileToCategory(cmd[1], cmd[2], data);
+		} else if (cmd[0] == '--showFiles') {
+			category_controller.showFilesOfACategory(cmd[1], data);
+		} else if (cmd[0] == '--exportFile' || cmd[0] == '--deleteFile') {
+			if (cmd[0] == '--exportFile') {
+				category_controller.exportDeleteFile(cmd[1], cmd[2], data, true);
+			} else {
+				category_controller.exportDeleteFile(cmd[1], "", data, false);
+			}
+		} else if (cmd[0] == '--exportCategory' || cmd[0] == '--deleteCategory') {
+			if (cmd[0] == '--exportCategory') {
+				category_controller.exportDeleteCategory(cmd[1], cmd[2], data, true);
+			} else {
+				category_controller.exportDeleteCategory(cmd[1], "", data, false);
+			}
 		}
 	}
 });
