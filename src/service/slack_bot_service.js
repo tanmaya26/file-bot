@@ -26,7 +26,20 @@ async function get_slack_resource_from_url(url) {
 	return resource
 }
 
+async function get_json_data_from_url(url) {
+	const resource = await fetch(url, {
+		method: 'GET'
+	}).then(function(response){
+		return response.json();
+	})
+	.then(function(json){
+		return json
+	});
+	return resource
+}
+
 
 module.exports.slack = slack;
 module.exports.bot = bot;
 module.exports.get_slack_resource_from_url = get_slack_resource_from_url;
+module.exports.get_json_data_from_url = get_json_data_from_url;
