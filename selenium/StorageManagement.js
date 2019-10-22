@@ -42,7 +42,7 @@ async function UseCaseListFilesOfCategoryGood(driver) {
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
-                assert.equal("Category has been added.", text);
+                assert.equal("Files under the category 'Project1' are  project1.pdf, se-report.pdf,", text);
                 console.log('Usecase 4.1: "List files under category" expectedly passed.'); 
             } catch (e) {
                 console.log('Usecase 4.1: "List files under category" unexpectedly failed.');
@@ -58,10 +58,11 @@ async function UseCaseListFilesOfCategoryWithoutParams(driver) {
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
-                assert.equal("Category has been added.", text);
-                console.log('Usecase 4.1: "List files under category" expectedly passed.'); // Need to check this with first test cases
+                text = text.split(" ")[0]
+                assert.equal("Error.", text);
+                console.log('Usecase 4.1: "List files under category" without params expectedly failed.'); // Need to check this with first test cases
             } catch (e) {
-                console.log('Usecase 4.1: "List files under category" unexpectedly failed.');
+                console.log('Usecase 4.1: "List files under category" without params unexpectedly passed .');
                 return Promise.resolve('Usecase to register category failed.');
             }
         })
@@ -75,7 +76,7 @@ async function UseCaseListFilesOfCategoryNotAvailable(driver) {
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
-                assert.equal("Error. Category name: xyz does not exists.", text, "yu");
+                assert.equal("Error. Category name: xyz does not exists.", text);
                 console.log('Usecase : "List files under category which doesn\'t exist" expectedly failed.'); // Need to check this with first test cases
             } catch (e) {
                 console.log('Usecase : "List files under category which doesn\'t exist" unexpectedly passed.');
@@ -87,7 +88,7 @@ async function UseCaseListFilesOfCategoryNotAvailable(driver) {
 
 
 // Delete file category use cases
-async function UseCaseDeleteFileOfCategoryGood(driver) {
+async function UseCaseDeleteFileOfCategoryGood(driver) { // still need to implement
     await driver.findElement(By.className("ql-editor ql-blank")).sendKeys("@fileninja --delete file Project1 sample.pdf", Key.RETURN);
     await driver.sleep(2000);
     driver.findElements(By.className("c-message__body")).then(function (elements) {
