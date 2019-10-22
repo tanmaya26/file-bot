@@ -31,12 +31,12 @@ async function navigateToChannel(driver) {
 }
 
 async function UseCaseSetStorageLimitWithParams(driver) {
-    await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --setStorageSize 3", Key.RETURN);
+    await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --setStorageSize 3.5", Key.RETURN);
     await driver.sleep(3000);
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
-                assert.equal("Size Limit has been set to 3", text);
+                assert.equal("New Size Limit has been set to \"3.5\"", text);
                 console.log('Usecase 2: "Set storage limit" expectedly passed.');
             } catch (e) {
                 console.log('Usecase 2: "Set storage limit" unexpectedly failed when parameter given');
@@ -86,7 +86,7 @@ async function UseCaseGetStorage(driver) {
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
-                assert.equal("Current size limit is 3", text);
+                assert.equal("Current size limit is \"3.5\"", text);
                 console.log('Usecase 5: "Get storage limit" expectedly passed.');
             } catch (e) {
                 console.log('Usecase 5: "Get storage limit" unexpectedly failed.');
@@ -98,13 +98,13 @@ async function UseCaseGetStorage(driver) {
 
 async function UseCaseRegisterCategoryWithParams(driver) {
 
-    await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --registerCategory categoryName", Key.RETURN);
+    await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --registerCategory Project4", Key.RETURN);
     await driver.sleep(2000);
 
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
-                assert.equal("Category has been added.", text);
+                assert.equal("Category has been added with name: \"Project4\"", text);
                 console.log('Usecase 6.1: "Register category" expectedly passed.');
             } catch (e) {
                 console.log('Usecase 6.1: "Register category" unexpectedly failed.');
@@ -114,7 +114,7 @@ async function UseCaseRegisterCategoryWithParams(driver) {
     });
 
 }
-async function UseCaseRegisterCategoryAgainWithParams(driver) {
+async function UseCaseRegisterCategoryAlreadyExistingNameWithParams(driver) { 
     await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --registerCategory categoryName", Key.RETURN);
     await driver.sleep(2000);
 
@@ -131,7 +131,7 @@ async function UseCaseRegisterCategoryAgainWithParams(driver) {
     });
 }
 
-async function UseCaseRegisterCategoryWithoutParams(driver) {
+async function UseCaseRegisterCategoryWithoutParams(driver) { 
 
     await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --registerCategory", Key.RETURN);
     await driver.sleep(2000);
@@ -149,16 +149,16 @@ async function UseCaseRegisterCategoryWithoutParams(driver) {
     });
 }
 
-async function UseCaseAddFilesToCategoryWithFilename(driver) {
+async function UseCaseAddFilesToCategoryWithFilename(driver) { 
 
     // Add files to category with filename and category name
-    await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --addCategory categoryName fileName.png", Key.RETURN);
+    await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --addCategory Project4 fileName.png", Key.RETURN);
     await driver.sleep(2000);
 
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
-                assert.equal("File has been added under the category 'categoryName'.", text);
+                assert.equal("File has been added under the category 'Project4'.", text);
                 console.log('Usecase 8: "Add files to category" expectedly passed when filename given');
             } catch (e) {
                 console.log('Usecase 8: "Add files to category" unexpectedly failed.');
@@ -166,6 +166,10 @@ async function UseCaseAddFilesToCategoryWithFilename(driver) {
             }
         })
     });
+    
+}
+
+async function UseCaseAddFilesToCategoryWithoutCategoryName(driver) { 
     // Add files to category without category name
     await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --addCategory fileName.png", Key.RETURN);
     await driver.sleep(2000);
@@ -173,7 +177,8 @@ async function UseCaseAddFilesToCategoryWithFilename(driver) {
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
-                assert.equal("Error. Category name: fileName.png does not exists.", text);
+                text = text.split(" ")[0]
+                assert.equal("Error.", text);
                 console.log('Usecase 9: "Add files to category" expectedly failed when no category name given');
             } catch (e) {
                 console.log('Usecase 9: "Add files to category" unexpectedly failed.');
@@ -192,7 +197,8 @@ async function UseCaseAddFilesToCategoryWithoutFilename(driver) {
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
-                assert.equal("File has been added under the category 'categoryName'.", text);
+                text = text.split(" ")[0]
+                assert.equal("Error.", text);
                 console.log('Usecase 10: "Add files to category" expectedly failed when filename not given');
             } catch (e) {
                 console.log('Usecase 10: "Add files to category" unexpectedly failed.');
@@ -200,14 +206,19 @@ async function UseCaseAddFilesToCategoryWithoutFilename(driver) {
             }
         })
     });
-    // Add files to category without filename and without category name
+    
+}
+
+// Add files to category without filename and without category name
+async function UseCaseAddFilesToCategoryWithoutCategoryNameWithoutFilename(driver) { 
     await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --addCategory", Key.RETURN);
     await driver.sleep(2000);
 
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
-                assert.equal("Error. Category name: undefined does not exists.", text);
+                text = text.split(" ")[0]
+                assert.equal("Error.", text);
                 console.log('Usecase 11: "Add files to category" expectedly failed when no category or file name given');
             } catch (e) {
                 console.log('Usecase 11: "Add files to category" unexpectedly failed.');
@@ -225,12 +236,14 @@ async function UseCaseAddFilesToCategoryWithoutFilename(driver) {
     await navigateToChannel(driver);
     await UseCaseSetStorageLimitWithParams(driver);
     await UseCaseSetGreaterStorageLimitWithParams(driver);
-    await UseCaseSetStorageLimitWithoutParams(driver);
+    await UseCaseSetStorageLimitWithoutParams(driver);   // CHeck with Rashik --->
     await UseCaseGetStorage(driver);
     await UseCaseRegisterCategoryWithParams(driver);
-    await UseCaseRegisterCategoryAgainWithParams(driver);
-    await UseCaseRegisterCategoryWithoutParams(driver);
-    await UseCaseAddFilesToCategoryWithFilename(driver);
+    await UseCaseRegisterCategoryAlreadyExistingNameWithParams(driver); // Need to check with Rashik --->
+    await UseCaseRegisterCategoryWithoutParams(driver); //Need to check with Rashik --->
+    await UseCaseAddFilesToCategoryWithoutCategoryName(driver); //check with rashik
+    await UseCaseAddFilesToCategoryWithFilename(driver); //check with rashik
     await UseCaseAddFilesToCategoryWithoutFilename(driver);
+    await UseCaseAddFilesToCategoryWithoutCategoryNameWithoutFilename(driver); //check with rashik
     //await logout(driver, "https://csc510workspace.slack.com");
 })()

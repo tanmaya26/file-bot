@@ -59,7 +59,7 @@
           "pretty_type": "PDF",
           "user": "UNCHC62B5",
           "editable": false,
-          "size": 75741,
+          "size": 75741, 
           "mode": "hosted",
           "is_external": false,
           "external_type": "",
@@ -222,7 +222,7 @@
       }
     }
   ],
-  "workspace_size": "4.0",
+  "workspace_size": "3.5",
   "dynamoDB": {
     "storage": [
       {"id": 2, 
@@ -239,7 +239,7 @@
       {
         "pid": 45,
         "pname": "Project1",
-        "cid": "CNK1N4V5F"
+        "cid": "CPL4FFK96"
       },
       {
         "pid": 48,
@@ -253,7 +253,7 @@
         "type": "pdf",
         "size": ".4",
         "slack_id": "11010",
-        "channel_id": "CNK1N4V5F",
+        "channel_id": "CPL4FFK96",
         "catalog_id": "45"
       },
       {
@@ -269,7 +269,7 @@
         "type": "pdf",
         "size": "1.4",
         "slack_id": "816382",
-        "channel_id": "CNK1N4V5F",
+        "channel_id": "DNTLFGPE2",
         "catalog_id": "48"
       },
       {
