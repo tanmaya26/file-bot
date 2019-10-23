@@ -11,3 +11,6 @@
 
 ## Design
 [Design Document](Design/DESIGN.md)
+
+## BOT Document
+[BOT Document](Bot/BOT.md)
