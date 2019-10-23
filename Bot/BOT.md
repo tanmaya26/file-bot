@@ -82,7 +82,7 @@ Currently, we have implemented test cases for major features of file bot: Waterm
     - USE CASE: *Export category for a category which does not exist*<br>
     This test case tests when user exports the category to external storage but gives a category name that is not created. The test will expectedly fail in this case.
     
-To summarize, we have written tests for happy paths and alternate (error) paths for the various scenarios mentioned above. The selenium files can be found at [selenium.js](../src/test/selenium/final.js)
+To summarize, we have written tests for happy paths and alternate (error) paths for the various scenarios mentioned above. The selenium files can be found at [selenium.js](../src/test/selenium.js)
 
 ## Mock Infrastructure
 #### Mocking HTTP and third party calls:
