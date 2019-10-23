@@ -7,7 +7,7 @@
     "start": "node index.js",
     "test": "mocha"
   },
-  "author": "marcogbarcellos",
+  "author": "CSC510-7 ",
   "license": "MIT",
   "dependencies": {
     "aws-sdk": "2.553.0",
