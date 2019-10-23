@@ -42,7 +42,7 @@ For mocking database calls, we decided to go with aws-sdk-mock. It is a mocking 
 #### Mocking Data:
 All mocked data and responses for HTTP and Database calls have been hardcoded and stored in mock.json in JSON format. All the files (dummy .pdf, .png etc files) for mocking are present in the test_files folder.
 
-## Selenium testing
+## Selenium Testing
 
 We have used a web browser automation framework Selenium to conduct the User interface test. This framework helps to pose as a user and conducts the test. It also verifies the output for the commands given by the user on the text box in the channel. 
 Currently, we have implemented test cases for major features of file bot: Watermark, Storage management, Category management and External storage. Each feature has sub-categories which are also tested and these tests have a happy path and one alternate path. Let's go over the test cases.
@@ -94,7 +94,11 @@ Currently, we have implemented test cases for major features of file bot: Waterm
     - USE CASE: *Export category for a category which does not exist*<br>
     This test case tests when user exports the category to external storage but gives a category name that is not created. The test will expectedly fail in this case.
 
-To summarize, we have written tests for happy paths and alternate (error) paths for the various scenarios mentioned above. The selenium files can be found at [selenium.js](../src/test/selenium.js)
+To summarize, we have written tests for happy paths and alternate (error) paths for the various scenarios mentioned above. The selenium files can be found at [selenium.js](../src/test/selenium.js)  
+Here is a screenshot of selenium test results:
+<p align="center">
+  <img src="./Images/selenium_test.jpeg">
+</p>
 
 ## Screencast
 [Screencast video](https://drive.google.com/file/d/1zZwWf5GVLACukOMd1bRH9e0apWVWF36b/view?usp=sharing)
