@@ -5,6 +5,7 @@ In this milestone, we have implemented features such as
 
 ## Selenium testing
 
+The selenium tests the latest Bot's response which makes sure it does not test for stale responses from previous threads in the channel. It tests for the commands given by user on the text box in the channel.
 Currently, we have implemented test cases for four major features of file bot: Watermark, Storage management, Category management and External storage. Each feature has sub-categories which are also tested and these tests have a happy path and one alternate path. Let's go over the test cases.
 
 1. Watermark
