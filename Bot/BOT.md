@@ -2,7 +2,13 @@
 In this milestone, we have implemented features such as
 
 ## Bot Implementation
+## Use Case refinement
 
+We have made some modifications to our use cases. The following are the changes:<br>
+    1. USE CASE: *Export files under a specific category*<br>
+    Before modification, user had the option to export files in category by specifiying file name using the command: @botName --export fileName externalStorageName. Currently, user can only export the entire category and the files in it will be exported too using the command: @botName --export categoryName externalStorageName
+    2. USE CASE: *Delete files under a specific category*<br>
+    Before modification, user had the option to delete file in a category by specifying filename and category name using the command: @botName --deleteCategory categoryName fileName. After modification, user may only delete the entire category using the command: @botName --deleteCategory categoryName
 ## Selenium testing
 
 The selenium tests the latest Bot's response which makes sure it does not test for stale responses from previous threads in the channel. It tests for the commands given by user on the text box in the channel.
