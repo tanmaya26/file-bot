@@ -47,8 +47,8 @@ Currently, we have implemented test cases for major features of file bot: Waterm
         This test case tests for adding watermark to file. Acceptable file formats is PDF only.<br>
     - USE CASE: *Add Watermark to file which is not PDF*<br>
         As an alternate path to the previous test, this test case tests for adding watermark to file when user did not provide a PDF file. It is expected to fail.
-    - USE CASE: *Add Watermark when no image provided*<br>
-        This test case tests for adding watermark to file when user did not provide a watermark image. It is expected to fail.
+    - USE CASE: *Add Watermark when no file provided*<br>
+        This test case tests for adding watermark to file when user did not provide a file name. It is expected to fail.
     - USE CASE: *Get all watermarks*<br>
         This tests for listing all registered watermarks.
 
