@@ -6,7 +6,7 @@ In this milestone, we have implemented features such as
 
 We have made some modifications to our use cases. The following are the changes:<br>
     1. USE CASE: *Export files under a specific category*<br>
-    Before modification, user had the option to export files in category by specifiying file name using the command: @botName --export fileName externalStorageName. Currently, user can only export the entire category and the files in it will be exported too using the command: @botName --export categoryName externalStorageName
+    Before modification, user had the option to export files in category by specifiying file name using the command: @botName --export fileName externalStorageName. Currently, user can only export the entire category and the files in it will be exported too using the command: @botName --export categoryName externalStorageName<br>
     2. USE CASE: *Delete files under a specific category*<br>
     Before modification, user had the option to delete file in a category by specifying filename and category name using the command: @botName --deleteCategory categoryName fileName. After modification, user may only delete the entire category using the command: @botName --deleteCategory categoryName
 ## Selenium testing
