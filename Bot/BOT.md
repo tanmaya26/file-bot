@@ -56,7 +56,7 @@ Currently, we have implemented test cases for major features of file bot: Waterm
     - USE CASE: *Get current storage limit*<br>
     This test simply tests for current storage limit.
 
-3. Category Management <br>
+3. Category Management and External Storage<br>
     - USE CASE: *Register category with params*<br>
     This is the first command the user needs to give to create a category where it can add files. 
     - USE CASE: *Register category that already exists*<br>
@@ -71,8 +71,6 @@ Currently, we have implemented test cases for major features of file bot: Waterm
     This tests for Bot's actions the case when user deletes the category.
     - USE CASE: *Delete a category which does not exist*<br>
     This tests for Bot's actions the case when user deletes the category but the category does not exist.
-
-4. External Storage<br>
     - USE CASE: *Export category to external storage*<br>
     This represents a happy path. This test case tests when user exports the category to external storage for better storage management. 
     - USE CASE: *Export category for a category which does not exist*<br>
