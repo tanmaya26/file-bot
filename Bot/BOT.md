@@ -93,5 +93,5 @@ Currently, we have implemented test cases for major features of file bot: Waterm
     This represents a happy path. This test case tests when user exports the category to external storage for better storage management. 
     - USE CASE: *Export category for a category which does not exist*<br>
     This test case tests when user exports the category to external storage but gives a category name that is not created. The test will expectedly fail in this case.
-    
+
 To summarize, we have written tests for happy paths and alternate (error) paths for the various scenarios mentioned above. The selenium files can be found at [selenium.js](../selenium/final.js)
