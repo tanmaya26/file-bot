@@ -4,11 +4,13 @@ In this milestone, we have implemented features such as
 ## Bot Implementation
 ## Use Case refinement
 
-We have made some modifications to our use cases. The following are the changes:<br>
+We have made some modifications to our use cases. Our reason for modifications is: Slack allows multiple uploads with same file name. This would lead to a problem for the Bot in choosing which files to use for the requested operation. Hence, our modifications will remove singular file operations. The following are the changes:<br>
     1. USE CASE: *Export files under a specific category*<br>
     Before modification, user had the option to export files in category by specifiying file name using the command: @botName --export fileName externalStorageName. Currently, user can only export the entire category and the files in it will be exported too using the command: @botName --export categoryName externalStorageName<br>
     2. USE CASE: *Delete files under a specific category*<br>
-    Before modification, user had the option to delete file in a category by specifying filename and category name using the command: @botName --deleteCategory categoryName fileName. After modification, user may only delete the entire category using the command: @botName --deleteCategory categoryName
+    Before modification, user had the option to delete file in a category by specifying filename and category name using the command: @botName --deleteCategory categoryName fileName. After modification, user may only delete the entire category using the command: @botName --deleteCategory categoryName<br>
+    3. USE CASE: *Add Watermark to file*<br>
+    Before modification, user had the option to watermark file anytime after uploading by asking File bot through the message: @botName --addWatermark watermarkName fileName. However, since multiple files could be uploaded using same file name, Bot wouldn't know which file (with given filename) to add the watermark to. Hence, only when user uploads a file, it can ask the Bot to watermark it. Our modication thus allows adding watermark during the file upload itself.
 ## Selenium testing
 
 We have used a web browser automation framework Selenium to conduct the User interface test. This framework helps to pose as a user and conducts the test. It also verifies the output for the commands given by the user on the text box in the channel. 
