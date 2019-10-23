@@ -36,7 +36,7 @@ async function init(command, data) {
 	else if (command[1] == 'list') {
 		bot_response = await watermark_service.get_all_watermarks(data.channel)
 	}
-	else if (command.length == 2 && data.files) {
+	else if (command.length == 2) {
 		if (typeof data.files == 'undefined') {
 			bot_response = "No file associated with command. Upload a PDF file with command watermark the file."
 		}
