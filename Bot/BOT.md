@@ -1,7 +1,26 @@
-## Bot
-In this milestone, we have implemented features such as
+# FileNinja
 
-## Bot Implementation
+## Bot Platform Implementation
+We have used a Node.js library "slackbots" to create our slack bot, 'FileNinja'. For our bot implementation we have architectured our code into the following layers: a routing layer, controller layer, service layer and database layer. When a user asks the bot to perform a specific task, the request makes contact with the routing layer (our ‘index.js’ file) which is listening for the “message” event and depending on the command this layer routes it to the appropriate controller. Each controller handles the logic for each individual command. We broke down the individual actions of the bot into reusable services and put them in our service layer. The controller decides which code path the bot will take, depending on the command given by the user and along the way it uses the services defined (currently mocked) in the service layer. This service function helps us generate the appropriate response for the bot. We have implemented code paths for all possible scenarios (both positive and negative) and at the end of each path we generate an appropriate reply for the bot. Service layer makes use of the database layer to make calls to the DynamoDB and Google drive (Currently, we have mocked those API calls. * All code can be seen inside the ‘src’ folder).  
+
+Currently, we have a fully functional bot which responds to the user commands. To do so we have added the bot to our slack workspace, so whenever a user wants to use the bot, it can interact with the bot by '@fileNinja and then the command'. Anyone can clone the repository and then run 'npm install' to install all the required packages to run the server. Then the user can enter there BOT_TOKEN in the ‘.env’ file and then run 'npm start' to start the server.  
+Note: FileNinja uses these packages:   
+slackbots  
+aws-sdk  
+pdf-lib  
+Selenium-webdriver  
+got  
+node-fetch  
+mocha  
+nock  
+aws-sdk-mock  
+nodejslack  
+
+Here is a screenshot showing a conversation between a user and our bot:  
+<p align="center">
+  <img src="./Images/dummy_chat.png">
+</p>
+
 ## Use Case refinement
 
 We have made some modifications to our use cases. Our reason for modifications is: Slack allows multiple uploads with same file name. This would lead to a problem for the Bot in choosing which files to use for the requested operation. Hence, our modifications will remove singular file operations. The following are the changes:<br>
@@ -59,7 +78,7 @@ Currently, we have implemented test cases for major features of file bot: Waterm
     - USE CASE: *Export category for a category which does not exist*<br>
     This test case tests when user exports the category to external storage but gives a category name that is not created. The test will expectedly fail in this case.
     
-To summarize, we have written tests for happy paths and alternate (error) paths for the various scenarios mentioned above. The selenium files can be found at ![selenium.js](../selenium/final.js)
+To summarize, we have written tests for happy paths and alternate (error) paths for the various scenarios mentioned above. The selenium files can be found at [selenium.js](../selenium/final.js)
 
 ## Mock Infrastructure
 #### Mocking HTTP and third party calls:
