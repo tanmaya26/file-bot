@@ -21,7 +21,7 @@ Here is a screenshot showing a conversation between a user and our bot:
   <img src="./Images/dummy_chat.png">
 </p>
 
-## Use Case refinement
+## Use Case Refinement
 
 We have made some modifications to our use cases. Our reason for modifications is: Slack allows multiple uploads with same file name. This would lead to a problem for the Bot in choosing which files to use for the requested operation. Hence, our modifications will remove singular file operations. The following are the changes:<br>
     1. USE CASE: *Export files under a specific category*<br>
@@ -94,4 +94,7 @@ Currently, we have implemented test cases for major features of file bot: Waterm
     - USE CASE: *Export category for a category which does not exist*<br>
     This test case tests when user exports the category to external storage but gives a category name that is not created. The test will expectedly fail in this case.
 
-To summarize, we have written tests for happy paths and alternate (error) paths for the various scenarios mentioned above. The selenium files can be found at [selenium.js](../selenium/final.js)
+To summarize, we have written tests for happy paths and alternate (error) paths for the various scenarios mentioned above. The selenium files can be found at [selenium.js](../src/test/selenium.js)
+
+## Screencast
+[Screencast video](https://drive.google.com/file/d/1zZwWf5GVLACukOMd1bRH9e0apWVWF36b/view?usp=sharing)
