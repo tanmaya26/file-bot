@@ -63,18 +63,11 @@ To summarize, we have written tests for happy paths and alternate (error) paths 
 
 ## Mock Infrastructure
 #### Mocking HTTP and third party calls:
-For mocking HTTP and third party calls we have used nock.js, which is a server mocking and expectations library for NODE js.
-It overrides Node's http.request functionality and creates an interceptor list which is used to mock any request made to the URL
-present in the list. The scope for it's use in our project is that it mocks calls like GET/POST request to slack to fetch a resource, or other HTTP and third party requests.
-Since nock.js allows us to set custom response for the mocked calls, we use the mocked data from a JSON file called mock.json, where have
-hardcoded the response values for various calls.
+For mocking HTTP and third party calls we have used nock.js, which is a server mocking and expectations library for Node.js.
+It overrides Node's http.request functionality and creates an interceptor list which is used to mock any request made to the URL present in the list. The scope for it's use in our project is that it mocks calls like GET/POST request to slack to fetch a resource, or other HTTP and third party requests. Since nock.js allows us to set custom response for the mocked calls, we use the mocked data from a JSON file called mock.json, where we have hardcoded the response values for various calls. Nock.js also allows us to mock responses containing files. We use this feature to return dummy files when we fetch a resource from slack. We store these dummy files inside the test_files folder.
 
 #### Mocking Database calls:
-For mocking database calls, we decided to go with aws-sdk-mock. It is a mocking library for AWS DynamoDB, which is the database we plan to use in the future.
-It mocks the call and response to and from the DynamoDB respectively. It also allows us to set custom response data and status which it then passes it into the 
-callback function defined for a given call. The advantage of doing this is that it will make transition towards the actual implementation of DynamoDB much simpler.
-Secondly,It helps us set up the database layer just as we would for the real DynamoDB call, without actually interacting with the database. The mocked response it picked up from
-the mock.json file for all the different database calls like 'get', 'getAll' etc.
+For mocking database calls, we decided to go with aws-sdk-mock. It is a mocking library for AWS DynamoDB, which is the database we plan to use in the future. It mocks the call and response to and from the DynamoDB respectively. It also allows us to set custom response data and status which it then passes it into the callback function defined for a given call. The advantage of doing this is that it will make transition towards the actual implementation of DynamoDB much simpler. Secondly,It helps us set up the database layer just as we would for the real DynamoDB call, without actually interacting with the database. The mocked response it picked up from the mock.json file for all the different database calls like 'get', 'getAll' etc.
 
 #### Mocking Data:
-All mocked data and responses for HTTP and Database calls have been hardcoded and stored in mock.json in JSON format.
+All mocked data and responses for HTTP and Database calls have been hardcoded and stored in mock.json in JSON format. All the files (dummy .pdf, .png etc files) for mocking are present in the test_files folder.
