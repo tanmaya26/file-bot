@@ -5,16 +5,16 @@ We have used a Node.js library "slackbots" to create our slack bot, 'FileNinja'.
 
 Currently, we have a fully functional bot which responds to the user commands. To do so we have added the bot to our slack workspace, so whenever a user wants to use the bot, it can interact with the bot by '@fileNinja and then the command'. Anyone can clone the repository and then run 'npm install' to install all the required packages to run the server. Then the user can enter there BOT_TOKEN in the ‘.env’ file and then run 'npm start' to start the server.  
 Note: FileNinja uses these packages:   
-slackbots  
-aws-sdk  
-pdf-lib  
-Selenium-webdriver  
-got  
-node-fetch  
-mocha  
-nock  
-aws-sdk-mock  
-nodejslack  
+- slackbots  
+- aws-sdk  
+- pdf-lib  
+- Selenium-webdriver  
+- got  
+- node-fetch  
+- mocha  
+- nock  
+- aws-sdk-mock  
+- nodejslack  
 
 Here is a screenshot showing a conversation between a user and our bot:  
 <p align="center">
