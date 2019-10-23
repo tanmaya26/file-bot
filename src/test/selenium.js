@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const {Builder, By, Key, util, wait} = require("selenium-webdriver")
 var promise = require('selenium-webdriver').promise;
 const assert = require('assert');
@@ -11,6 +13,7 @@ const loginPassword = process.env.LOGIN_PWD;
 const USER_SLACK_TOKEN = process.env.USER_SLACK_TOKEN
 var slack = new Slack(USER_SLACK_TOKEN);
 const slackUrl = "https://csc510workspace.slack.com"
+const BOT_ID = process.env.BOT_ID
 
 async function login(driver, url) {
     await driver.get(url);
@@ -38,8 +41,8 @@ async function UseCaseRegisterWaterMarkGood(driver) {
     var form = {
         file: fs.createReadStream("../test_files/mock.png"), 
         filename: 'mock.png', 
-        text: "<@UNTLFGFB8> --watermark register wm1",
-        initial_comment: '<@UNTLFGFB8> --watermark register wm1',
+        text: BOT_ID+" --watermark register wm1",
+        initial_comment: BOT_ID+' --watermark register wm1',
         channels: 'bottesting'
     };
     
@@ -74,8 +77,8 @@ async function UseCaseRegisterWaterMarkWhenJPGIsUploaded(driver, url) {
     var form = {
         file: fs.createReadStream("../test_files/mock.jpg"),
         filename: 'mock.jpg',
-        text: "<@UNTLFGFB8> --watermark register wm1",
-        initial_comment: '<@UNTLFGFB8> --watermark register wm1',
+        text: BOT_ID+" --watermark register wm1",
+        initial_comment: BOT_ID+' --watermark register wm1',
         channels: 'bottesting'
     };
     
@@ -129,8 +132,8 @@ async function UseCaseWatermarkFileGood(driver) {
     var form = {
         file: fs.createReadStream("../test_files/sample.pdf"),
         filename: 'sample.pdf', 
-        text: "<@UNTLFGFB8> --watermark wm1",
-        initial_comment: '<@UNTLFGFB8> --watermark wm1',
+        text: BOT_ID+" --watermark wm1",
+        initial_comment: BOT_ID+' --watermark wm1',
         channels: 'bottesting'
       };
 
@@ -165,8 +168,8 @@ async function UseCaseWaterMarkWhenFileIsNotPDFProvided(driver) {
     var form = {
         file: fs.createReadStream("../test_files/report.txt"),
         filename: 'report.txt', 
-        text: "<@UNTLFGFB8> --watermark wm1",
-        initial_comment: '<@UNTLFGFB8> --watermark wm1',
+        text: BOT_ID+" --watermark wm1",
+        initial_comment: BOT_ID+' --watermark wm1',
         channels: 'bottesting'
       };
 
