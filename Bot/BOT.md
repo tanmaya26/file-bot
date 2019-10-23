@@ -30,6 +30,18 @@ We have made some modifications to our use cases. Our reason for modifications i
     Before modification, user had the option to delete file in a category by specifying filename and category name using the command: @botName --deleteCategory categoryName fileName. After modification, user may only delete the entire category using the command: @botName --deleteCategory categoryName<br>
     3. USE CASE: *Add Watermark to file*<br>
     Before modification, user had the option to watermark file anytime after uploading by asking File bot through the message: @botName --addWatermark watermarkName fileName. However, since multiple files could be uploaded using same file name, Bot wouldn't know which file (with given filename) to add the watermark to. Hence, only when user uploads a file, it can ask the Bot to watermark it. Our modication thus allows adding watermark during the file upload itself.
+
+## Mock Infrastructure
+#### Mocking HTTP and third party calls:
+For mocking HTTP and third party calls we have used nock.js, which is a server mocking and expectations library for Node.js.
+It overrides Node's http.request functionality and creates an interceptor list which is used to mock any request made to the URL present in the list. The scope for it's use in our project is that it mocks calls like GET/POST request to slack to fetch a resource, or other HTTP and third party requests. Since nock.js allows us to set custom response for the mocked calls, we use the mocked data from a JSON file called mock.json, where we have hardcoded the response values for various calls. Nock.js also allows us to mock responses containing files. We use this feature to return dummy files when we fetch a resource from slack. We store these dummy files inside the test_files folder.
+
+#### Mocking Database calls:
+For mocking database calls, we decided to go with aws-sdk-mock. It is a mocking library for AWS DynamoDB, which is the database we plan to use in the future. It mocks the call and response to and from the DynamoDB respectively. It also allows us to set custom response data and status which it then passes it into the callback function defined for a given call. The advantage of doing this is that it will make transition towards the actual implementation of DynamoDB much simpler. Secondly,It helps us set up the database layer just as we would for the real DynamoDB call, without actually interacting with the database. The mocked response it picked up from the mock.json file for all the different database calls like 'get', 'getAll' etc.
+
+#### Mocking Data:
+All mocked data and responses for HTTP and Database calls have been hardcoded and stored in mock.json in JSON format. All the files (dummy .pdf, .png etc files) for mocking are present in the test_files folder.
+
 ## Selenium testing
 
 We have used a web browser automation framework Selenium to conduct the User interface test. This framework helps to pose as a user and conducts the test. It also verifies the output for the commands given by the user on the text box in the channel. 
@@ -83,14 +95,3 @@ Currently, we have implemented test cases for major features of file bot: Waterm
     This test case tests when user exports the category to external storage but gives a category name that is not created. The test will expectedly fail in this case.
     
 To summarize, we have written tests for happy paths and alternate (error) paths for the various scenarios mentioned above. The selenium files can be found at [selenium.js](../selenium/final.js)
-
-## Mock Infrastructure
-#### Mocking HTTP and third party calls:
-For mocking HTTP and third party calls we have used nock.js, which is a server mocking and expectations library for Node.js.
-It overrides Node's http.request functionality and creates an interceptor list which is used to mock any request made to the URL present in the list. The scope for it's use in our project is that it mocks calls like GET/POST request to slack to fetch a resource, or other HTTP and third party requests. Since nock.js allows us to set custom response for the mocked calls, we use the mocked data from a JSON file called mock.json, where we have hardcoded the response values for various calls. Nock.js also allows us to mock responses containing files. We use this feature to return dummy files when we fetch a resource from slack. We store these dummy files inside the test_files folder.
-
-#### Mocking Database calls:
-For mocking database calls, we decided to go with aws-sdk-mock. It is a mocking library for AWS DynamoDB, which is the database we plan to use in the future. It mocks the call and response to and from the DynamoDB respectively. It also allows us to set custom response data and status which it then passes it into the callback function defined for a given call. The advantage of doing this is that it will make transition towards the actual implementation of DynamoDB much simpler. Secondly,It helps us set up the database layer just as we would for the real DynamoDB call, without actually interacting with the database. The mocked response it picked up from the mock.json file for all the different database calls like 'get', 'getAll' etc.
-
-#### Mocking Data:
-All mocked data and responses for HTTP and Database calls have been hardcoded and stored in mock.json in JSON format. All the files (dummy .pdf, .png etc files) for mocking are present in the test_files folder.
