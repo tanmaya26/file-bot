@@ -38,21 +38,27 @@ Currently, we have implemented test cases for major features of file bot: Waterm
 1. Watermark
     - USE CASE: *Register Watermark*<br>
         The happy path here, tests for registering a watermark when file format is correct.
+    - USE CASE: *Register Watermark when no image provided*<br>
+        This test is for registering a watermark but user did not provide/upload an image to be used as watermark. This is expected to fail.
     - USE CASE: *Register Watermark for unacceptable file format*   
     This is an alternate path for the previous test. This tests for registering a watermark when a user uploads an unacceptable format which is jpeg
         in this case.<br>
     - USE CASE: *Add Watermark to file*<br>
-        This test case tests for adding watermark to file.<br>
+        This test case tests for adding watermark to file. Acceptable file formats is PDF only.<br>
+    - USE CASE: *Add Watermark to file which is not PDF*<br>
+        As an alternate path to the previous test, this test case tests for adding watermark to file when user did not provide a PDF file. It is expected to fail.
+    - USE CASE: *Add Watermark when no image provided*<br>
+        This test case tests for adding watermark to file when user did not provide a watermark image. It is expected to fail.
     - USE CASE: *Get all watermarks*<br>
         This tests for listing all registered watermarks.
 
 2. Storage Management <br>
     - USE CASE: *Set storage limit*<br>
-    This tests for setting storage limit when user specifies a storage limit <=5.0. 
+    This tests is for setting storage limit when user specifies a storage limit <=5.0. 
     - USE CASE: *Set greater storage limit*<br>
-    This tests for setting storage limit when user specifies a storage limit > 5.0. Here, the test expectedly fails.
+    This tests is for setting storage limit when user specifies a storage limit > 5.0. Here, the test expectedly fails.
     - USE CASE: *Set storage limit with non-integer parameters*<br>
-    This tests for setting storage limit when user specifies a non-integer storage limit. Here, the test expectedly fails. this is an alternate path for our previous test.
+    This tests is for setting storage limit when user specifies a non-integer storage limit. Here, the test expectedly fails. this is an alternate path for our previous test.
     - USE CASE: *Get current storage limit*<br>
     This test simply tests for current storage limit.
 
@@ -62,15 +68,15 @@ Currently, we have implemented test cases for major features of file bot: Waterm
     - USE CASE: *Register category that already exists*<br>
     This tests if any user gives the same category name again and the Bot responds by saying the category name already exists.
     - USE CASE: *Add files to category*<br>
-    This tests for the Bot's actions when a user wants to add files to a category created.  
+    This tests when a user wants to add files to a category created.  
      - USE CASE: *Show files in a category*<br>
-    This represents a happy path. This tests for Bot's actions in the case when user asks to list all files in a category. 
+    This represents a happy path. This tests the case when user asks to list all files in a category. 
      - USE CASE: *Show files a category which does not exist*<br>
-    This tests for Bot's actions in the case when user gives a non-existing category name to list all files in it. This test expectedly fail.  
+    This tests the case when user gives a non-existing category name to list all files in it. This test expectedly fail.  
     - USE CASE: *Delete a category*<br>
-    This tests for Bot's actions the case when user deletes the category.
+    This tests the case when user deletes the category.
     - USE CASE: *Delete a category which does not exist*<br>
-    This tests for Bot's actions the case when user deletes the category but the category does not exist.
+    This tests the case when user deletes the category but the category does not exist.
     - USE CASE: *Export category to external storage*<br>
     This represents a happy path. This test case tests when user exports the category to external storage for better storage management. 
     - USE CASE: *Export category for a category which does not exist*<br>
