@@ -11,8 +11,8 @@ We have made some modifications to our use cases. The following are the changes:
     Before modification, user had the option to delete file in a category by specifying filename and category name using the command: @botName --deleteCategory categoryName fileName. After modification, user may only delete the entire category using the command: @botName --deleteCategory categoryName
 ## Selenium testing
 
-The selenium tests the latest Bot's response which makes sure it does not test for stale responses from previous threads in the channel. It tests for the commands given by user on the text box in the channel.
-Currently, we have implemented test cases for four major features of file bot: Watermark, Storage management, Category management and External storage. Each feature has sub-categories which are also tested and these tests have a happy path and one alternate path. Let's go over the test cases.
+We have used a web browser automation framework Selenium to conduct the User interface test. This framework helps to pose as a user and conducts the test. It also verifies the output for the commands given by the user on the text box in the channel. 
+Currently, we have implemented test cases for major features of file bot: Watermark, Storage management, Category management and External storage. Each feature has sub-categories which are also tested and these tests have a happy path and one alternate path. Let's go over the test cases.
 
 1. Watermark
     - USE CASE: *Register Watermark*<br>
