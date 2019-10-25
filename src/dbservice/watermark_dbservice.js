@@ -1,17 +1,11 @@
 var AWS = require("aws-sdk");
-var AWSMOCK = require('aws-sdk-mock');
-const MOCK_DATA = require("../mock.json")
-
-AWSMOCK.mock('DynamoDB.DocumentClient', 'put', function (params, callback) {
-    callback(null, "successfully put item in database");
-});
-
-AWSMOCK.mock('DynamoDB.DocumentClient', 'get', function (params, callback) {
-    callback(null, MOCK_DATA.get_watermark_result);
-});
-
-AWSMOCK.mock('DynamoDB.DocumentClient', 'query', function (params, callback) {
-    callback(null, MOCK_DATA.get_all_watermarks_result);
+var creds = new AWS.Credentials(process.env.ACCESS_KEY,
+    process.env.SECRET_KEY,
+    process.env.SESSION_KEY);
+AWS.config.update({
+    region: "us-east-1",
+    endpoint: "http://dynamodb.us-east-1.amazonaws.com",
+    credentials: creds
 });
 
 var table = "watermark";
