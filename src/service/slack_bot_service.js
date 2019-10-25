@@ -21,7 +21,7 @@ async function get_slack_resource_from_url(url) {
 		credentials: 'include',
 		headers: {
 			'Content-Type': 'application/json',
-			'Authorization': 'Bearer temp'
+			'Authorization': 'Bearer ' + process.env.SLACK_TOKEN
 		}
 	}).then((res) => res.arrayBuffer())
 	return resource
@@ -38,7 +38,6 @@ async function get_json_data_from_url(url) {
 	});
 	return resource
 }
-
 
 module.exports.slack = slack;
 module.exports.bot = bot;
