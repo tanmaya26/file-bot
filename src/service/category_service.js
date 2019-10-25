@@ -16,12 +16,12 @@ async function setCategory(category_name, data) {
 async function getCategories(channel_name) {
 	var category_list = await db_service.get_all(channel_name).
 		then((res) => {
-			if (res.length > 0) {
-				var list = res.map(a => a.Item.name);
+			if (res.Count > 0) {
+				var list = res.Items.map(a => a.name);
 				return Promise.resolve('Categories for this channel are: ' + list.join())
 			}
 			else {
-				return Promise.resolve('No watermark registered');
+				return Promise.resolve("No category registered.");
 			}
 		});
 	return category_list

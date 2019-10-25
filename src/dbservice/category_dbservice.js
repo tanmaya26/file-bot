@@ -30,9 +30,11 @@ async function get_all(channel_name) {
     var docClient = new AWS.DynamoDB.DocumentClient();
     var params = {
         TableName: table,
-        Key: {
-            "channel": channel_name
-        }
+        IndexName: "ChannelIndex",
+        KeyConditionExpression: "channel = :a",
+        ExpressionAttributeValues: {
+        ":a": channel_name
+    }
     };
     return await new Promise((resolve, reject) => {
         docClient.query(params, function (err, data) {
@@ -40,6 +42,7 @@ async function get_all(channel_name) {
                 console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
             } else {
                 console.log("GetItem succeeded:", JSON.stringify(data, null, 2));
+                console.log(data);
                 resolve(data);
             }
         })
