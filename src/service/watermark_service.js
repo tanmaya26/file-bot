@@ -10,8 +10,23 @@ async function register_watermark(name, url, channel) {
 		channel: channel,
 		url: url
 	}
-	var result = await watermark_dbservice.create(obj).then((res) => res)
-	return result
+	var watermark_exists = await watermark_dbservice.get(name, channel).
+		then((res) => {
+			if (typeof res.Item != 'undefined') {
+				bot.postMessage(channel, 'Watermark with name ' + name + " already exists");
+				return true;
+			}
+			else {
+				return false
+			}
+		});
+	if (watermark_exists == false) {
+		var result = await watermark_dbservice.create(obj).then((res) => res)
+		return result
+	}
+	else {
+		return false
+	}
 }
 
 async function get_watermark(watermark_name, channel_name) {

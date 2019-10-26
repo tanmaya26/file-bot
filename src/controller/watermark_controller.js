@@ -89,13 +89,14 @@ async function image_watermark_PDF(pdf_url, watermark_name, channel_name) {
 				const pngDims = pngImage.scale(0.5)
 
 				const pages = pdfDoc.getPages()
-				const firstPage = pages[0]
+				pages.forEach(page => {
 
-				firstPage.drawImage(pngImage, {
-					x: firstPage.getWidth() / 2 - pngDims.width / 2,
-					y: firstPage.getHeight() / 2 - pngDims.height / 2 + 250,
-					width: pngDims.width,
-					height: pngDims.height
+					page.drawImage(pngImage, {
+						x: page.getWidth() / 2 - pngDims.width / 2,
+						y: page.getHeight() / 2 - pngDims.height / 2 + 250,
+						width: pngDims.width,
+						height: pngDims.height
+					})
 				})
 				pdfBytes = await pdfDoc.save()
 			});
