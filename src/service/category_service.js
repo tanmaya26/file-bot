@@ -9,15 +9,7 @@ async function setCategory(category_name, channel_name) {
 		channel: channel_name
 	}
 
-	var category_exists = await db_service.get(category_name, channel_name).
-		then((res) => {
-			if (typeof res.Item != 'undefined') {
-				return true;
-			}
-			else {
-				return false
-			}
-		});
+	var category_exists = await checkIfCategoryExists(category_name, channel_name)
 	if (category_exists == false) {
 		var result = await db_service.create(obj).then((res) => res)
 		return result
@@ -44,13 +36,32 @@ async function getCategories(channel_name) {
 
 async function addFileToCategory(category_name, data) {
 	var channel_name = data.channel;
-	var result = await db_service.add_file(data, channel_name, category_name).
+	var category_exists = await checkIfCategoryExists(category_name, channel_name)
+	if (category_exists == false) {
+		return 'No category with the name ' + category_name + " exists"
+	}
+	else {
+		var result = await db_service.add_file(data, channel_name, category_name).
 		then((res) => res);
 	return result
+	}
 }
 
 async function showFilesOfACategory(category_name, data) {
 
+}
+
+async function checkIfCategoryExists(category_name, channel_name){
+	var category_exists = await db_service.get(category_name, channel_name).
+	then((res) => {
+		if (typeof res.Item != 'undefined') {
+			return true;
+		}
+		else {
+			return false
+		}
+	});
+	return category_exists
 }
 
 module.exports.setCategory = setCategory;
