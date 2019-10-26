@@ -28,7 +28,11 @@ async function getCategories(channel_name) {
 }
 
 async function addFileToCategory(category_name, file_name, data) {
-
+	var channel_name = data.channel;
+	var files = await slack_bot_service.get_file_from_slack(channel_name, file_name);
+	var result = await db_service.add_file(files, channel_name, category_name).
+		then((res) => res);
+	return result
 }
 
 async function showFilesOfACategory(category_name, data) {
