@@ -9,7 +9,7 @@ async function setCategory(category_name, data) {
 }
 
 async function getCategories(data) {
-	var response = await category_service.getCategories().then((res) => res);
+	var response = await category_service.getCategories(data.channel).then((res) => res);
 	bot.postMessage(data.channel, response);
 }
 
