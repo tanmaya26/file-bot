@@ -40,32 +40,8 @@ async function get_json_data_from_url(url) {
 	return resource
 }
 
-async function get_file_from_slack(channel, file_name) {
-	var url = new URL(file_url);
-	params = { channel: channel };
-	url.search = new URLSearchParams(params).toString();
-	const resource = await fetch(url, {
-		method: 'GET',
-		mode: 'cors',
-		withCredentials: true,
-		credentials: 'include',
-		headers: {
-			'Content-Type': 'application/json',
-			'Authorization': 'Bearer ' + process.env.BEARER_TOKEN
-		}
-	}).then((res) => res.json())
-	var files = resource.files.filter(function (item) {
-		return item.name == file_name;
-	})
-		.map(function (item) {
-			return item.id;
-		});
-	return files
-}
-
 module.exports.slack = slack;
 module.exports.bot = bot;
 module.exports.bot_id = bot_id;
 module.exports.get_slack_resource_from_url = get_slack_resource_from_url;
 module.exports.get_json_data_from_url = get_json_data_from_url;
-module.exports.get_file_from_slack = get_file_from_slack;

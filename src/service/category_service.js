@@ -2,14 +2,29 @@ var db_service = require('../dbservice/category_dbservice')
 var slack_bot_service = require('./slack_bot_service');
 var bot = slack_bot_service.bot;
 
-async function setCategory(category_name, data) {
+async function setCategory(category_name, channel_name) {
 
 	var obj = {
 		name: category_name,
-		channel: data.channel
+		channel: channel_name
 	}
-	var result = await db_service.create(obj).then((res) => res);
-	return result
+
+	var category_exists = await db_service.get(category_name, channel_name).
+		then((res) => {
+			if (typeof res.Item != 'undefined') {
+				return true;
+			}
+			else {
+				return false
+			}
+		});
+	if (category_exists == false) {
+		var result = await db_service.create(obj).then((res) => res)
+		return result
+	}
+	else {
+		return 'Category with name ' + category_name + " already exists in this channel"
+	}
 
 }
 
@@ -27,10 +42,9 @@ async function getCategories(channel_name) {
 	return category_list
 }
 
-async function addFileToCategory(category_name, file_name, data) {
+async function addFileToCategory(category_name, data) {
 	var channel_name = data.channel;
-	var files = await slack_bot_service.get_file_from_slack(channel_name, file_name);
-	var result = await db_service.add_file(files, channel_name, category_name).
+	var result = await db_service.add_file(data, channel_name, category_name).
 		then((res) => res);
 	return result
 }
@@ -38,8 +52,6 @@ async function addFileToCategory(category_name, file_name, data) {
 async function showFilesOfACategory(category_name, data) {
 
 }
-
-
 
 module.exports.setCategory = setCategory;
 module.exports.getCategories = getCategories;

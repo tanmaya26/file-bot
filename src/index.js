@@ -40,8 +40,8 @@ bot.on('message', function (data) {
 				category_controller.setCategory(cmd[1], data);
 			} else if (cmd[0] == '--getCategories') {
 				category_controller.getCategories(data);
-			} else if (cmd[0] == '--addCategory') {
-				category_controller.addFileToCategory(cmd[1], cmd[2], data);
+			} else if (cmd[0] == '--addToCategory') {
+				category_controller.addFileToCategory(cmd[1], data);
 			} else if (cmd[0] == '--showFiles') {
 				category_controller.showFilesOfACategory(cmd[1], data);
 			} else if (cmd[0] == '--exportCategory' || cmd[0] == '--deleteCategory') {

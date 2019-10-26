@@ -1,10 +1,9 @@
 var category_service = require('../service/category_service');
 var slack_bot_service = require('../service/slack_bot_service');
 var bot = slack_bot_service.bot;
-const nock = require("nock");
 
 async function setCategory(category_name, data) {
-	var response = await category_service.setCategory(category_name, data).then((res) => res);
+	var response = await category_service.setCategory(category_name, data.channel).then((res) => res);
 	bot.postMessage(data.channel, response);
 }
 
@@ -13,8 +12,8 @@ async function getCategories(data) {
 	bot.postMessage(data.channel, response);
 }
 
-async function addFileToCategory(category_name, file_name, data) {
-	var response = await category_service.addFileToCategory(category_name, file_name, data).then((res) => res);
+async function addFileToCategory(category_name, data) {
+	var response = await category_service.addFileToCategory(category_name, data).then((res) => res);
 	bot.postMessage(data.channel, response);
 }
 

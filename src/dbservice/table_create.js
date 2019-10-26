@@ -79,17 +79,35 @@ var category_table_params = {
 var file_system_table_params = {
     TableName: "files",
     KeySchema: [
-        { AttributeName: "channel_name", KeyType: "HASH" },  //Partition key
-        { AttributeName: "category_name", KeyType: "RANGE" }  //Sort key
+        { AttributeName: "file_id", KeyType: "HASH" },  //Partition key
     ],
     AttributeDefinitions: [
-        { AttributeName: "channel_name", AttributeType: "S" },
-        { AttributeName: "category_name", AttributeType: "S" }
+        { AttributeName: "file_id", AttributeType: "S" }
     ],
     ProvisionedThroughput: {
         ReadCapacityUnits: 10,
         WriteCapacityUnits: 10
-    }
+    },
+    GlobalSecondaryIndexes: [{
+        IndexName: "channel_id-category_name-index",
+        KeySchema: [
+            {
+                AttributeName: "channel_id",
+                KeyType: "HASH"
+            },
+            {
+                AttributeName: "category_name",
+                KeyType: "RANGE"
+            }
+        ],
+        Projection: {
+            ProjectionType: "ALL"
+        },
+        ProvisionedThroughput: {
+            ReadCapacityUnits: 10,
+            WriteCapacityUnits: 10
+        }
+    }]
 };
 
 dynamodb.createTable(file_system_table_params, function (err, data) {

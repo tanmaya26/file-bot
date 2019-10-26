@@ -27,6 +27,27 @@ async function create(obj) {
     });
 }
 
+async function get(category_name, channel_name) {
+    var docClient = new AWS.DynamoDB.DocumentClient();
+    var params = {
+        TableName: table,
+        Key: {
+            "name": category_name,
+            "channel": channel_name
+        }
+    };
+    return await new Promise((resolve, reject) => {
+        docClient.get(params, function (err, data) {
+            if (err) {
+                console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
+            } else {
+                console.log("GetItem succeeded:", JSON.stringify(data, null, 2));
+                resolve(data);
+            }
+        })
+    });
+}
+
 async function get_all(channel_name) {
     var docClient = new AWS.DynamoDB.DocumentClient();
     var params = {
@@ -50,18 +71,37 @@ async function get_all(channel_name) {
     });
 }
 
-async function add_file(files, channel_name, category_name) {
+async function add_file(data, channel_name, category_name) {
     var docClient = new AWS.DynamoDB.DocumentClient();
+    var itemsArray = [];
+
+    data.files.forEach(file => {
+        var item = {
+            PutRequest: {
+                Item: {
+                    "channel_name": channel_name,
+                    "category_name": category_name,
+                    "file_id": file.id,
+                    "file_url": file.url_private,
+                    "file_name": file.name,
+                    "file_size": file.size,
+                    "file_type": file.filetype
+                }
+            }
+        };
+
+        if (item) {
+            itemsArray.push(item);
+        }
+    });
+
     var params = {
-        TableName: "files",
-        Item: {
-            "channel_name": channel_name,
-            "category_name": category_name,
-            "files": files
+        RequestItems: {
+            "files": itemsArray
         }
     };
     return await new Promise((resolve, reject) => {
-        docClient.put(params, function (err, data) {
+        docClient.batchWrite(params, function (err, data) {
             if (err) {
                 console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
             } else {
@@ -76,5 +116,6 @@ async function add_file(files, channel_name, category_name) {
 
 
 module.exports.create = create;
+module.exports.get = get;
 module.exports.get_all = get_all;
 module.exports.add_file = add_file;
