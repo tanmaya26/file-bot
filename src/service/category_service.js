@@ -48,6 +48,9 @@ async function addFileToCategory(category_name, data) {
 }
 
 async function showFilesOfACategory(category_name, data) {
+	var files = await db_service.get_files(category_name, data.channel).then((res) => {
+		
+	});
 
 }
 
