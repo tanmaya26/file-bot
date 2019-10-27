@@ -19,7 +19,9 @@ async function addFileToCategory(category_name, data) {
 
 async function showFilesOfACategory(category_name, data) {
 	var response = await category_service.showFilesOfACategory(category_name, data).then((res) => res);
-	bot.postMessage(data.channel, response);
+	response.forEach(res => {
+		bot.postMessage(data.channel, res);
+	});
 }
 
 async function exportDeleteCategory(category_name, storage_name, data, is_export) {

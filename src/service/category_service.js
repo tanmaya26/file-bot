@@ -42,28 +42,38 @@ async function addFileToCategory(category_name, data) {
 	}
 	else {
 		var result = await db_service.add_file(data, channel_name, category_name).
-		then((res) => res);
-	return result
+			then((res) => res);
+		return result
 	}
 }
 
 async function showFilesOfACategory(category_name, data) {
 	var files = await db_service.get_files(category_name, data.channel).then((res) => {
-		
+		items = [];
+		if (res.Count > 0) {
+			res.Items.forEach(file => {
+				items.push(file.file_url);
+			});
+			return Promise.resolve(items);
+		}
+		else {
+			return Promise.resolve("No files found.");
+		}
 	});
+	return files
 
 }
 
-async function checkIfCategoryExists(category_name, channel_name){
+async function checkIfCategoryExists(category_name, channel_name) {
 	var category_exists = await db_service.get(category_name, channel_name).
-	then((res) => {
-		if (typeof res.Item != 'undefined') {
-			return true;
-		}
-		else {
-			return false
-		}
-	});
+		then((res) => {
+			if (typeof res.Item != 'undefined') {
+				return true;
+			}
+			else {
+				return false
+			}
+		});
 	return category_exists
 }
 
