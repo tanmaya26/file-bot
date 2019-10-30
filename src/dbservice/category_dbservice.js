@@ -129,12 +129,10 @@ async function get_files(category_name, channel_name) {
                 console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
             } else {
                 console.log("Get Item succeeded:", JSON.stringify(data, null, 2));
-                console.log(data);
                 resolve(data);
             }
         })
     });
-
 }
 
 

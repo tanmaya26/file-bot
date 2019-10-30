@@ -20,7 +20,8 @@ async function addFileToCategory(category_name, data) {
 async function showFilesOfACategory(category_name, data) {
 	var response = await category_service.showFilesOfACategory(category_name, data).then((res) => res);
 	response.forEach(res => {
-		bot.postMessage(data.channel, res);
+		var file = res.key + ": " + res.value;
+		bot.postMessage(data.channel, file);
 	});
 }
 
