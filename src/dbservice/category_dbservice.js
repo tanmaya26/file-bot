@@ -63,8 +63,7 @@ async function get_all(channel_name) {
             if (err) {
                 console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
             } else {
-                console.log("GetItem succeeded:", JSON.stringify(data, null, 2));
-                console.log(data);
+                console.log("Get Item succeeded:", JSON.stringify(data, null, 2));
                 resolve(data);
             }
         })
@@ -79,7 +78,7 @@ async function add_file(data, channel_name, category_name) {
         var item = {
             PutRequest: {
                 Item: {
-                    "channel_name": channel_name,
+                    "channel_id": channel_name,
                     "category_name": category_name,
                     "file_id": file.id,
                     "file_url": file.url_private,
@@ -113,9 +112,33 @@ async function add_file(data, channel_name, category_name) {
     });
 }
 
+async function get_files(category_name, channel_name) {
+    var docClient = new AWS.DynamoDB.DocumentClient();
+    var params = {
+        TableName: "files",
+        IndexName: "channel_id-category_name-index",
+        KeyConditionExpression: "channel_id = :a AND category_name = :b",
+        ExpressionAttributeValues: {
+            ":a": channel_name,
+            ":b": category_name
+        }
+    };
+    return await new Promise((resolve, reject) => {
+        docClient.query(params, function (err, data) {
+            if (err) {
+                console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
+            } else {
+                console.log("Get Item succeeded:", JSON.stringify(data, null, 2));
+                resolve(data);
+            }
+        })
+    });
+}
+
 
 
 module.exports.create = create;
 module.exports.get = get;
 module.exports.get_all = get_all;
 module.exports.add_file = add_file;
+module.exports.get_files = get_files;

@@ -42,25 +42,50 @@ async function addFileToCategory(category_name, data) {
 	}
 	else {
 		var result = await db_service.add_file(data, channel_name, category_name).
-		then((res) => res);
-	return result
+			then((res) => res);
+		return result
 	}
 }
 
 async function showFilesOfACategory(category_name, data) {
-
+	var items = [];
+	var category_exists = await checkIfCategoryExists(category_name, data.channel);
+	if (category_exists == false) {
+		var err = 'No category with the name ' + category_name + " exists";
+		items.push({ key: "Error", value: err });
+		return items;
+	}
+	else {
+		var files = await db_service.get_files(category_name, data.channel).then((res) => {
+			if (res.Count > 0) {
+				res.Items.forEach(file => {
+					items.push({
+						key: file.file_name,
+						value: file.file_url
+					});
+				});
+				return Promise.resolve(items);
+			}
+			else {
+				var err = "No files found in " + category_name;
+				items.push({ key: "Error", value: err });
+				return Promise.resolve(items);
+			}
+		});
+		return files
+	}
 }
 
-async function checkIfCategoryExists(category_name, channel_name){
+async function checkIfCategoryExists(category_name, channel_name) {
 	var category_exists = await db_service.get(category_name, channel_name).
-	then((res) => {
-		if (typeof res.Item != 'undefined') {
-			return true;
-		}
-		else {
-			return false
-		}
-	});
+		then((res) => {
+			if (typeof res.Item != 'undefined') {
+				return true;
+			}
+			else {
+				return false
+			}
+		});
 	return category_exists
 }
 

@@ -12,7 +12,6 @@ var bot = new slackBot({
 });
 
 var bot_id = process.env.BOT_ID
-var file_url = "https://slack.com/api/files.list";
 
 async function get_slack_resource_from_url(url) {
 	const resource = await fetch(url, {
