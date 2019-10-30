@@ -6,6 +6,7 @@ var slack_bot_service = require('./service/slack_bot_service');
 var utils_service = require('./service/utils_service');
 var storage_limit_controller = require('./controller/storage_limit_controller');
 var category_controller = require('./controller/category_controller');
+var export_controller = require('./controller/export_controller');
 
 // Creating instance to connect to Slack. check: https://github.com/marcogbarcellos/nodejslack
 var slack = slack_bot_service.slack
@@ -44,12 +45,8 @@ bot.on('message', function (data) {
 				category_controller.addFileToCategory(cmd[1], data);
 			} else if (cmd[0] == '--showFiles') {
 				category_controller.showFilesOfACategory(cmd[1], data);
-			} else if (cmd[0] == '--exportCategory' || cmd[0] == '--deleteCategory') {
-				if (cmd[0] == '--exportCategory') {
-					category_controller.exportDeleteCategory(cmd[1], cmd[2], data, true);
-				} else {
-					category_controller.exportDeleteCategory(cmd[1], "", data, false);
-				}
+			} else if (cmd[0] == '--deleteCategory') {
+				export_controller.deleteCategoryFiles(cmd[1], data);
 			}
 		}
 	}
