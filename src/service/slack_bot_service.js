@@ -39,8 +39,26 @@ async function get_json_data_from_url(url) {
 	return resource
 }
 
+async function delete_file_from_slack(url, file_id) {
+	const resource = await fetch(url, {
+		method: 'POST',
+		mode: 'cors',
+		withCredentials: true,
+		credentials: 'include',
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': 'Bearer ' + process.env.ADMIN_TOKEN
+		}, 
+		body: JSON.stringify({
+			file: file_id
+		})
+	}).then((res) => res)
+	return resource
+}
+
 module.exports.slack = slack;
 module.exports.bot = bot;
 module.exports.bot_id = bot_id;
 module.exports.get_slack_resource_from_url = get_slack_resource_from_url;
 module.exports.get_json_data_from_url = get_json_data_from_url;
+module.exports.delete_file_from_slack = delete_file_from_slack;
