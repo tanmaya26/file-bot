@@ -10,9 +10,10 @@
 
 ![Open Issues](./Images/screen3.png)
 
-![Open Issues](./Images/screen4.png)
 
 ### Closed Issues
+
+![Closed Issues](./Images/screen4.png)
 
 ![Closed Issues](./Images/screen5.png)
 
