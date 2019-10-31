@@ -1,5 +1,6 @@
 var db_service = require('../dbservice/category_dbservice')
 var slack_bot_service = require('./slack_bot_service');
+var utils_service = require('./utils_service');
 var bot = slack_bot_service.bot;
 
 async function setCategory(category_name, channel_name) {
@@ -9,7 +10,7 @@ async function setCategory(category_name, channel_name) {
 		channel: channel_name
 	}
 
-	var category_exists = await checkIfCategoryExists(category_name, channel_name)
+	var category_exists = await utils_service.checkIfCategoryExists(category_name, channel_name)
 	if (category_exists == false) {
 		var result = await db_service.create(obj).then((res) => res)
 		return result
@@ -36,7 +37,7 @@ async function getCategories(channel_name) {
 
 async function addFileToCategory(category_name, data) {
 	var channel_name = data.channel;
-	var category_exists = await checkIfCategoryExists(category_name, channel_name)
+	var category_exists = await utils_service.checkIfCategoryExists(category_name, channel_name)
 	if (category_exists == false) {
 		return 'No category with the name ' + category_name + " exists"
 	}
@@ -49,7 +50,7 @@ async function addFileToCategory(category_name, data) {
 
 async function showFilesOfACategory(category_name, data) {
 	var items = [];
-	var category_exists = await checkIfCategoryExists(category_name, data.channel);
+	var category_exists = await utils_service.checkIfCategoryExists(category_name, data.channel);
 	if (category_exists == false) {
 		var err = 'No category with the name ' + category_name + " exists";
 		items.push({ key: "Error", value: err });
@@ -74,19 +75,6 @@ async function showFilesOfACategory(category_name, data) {
 		});
 		return files
 	}
-}
-
-async function checkIfCategoryExists(category_name, channel_name) {
-	var category_exists = await db_service.get(category_name, channel_name).
-		then((res) => {
-			if (typeof res.Item != 'undefined') {
-				return true;
-			}
-			else {
-				return false
-			}
-		});
-	return category_exists
 }
 
 module.exports.setCategory = setCategory;
