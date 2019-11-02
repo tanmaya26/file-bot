@@ -104,4 +104,29 @@ async function image_watermark_PDF(pdf_url, watermark_name, channel_name) {
 	return pdfBytes;
 }
 
+async function text_watermark_Pdf(pdf_url, watermark_text) {
+	const url = pdf_url
+	const existingPdfBytes = await slack_bot_service.get_slack_resource_from_url(url)
+
+	const pdfDoc = await PDFDocument.load(existingPdfBytes).catch(function (error) {
+		console.log(error);
+	});
+	const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
+	const pages = pdfDoc.getPages()
+	const firstPage = pages[0]
+	const { width, height } = firstPage.getSize()
+
+	firstPage.drawText(watermark_text, {
+		x: width / 2,
+		y: height / 2 + 300,
+		size: 50,
+		font: helveticaFont,
+		color: rgb(0.95, 0.1, 0.1),
+		rotate: degrees(-45),
+	})
+
+	const pdfBytes = await pdfDoc.save()
+	return pdfBytes;
+}
+
 module.exports.init = init;
