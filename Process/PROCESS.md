@@ -52,3 +52,10 @@ Finally, merged all my code with the master branch after testing.
 3. **Ayush**: Researched on adding, not just image but also text as a watermark. It turns out that this could be done with the help of 3rd party libraries like pdf-lib and JIMP. Worked with Rashik and Tanmaya to bash the bugs in export and category features. Wrote and merged the code for get_json_data_from_uri in the slack_bot_service file, as part of helping out Rashik in the export feature.Will work on refactoring my code further and making it as reusable as possible. Will fully implement the watermark features using the above mentioned libraries.
 4. **Ketul**: Since slack return the file list in such a way that, multiple calls have to be made to get the total size of all uploaded file which can become a serious trouble if number of small sized file increases. And I have been looking into Slack File API to optimize the number of calls to achieve the result.
 
+### 1st  November, 2019
+1. **Rashik**: Have finished coding the service and controller layer of export files to Google Drive. For some reason the export functionality is not working at the moment. I am having an issue with the access token of Google Drive. I have asked a question on an open source project which was facing the same problem on how they resolved it, hopefully I’ll get a response by tonight. I am trying to resolve it on my own as well. 
+2. **Tanmaya**: I merged functionality ‘show all files in a category’ to master. I formatted the Bot’s response to show both file names and URLs. I also looked into NodeJs documentation for refactoring methods. I will discuss with team on more CRUD functionalities to be that needs to be done for the next sprint.
+3. **Ayush**: I worked on the text watermark feature using JIMP library. Worked on positioning the watermark image. Refactored some existing code as well. Will push it soon
+4. **Ketul**: I am still looking into the Slack File API and parallely started working on CRUD functionality for DB service layer for Storage Table and will create a separate branch for it.
+
+
