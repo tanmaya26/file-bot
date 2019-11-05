@@ -58,7 +58,8 @@ async function init(command, data) {
 function watermark_files(data, watermark_name) {
 	if (watermark_service.check_if_all_pdf(data)) {
 		data.files.forEach(f => {
-			image_watermark_PDF(f.url_private, watermark_name, data.channel).then((water_marked_file) => {
+			//image_watermark_PDF(f.url_private, watermark_name, data.channel).then((water_marked_file) => {
+				text_watermark_Pdf2(f.url_private, "Yo yo Ayubouy").then((water_marked_file) => {
 				fs.writeFile("temp_" + f.name, water_marked_file, function (err, result) {
 					file_upload_service.upload_file_via_bot("temp_" + f.name, "watermark_" + f.name, data.channel)
 						.then((res) => {
@@ -127,6 +128,36 @@ async function text_watermark_Pdf(pdf_url, watermark_text) {
 
 	const pdfBytes = await pdfDoc.save()
 	return pdfBytes;
+}
+
+async function text_watermark_Pdf2(pdf_url, watermark_text) {
+	var image = new Jimp(300, 530, 'green', (err, image) => {
+		if (err) throw err
+	})
+
+	let message = watermark_text
+	let x = 10
+	let y = 10
+
+	await Jimp.loadFont(Jimp.FONT_SANS_64_BLACK)
+		.then(font => {
+			await image.print(font, x, y, message).opacity(0.1).getBufferAsync(Jimp.MIME_PNG).then(async (im) => {
+				const pngImage = await pdfDoc.embedPng(im)
+				const pngDims = pngImage.scale(0.5)
+
+				const pages = pdfDoc.getPages()
+				pages.forEach(page => {
+
+					page.drawImage(pngImage, {
+						x: page.getWidth() / 2 - pngDims.width / 2,
+						y: page.getHeight() / 2 - pngDims.height / 2 + 250,
+						width: pngDims.width,
+						height: pngDims.height
+					})
+				})
+				pdfBytes = await pdfDoc.save()
+			});
+		})
 }
 
 module.exports.init = init;
