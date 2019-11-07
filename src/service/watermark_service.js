@@ -46,8 +46,8 @@ async function get_watermark(watermark_name, channel_name) {
 async function get_all_watermarks(channel_name) {
 	var watermark_list = await watermark_dbservice.get_all(channel_name).
 		then((res) => {
-			if (res.length > 0) {
-				var list = res.map(a => a.Item.name);
+			if (res.Count > 0) {
+				var list = res.Items.map(a => a.name);
 				return Promise.resolve('Watermarks for this channel are: ' + list.join())
 			}
 			else {

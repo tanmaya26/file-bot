@@ -16,7 +16,7 @@ async function init(command, data) {
 			bot_response = "No file associated with command. Upload a PNG file with command to create watermark."
 		}
 		else if (data.files.length > 1) {
-			bot_response = "Only one file should be associated with the command. Upload only file to create watermark."
+			bot_response = "Only one file should be associated with the command. Upload only one file to create watermark."
 		}
 		else if (utils_service.get_file_extension(data.files[0].name) == 'png') {
 			if (command.length == 3) {
@@ -37,6 +37,9 @@ async function init(command, data) {
 
 	}
 	else if (command[1] == 'text') {
+		if (typeof data.files == 'undefined') {
+			bot_response = "No file associated with command. Upload a PDF file with command watermark the file."
+		}
 		if (command.length == 3) {
 			watermark_files(data, command)
 		}

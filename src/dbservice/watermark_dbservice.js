@@ -60,8 +60,10 @@ async function get_all(channel_name) {
     var docClient = new AWS.DynamoDB.DocumentClient();
     var params = {
         TableName: table,
-        Key: {
-            "channel": channel_name
+        IndexName: "channel-name-index",
+        KeyConditionExpression: "channel = :a",
+        ExpressionAttributeValues: {
+            ":a": channel_name
         }
     };
     return await new Promise((resolve, reject) => {
