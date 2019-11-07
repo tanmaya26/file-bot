@@ -58,4 +58,17 @@ Finally, merged all my code with the master branch after testing.
 3. **Ayush**: I worked on the text watermark feature using JIMP library. Worked on positioning the watermark image. Refactored some existing code as well. Will push it soon
 4. **Ketul**: I am still looking into the Slack File API and parallely started working on CRUD functionality for DB service layer for Storage Table and will create a separate branch for it.
 
+### 3rd November, 2019
+1. **Ayush**: Basic text watermark functionality working. Got stuck with an opacity issue with text watermark.Text is superimposing on the pdf file, thereby hiding its content. Need to look at other libraries to find a workaround for adjusting the text opacity. Also, working on code to align both text and image watermarks.
+2. **Ketul**: Finished and tested the CRUD db layer for the storage functionality, checked in the code in a separate branch.
+3. **Rashik**: Finished the db layer for the export files to Google Drive’ functionality. Also, the issue that the access token wasn’t working is now fixed. Currently, the files are uploaded to the root directory of the drive. Need to add the functionality to create seperate folders for categories and delete the file records from DynamoDB.
+4. **Tanmaya**: I finished the CRUD functionality for category. I merged my feature branch to master. I will work on project report and look into open issues before closing them.
+
+### 5th November, 2019
+1. **Ayush**: Finished the feature for adding text as a watermark. User can now add custom text as a watermark. Also, managed to fix the alignment and opacity issue with both image and text watermarks. Refactored code to reuse functions for image and text watermark. Have pushed all the code and merged it master as well. Plan further refactor the image and text watermarks. Had a discussion with Ketul regarding the DB structure and layer for storage limit functionality.
+2. **Ketul**:  Had a discussion with Ayush regarding storage table structure and made changes the CRUD db layer for storage functionality. Tested the CRUD db layer; it’s working as expected.
+3. **Rashik**: Have finished the part where after files are uploaded to the drive, the records are deleted from DynamoDB. Also, now the files of a category are being uploaded in the folder with the same name as category. Also export files is working in my local, I’ll push the changes once a bug is fixed. Currently because of async calls sometimes the folder is created after the files are push to the drive, so will look into that now.
+4. **Tanmaya**: I closed some open issues under my name. I will discuss collaborate with Rashik and work on testing the category/export feature to see if it’s working end-to-end.
+
+
 
