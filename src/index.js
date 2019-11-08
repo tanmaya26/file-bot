@@ -47,6 +47,8 @@ bot.on('message', function (data) {
 				category_controller.showFilesOfACategory(cmd[1], data);
 			} else if (cmd[0] == '--deleteCategory') {
 				export_controller.deleteCategoryFiles(cmd[1], data);
+			} else if (cmd[0] == '--exportCategory') {
+				export_controller.exportCategory(cmd[1], cmd[2], data);
 			}
 		}
 	}
