@@ -3,3 +3,6 @@
 *node_modules
 *temp_
 .env
+*credentials.json
+*token.json
+*temp_files/
