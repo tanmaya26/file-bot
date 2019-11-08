@@ -1,29 +1,26 @@
-var slack_bot_service = require('./slack_bot_service');
-var got_service = require('./got_service');
-const nock = require("nock");
-var slack = slack_bot_service.slack
-const mock_data = require("../mock.json")
-const got = require('got');
+var Slack = require('nodejslack');
+const USER_SLACK_TOKEN = process.env.USER_SLACK_TOKEN
+var slackapi = new Slack(USER_SLACK_TOKEN);
+var storage_limit_dbservice = require("../dbservice/storage_limit_dbservice.js")
 
-async function update_alert_size_for_workspace(size, data) {
-	// set the global MAX_SIZE_FOR_ALERT to DynamoDB
+async function updateAlertSizeForChannel(size, data) {
+	
 	try {
 		if (isNaN(size)) {
-			throw "Not a number"
+			throw "Please enter a number for storage size(in GB)."
 		} else {
 			temp_size = parseFloat(size);
 			if (temp_size > 5.0) {
 				throw "Error. Size limit cannot be more than 5.0"
 			} else {
-				// set this in DynamoDB
-				reply = mock_data.dynamoDB.storage[0].size;
-
-				var res = nock("http://dynamodb.us-east-1.amazonaws.com")
-					.post("/storage")
-					.reply(200, JSON.stringify(reply));
-
-				let response = await got_service.post_request("http://dynamodb.us-east-1.amazonaws.com/storage", "");
-				return "New Size Limit has been set to " + JSON.stringify(response);
+                
+                let response = await storage_limit_dbservice.setAlertSize(data.channel, size).then((res) => {return res;});
+                if (response) {
+                    return "New Alert Limit has been set to " + parseFloat(size) + " GB";
+                } else {
+                    return "Failed updating alert limit size";
+                }
+				
 			}
 		}
 	}
@@ -33,18 +30,84 @@ async function update_alert_size_for_workspace(size, data) {
 	}
 }
 
-async function get_alert_size_for_workspace() {
-	// get the size from DynamoDB
+async function getAlertSizeforChannel(channel) {
+	
+    var current_alert_size = await storage_limit_dbservice.getAlertSize(channel).then((res) => {return res;});
 
-	var data = mock_data.workspace_size
-	const scope = nock("http://dynamodb.us-east-1.amazonaws.com/storage")
-		.log(console.log)
-		.get("")
-		.reply(200, data);
-
-	let temp = await slack_bot_service.get_json_data_from_url("http://dynamodb.us-east-1.amazonaws.com/storage");
-	return "Current size limit is " + JSON.stringify(temp);
+    if (current_alert_size == -1) {
+        return "Unable to get the alert limit."
+    }
+    
+    return "Current size limit is " + parseFloat(current_alert_size) + " GB";
 }
 
-module.exports.update_alert_size_for_workspace = update_alert_size_for_workspace;
-module.exports.get_alert_size_for_workspace = get_alert_size_for_workspace;
+
+async function totalFileSizeByChannel(channel) {
+    var files = await slackapi.getFilesList({ "channel": channel})
+                    .then(function(answer){
+                        return Promise.resolve(answer.files);
+                    })
+                    .catch(function(err){
+                        console.log('DID NOT GET FILES LIST:',err);
+                        return -1;
+                    });
+
+    if (files == -1) {
+        return -1;
+    }
+
+    var totalSize = 0;
+    for( var file in files) {
+        totalSize +=  parseInt(files[file].size);
+    }
+
+    totalSize /= 1000000000;
+
+    return totalSize
+
+    
+}
+
+async function deleteActivity(channel) {
+    var underLimit = true;
+    var newCurrentSize = await totalFileSizeByChannel(channel).then((res) => {return res;});
+    if (newCurrentSize == -1) {
+        return [false,underLimit];
+    }
+    var currentAlertSize = await storage_limit_dbservice.getAlertSize(channel).then((res) => {return res;});
+    if (parseFloat(newCurrentSize) > parseFloat(currentAlertSize)) {
+        underLimit = false
+    }
+    
+    var updateDB = await storage_limit_dbservice.setCurrentSize(channel, newCurrentSize).then((res) => {return res;});
+
+    if (!updateDB) {
+        return [false, underLimit];
+    }
+    return [true, underLimit, newCurrentSize, currentAlertSize];
+}
+
+async function uploadActivity(channel) {
+    var underLimit = true;
+    var newCurrentSize = await totalFileSizeByChannel(channel).then((res) => {return res;});
+    if (newCurrentSize == -1) {
+        return [false,underLimit];
+    }
+    var currentAlertSize = await storage_limit_dbservice.getAlertSize(channel).then((res) => {return res;});
+    if ( parseFloat(newCurrentSize) > parseFloat(currentAlertSize)) {
+        underLimit = false
+    }
+    
+    var updateDB = await storage_limit_dbservice.setCurrentSize(channel, newCurrentSize).then((res) => {return res;});
+
+    if (!updateDB) {
+        return [false, underLimit];
+    }
+    return [true, underLimit, newCurrentSize, currentAlertSize];
+}
+
+
+module.exports.updateAlertSizeForChannel = updateAlertSizeForChannel;
+module.exports.getAlertSizeforChannel = getAlertSizeforChannel;
+module.exports.deleteActivity = deleteActivity;
+module.exports.uploadActivity = uploadActivity;

@@ -26,17 +26,18 @@ bot.on('start', function () {
 
 // Event to listen all slack messages, to see all possible events check: https://api.slack.com/events-api
 bot.on('message', function (data) {
-	//Extract base command here
-	if (typeof data.text != 'undefined') {
+    
+
+    if (typeof data.text != 'undefined') {
 		cmd = utils_service.split_command(data.text)
 		if (cmd[0] == bot_id) {
 			cmd.shift()
 			if (cmd[0] == '--watermark') {
-				watermark_controller.init(cmd, data)
+                watermark_controller.init(cmd, data)
 			} else if (cmd[0] == '--setStorageSize') {
-				storage_limit_controller.setSize(cmd[1], data);
+				storage_limit_controller.setAlertSize(cmd[1], data);
 			} else if (cmd[0] == '--getStorageSize') {
-				storage_limit_controller.getSize(data);
+				storage_limit_controller.getAlertSize(data);
 			} else if (cmd[0] == '--registerCategory') {
 				category_controller.setCategory(cmd[1], data);
 			} else if (cmd[0] == '--getCategories') {
@@ -51,5 +52,6 @@ bot.on('message', function (data) {
 				export_controller.exportCategory(cmd[1], cmd[2], data);
 			}
 		}
-	}
+    }
+    storage_limit_controller.listenForFileActivity(data);
 });
