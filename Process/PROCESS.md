@@ -1,21 +1,36 @@
-## Kanban Board
+# Process
+
+## First Iteration
+In this iteration, we sat together and discussed all possible paths for all the use cases. In order to have everyone to work at their own pace, we decided that each member would take up one vertical(epic). We then determined the user stories for each epic and created tasks for each user story which were then added to Github Kanban Board with an appropriate score. The score was decided on the basis of the approximate time that would be taken to complete the task, hierarchy of the task in our architecture i.e. whether this feature needed to be implemented before implementing other dependent features.
+During this iteration, we faced issues with adding entities like image & text to already existing PDFs through javascript and difficulty in understanding how promises and async calls work while implementing file upload and download tracker. We had a special meeting to tackle these issues, and were able to resolve it with the help of little brainstorming. By the end of the first iteration, each member completed the tasks assigned to them, thereby keeping us on track.
+
+## End of First Iteration
+### Kanban Board
 
 ![Kanban Board](./Images/screen1.png)
-
 ![Kanban Board](./Images/screen2.png)
 
-## Issues
-
-### Open Issues
-
+### Issues
+#### Open Issues
 ![Open Issues](./Images/screen3.png)
-
-
-### Closed Issues
-
+#### Closed Issues
 ![Closed Issues](./Images/screen4.png)
-
 ![Closed Issues](./Images/screen5.png)
+
+
+## Second Iteration
+In this iteration, we focussed on features we needed to show in the demo, more specifically we concentrated on inter-feature workability. Since each team member was working on his/her vertical we now began the process of syncing these features together and see how they performed together. For example, Ketul was working on file storage warning feature and Ayush was working on the Watermark feature which involved uploading files, so they worked together to test how well these two features work in sync i.e. was a file being uploaded as a watermark triggering the file storage alert? Similarly, Tanmaya was working on add files to category feature and Rashik was working on exporting files in that category to the external storage drive, as you can see one feature is dependent on other, so they sat down and integrated their code together to see how well their features performed together. During the end of the iteration, we also had a dedicated bug bashing session where we tried to resolve the known bugs which had accumulated until now. We also had pair programming sessions to help each other out.
+
+## End of Second Iteration
+### Kanban Board
+![Kanban Board](./Images/end-iteration-2-kanban.png)
+
+### Issues
+#### Open Issues
+![Open Issues](./Images/end-iteration-2-issue.png)
+#### Closed Issues
+![Closed Issues](./Images/end-iteration-2-closed-issue.png)
+
 
 ## Scrum Meetings
 
@@ -70,5 +85,28 @@ Finally, merged all my code with the master branch after testing.
 3. **Rashik**: Have finished the part where after files are uploaded to the drive, the records are deleted from DynamoDB. Also, now the files of a category are being uploaded in the folder with the same name as category. Also export files is working in my local, I’ll push the changes once a bug is fixed. Currently because of async calls sometimes the folder is created after the files are push to the drive, so will look into that now.
 4. **Tanmaya**: I closed some open issues under my name. I will discuss collaborate with Rashik and work on testing the category/export feature to see if it’s working end-to-end.
 
+### 7th November, 2019
+1. **Ayush**: Helped Rashik resolve the export functionality bugs in the form of pair-programming and finished watermark testing for demo. Resolved bug for listing registered watermarks.
+2. **Ketul**: Sat with Rashik to integrate storage limit feature with export feature.
+3. **Rashik**: Sat with Ayush and resolved the bug in the export functionality and merged the changes. Did an end-to-end testing of export and delete files of a category.
+4. **Tanmaya**: I tested the Category management use cases thoroughly. I tested all the happy paths and alternate paths to make sure the usd cases are covered.
+
+### 8th November, 2019
+We met in the morning to test the system once more. After that we sat together and finished up the things which were left in [PROCESS.md](PROCESS.md).
 
 
+## Practices followed
+
+### Core Practices
+Here are the following core practices that we incorporated while developing our bot:-  
+*  **Sit Together**: We held scrum meetings every alternate day to know where everyone stood, and if anyone was stuck on a problem, we discussed amongst ourselves to come up with a solution. Each team member discussed their individual approach towards task and got a critical feedback from the rest of the team. After this discussion, we decided on one final way to go about that problem. We also decided on what everyone will work on until the next scrum meeting. This way we all were able to achieve our goals on time and learned about different approaches to handle a problem. We also pushed our scrum meeting notes to the [PROCESS.md](PROCESS.md) file everytime we met.   
+*  **Energized Work**: From the beginning we have been considerate towards everyone's schedule and conducted meetings when everyone was free. For example, we had a scrum meeting on Google Hangouts when two of the team members had there mid-term the next day. Otherwise, we used to meet for approximately 2-3 hours every alternate day and decided on the time a day before. This way everyone was productive when we met.  
+*  **Pair programming**: Sometimes we incorporated pair programming, when someone was working on a complicated task. For example, when Rashik was working on implementing the service layer of exporting files of a category to Google Drive, Ayush performed the role of the navigator and brainstormed with Rashik to complete the task. This way we were able to finish up our complicated tasks on time and everyone got to learn from other team members.  
+ **The scrum meeting notes can be seen above.**
+
+
+### Corollary Practices
+Here are the following Corollary practices that we incorporated while developing our bot:-  
+*   **Shared Code**: For software practices, we worked on a shared code repository on NCSU Github Enterprise. All the team members were assigned tasks at the beginning of the iteration. Before starting to work on the tasks, each team member had to pull the latest code from the master. To avoid working simultaneously on the Master branch, team members checked out and worked separately on their respective branches. A common practice that all team members followed was to thoroughly test the code and also test the dependencies with other features and then mark the feature as ready. When the feature was ready, the team member created a pull request. The pull requests were inspected by reviewing code changes and adding comments (if necessary) before getting approved for merging it into the Master branch. For example, when Ketul was given a task to create db service layer for storage management feature, he started by creating a new branch and once he was done testing he opened a pull request which was approved later by Ayush after suggesting few changes. With regard to version control, our practice is similar to what is followed in the industry today. The open issues were also tracked and updated after a feature was completed by merging the pull requests. This practice allowed team members to work separately on their features and collaborated with other features, avoiding merge conflicts.
+
+* **Incremental Deployment**: We followed an incremental build model where the code base is designed, implemented and tested incrementally until the application development is complete. Both development and maintenance were done simultaneously. Whenever a feature branch was merged to Master, the entire application was tested by integrating all the features to make sure it worked end-to-end and no new commits caused the application to misbehave. We decomposed our product into a number of components, each of which were designed and built separately (called builds). In addition, the development was done in two iterations where each iteration were passed through the requirements, design, coding and testing phases. The first iteration covered major features that were of high priority. After first iteration, we conducted a full regression testing. During this testing, faulty pieces of code and broken functionalities were identified and added to issues to be handled in the next iteration. In the second iteration, we added functionalities to the previous code until all design functionalities were implemented.  For example, when Ketul was working on Storage management feature. The feature deployment was done in multiple phases starting with deploying database service layer then service layer then finally changes in the routing layer where each deployment was thoroughly tested.

@@ -14,3 +14,6 @@
 
 ## BOT Document
 [BOT Document](Bot/BOT.md)
+
+## PROCESS Document
+[PROCESS Document](Process/PROCESS.md)
