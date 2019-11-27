@@ -18,7 +18,7 @@ async function getCurrentSize(channel) {
             "channel_id": channel
         }
     };
-    Console.log("Getting curent size")
+    console.log("Getting curent size")
     return await new Promise((resolve, reject) => {
         docClient.get(params, function (err, data) {
             if (err) {

@@ -110,7 +110,25 @@ var file_system_table_params = {
     }]
 };
 
-dynamodb.createTable(file_system_table_params, function (err, data) {
+var drive_table_params = {
+    TableName: "drive",
+    KeySchema: [
+        { AttributeName: "drive_name", KeyType: "HASH" },  //Partition key
+        { AttributeName: "private_key", KeyType: "RANGE" }  //Sort key
+    ],
+    AttributeDefinitions: [
+        { AttributeName: "drive_name", AttributeType: "S" },
+        { AttributeName: "private_key", AttributeType: "S" },
+        { AttributeName: "client_email", AttributeType: "S" },
+        { AttributeName: "access_folder_id", AttributeType: "S" }
+    ],
+    ProvisionedThroughput: {
+        ReadCapacityUnits: 10,
+        WriteCapacityUnits: 10
+    }
+};
+
+dynamodb.createTable(drive_table_params, function (err, data) {
     if (err) {
         console.error("Unable to create table. Error JSON:", JSON.stringify(err, null, 2));
     } else {
