@@ -28,42 +28,6 @@ async function exportCategory(category_name, drive_name, data) {
 			}
 			var message = await exporting(category_name, data, key, jwtClient).then((res) => res)
 			resolve(message)
-			// drive.files.list({ auth: jwtClient }, (listErr, resp) => {
-			// 	if (listErr) {
-			// 	  console.log(listErr);
-			// 	  return;
-			// 	}
-			// 	console.log(resp)
-			// 	resp.data.files.forEach((file) => {
-			// 	  console.log(`${file.name} (${file.mimeType})`);
-			// 	});
-			//   });
-
-			// var folderId = key.access_folder_id;
-
-			// var fileMetadata = {
-			// 	name: 'neo.txt',
-			// 	parents: [ folderId ]
-			// };
-
-			// var media = {
-			// 	mimeType: 'text/plain',
-			// 	body: fs.createReadStream('./neo.txt')
-			// };
-
-			// drive.files.create({
-			// 	auth: jwtClient,
-			// 	resource: fileMetadata,
-			// 	media,
-			// 	fields: 'id'
-			// }, (err, file) => {
-			// 	if (err) {
-			// 		console.log(err);
-			// 		return;
-			// 	}
-			// 	// Log the id of the new file on Drive
-			// 	console.log('Uploaded File Id: ', file.id);
-			// });
 		});
 	})
 }
