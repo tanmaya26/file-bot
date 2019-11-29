@@ -4,6 +4,7 @@ var db_service = require('../dbservice/category_dbservice')
 var slack_bot_service = require('./slack_bot_service');
 var utils_service = require('./utils_service');
 const fs = require('fs');
+const path = require('path');
 const { google } = require('googleapis');
 var mime = require('mime-types');
 const drive = google.drive('v3');
@@ -134,6 +135,7 @@ async function exporting(category_name, data, key, jwtClient) {
 				await export_dbservice.delete_file_record(file_id).then((res) => res);
 			}
 			await export_dbservice.delete_category_record(category_name, data.channel).then((res) => res);
+			fileCleanUp("temp_files")
 
 			return "Files of category '" + category_name + "' have been exported.";
 		}
@@ -141,6 +143,15 @@ async function exporting(category_name, data, key, jwtClient) {
 		console.log("Error Occurred: ", err);
 		return err;
 	}
+}
+
+function fileCleanUp(directory_path){
+	var temp_files = fs.readdirSync(directory_path)
+	for (const file of temp_files) {
+		fs.unlink(path.join(directory_path, file), err => {
+		  if (err) throw err;
+		});
+	  }
 }
 
 module.exports.deleteCategoryFiles = deleteCategoryFiles;

@@ -20,10 +20,7 @@ async function init(command, data) {
 		}
 		else if (utils_service.get_file_extension(data.files[0].name) == 'png') {
 			if (command.length == 3) {
-				var register_success = await watermark_service.register_watermark(command[2], data.files[0].url_private, data.channel)
-				if (register_success) {
-					bot_response = "Watermark created successfully."
-				}
+				bot_response = await watermark_service.register_watermark(command[2], data.files[0].url_private, data.channel)
 			}
 			else {
 				// Provide a name for this watermark
@@ -40,12 +37,12 @@ async function init(command, data) {
 		if (typeof data.files == 'undefined') {
 			bot_response = "No file associated with command. Upload a PDF file with command watermark the file."
 		}
-		if (command.length == 3) {
+		else if (command.length == 3) {
 			watermark_files(data, command)
 		}
 		else {
 			// Provide a text for this watermark
-			bot_response = "Please Provide a text for this watermark"
+			bot_response = "Please Provide a text for this watermark."
 		}
 	}
 	else if (command[1] == 'list') {

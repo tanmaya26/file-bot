@@ -25,12 +25,13 @@
     "pdfjs-dist": "^2.0.0",
     "selenium-webdriver": "^4.0.0-alpha.5",
     "sinon": "^7.5.0",
-    "slackbots": "^0.5.3"
+    "slackbots": "^0.5.3",
+    "path": "0.12.7"
   },
   "devDependencies": {
+    "aws-sdk-mock": "4.5.0",
     "chai": "^4.2.0",
     "mocha": "^6.2.2",
-    "nock": "^11.4.0",
-    "aws-sdk-mock": "4.5.0"
+    "nock": "^11.4.0"
   }
 }

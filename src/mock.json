@@ -2,7 +2,11 @@
   "watermark_commands": [
     "--watermark register mock1",
     "--watermark register",
-    "--watermark wm"
+    "--watermark wm",
+    "--watermark text Hello",
+    "--watermark text",
+    "--watermark list",
+    "--watermark register wm2"
   ],
   "watermarks": [
     {
@@ -59,7 +63,7 @@
           "pretty_type": "PDF",
           "user": "UNCHC62B5",
           "editable": false,
-          "size": 75741, 
+          "size": 75741,
           "mode": "hosted",
           "is_external": false,
           "external_type": "",
@@ -90,7 +94,6 @@
     {
       "type": "message",
       "text": "--watermark register wm",
-      "files": [],
       "upload": true,
       "user": "UNCHC62B5",
       "display_as_bot": false,
@@ -201,38 +204,42 @@
       "channel": "CNK1N4V5F"
     }
   },
-  "get_all_watermarks_result": [
-    {
-      "Item": {
+  "get_watermark_result_undefined": {
+  },
+  "get_all_watermarks_result": {
+    "Items": [
+      {
         "url": "https://files.slack.com/files-pri/TNTGTLN5U-FPKEGRLJ0/lugia_tribal_by_katlyon-d7u5u9p.png",
         "name": "wm1",
         "channel": "CNK1N4V5F"
-      }
-    },    {
-      "Item": {
+      },
+      {
         "url": "https://files.slack.com/files-pri/TNTGTLN5U-FPKEGRLJ0/lugia_tribal_by_katlyon-d7u5u9p.png",
         "name": "wm2",
         "channel": "CNK1N4V5F"
-      }
-    },    {
-      "Item": {
+      },
+      {
         "url": "https://files.slack.com/files-pri/TNTGTLN5U-FPKEGRLJ0/lugia_tribal_by_katlyon-d7u5u9p.png",
         "name": "wm3",
         "channel": "CNK1N4V5F"
       }
-    }
-  ],
+    ],
+    "Count": 3
+  },
   "workspace_size": "3.5",
   "dynamoDB": {
     "storage": [
-      {"id": 2, 
-      "size": 3.5
+      {
+        "id": 2,
+        "size": 3.5
       },
-      {"id": 3, 
-      "size": 4.8
+      {
+        "id": 3,
+        "size": 4.8
       },
-      {"id": 4, 
-      "size": 2.5
+      {
+        "id": 4,
+        "size": 2.5
       }
     ],
     "catalog": [
@@ -318,73 +325,73 @@
   },
   "file_list": {
     "files": [
-        {
-            "id": "F0S43P1CZ",
-            "created": 1531763254,
-            "timestamp": 1531763254,
-            "name": "project1.pdf",
-            "title": "project1.pdf",
-            "mimetype": "pdf",
-            "filetype": "pdf",
-            "pretty_type": "PDF",
-            "user": "U061F7AUR",
-            "editable": false,
-            "size": 144538,
-            "mode": "hosted",
-            "is_external": false,
-            "external_type": "",
-            "is_public": true,
-            "public_url_shared": false,
-            "display_as_bot": false,
-            "username": "",
-            "url_private": "https://project1.pdf",
-            "url_private_download": "https://project1.pdf",
-            "thumb_64": "https://project1.pdf",
-            "thumb_80": "https://project1.pdf",
-            "thumb_360": "https://project1.pdf",
-            "image_exif_rotation": 1,
-            "original_w": 176,
-            "original_h": 226,
-            "channels": [
-                "CNK1N4V5F"
-            ],
-            "groups": [],
-            "ims": [],
-            "comments_count": 0
-        },
-        {
-            "id": "F0S43PZDF",
-            "created": 1531763342,
-            "timestamp": 1531763342,
-            "name": "sample.pdf",
-            "title": "sample.pdf",
-            "mimetype": "pdf",
-            "filetype": "pdf",
-            "pretty_type": "PDF",
-            "user": "U061F7AUR",
-            "editable": false,
-            "size": 137531,
-            "mode": "hosted",
-            "is_external": false,
-            "external_type": "",
-            "is_public": true,
-            "public_url_shared": false,
-            "display_as_bot": false,
-            "username": "",
-            "url_private": "https://sample.pdf",
-            "url_private_download": "https://sample.pdf",
-            "thumb_64": "https://sample.pdf",
-            "thumb_80": "https://sample.pdf",
-            "image_exif_rotation": 1,
-            "original_w": 176,
-            "original_h": 226,
-            "channels": [
-                "CNK1N4V5F"
-            ],
-            "groups": [],
-            "ims": [],
-            "comments_count": 0
-        }
+      {
+        "id": "F0S43P1CZ",
+        "created": 1531763254,
+        "timestamp": 1531763254,
+        "name": "project1.pdf",
+        "title": "project1.pdf",
+        "mimetype": "pdf",
+        "filetype": "pdf",
+        "pretty_type": "PDF",
+        "user": "U061F7AUR",
+        "editable": false,
+        "size": 144538,
+        "mode": "hosted",
+        "is_external": false,
+        "external_type": "",
+        "is_public": true,
+        "public_url_shared": false,
+        "display_as_bot": false,
+        "username": "",
+        "url_private": "https://project1.pdf",
+        "url_private_download": "https://project1.pdf",
+        "thumb_64": "https://project1.pdf",
+        "thumb_80": "https://project1.pdf",
+        "thumb_360": "https://project1.pdf",
+        "image_exif_rotation": 1,
+        "original_w": 176,
+        "original_h": 226,
+        "channels": [
+          "CNK1N4V5F"
+        ],
+        "groups": [],
+        "ims": [],
+        "comments_count": 0
+      },
+      {
+        "id": "F0S43PZDF",
+        "created": 1531763342,
+        "timestamp": 1531763342,
+        "name": "sample.pdf",
+        "title": "sample.pdf",
+        "mimetype": "pdf",
+        "filetype": "pdf",
+        "pretty_type": "PDF",
+        "user": "U061F7AUR",
+        "editable": false,
+        "size": 137531,
+        "mode": "hosted",
+        "is_external": false,
+        "external_type": "",
+        "is_public": true,
+        "public_url_shared": false,
+        "display_as_bot": false,
+        "username": "",
+        "url_private": "https://sample.pdf",
+        "url_private_download": "https://sample.pdf",
+        "thumb_64": "https://sample.pdf",
+        "thumb_80": "https://sample.pdf",
+        "image_exif_rotation": 1,
+        "original_w": 176,
+        "original_h": 226,
+        "channels": [
+          "CNK1N4V5F"
+        ],
+        "groups": [],
+        "ims": [],
+        "comments_count": 0
+      }
     ]
   },
   "result_google_drive": {
