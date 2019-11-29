@@ -1,0 +1,63 @@
+---
+- name: Deploy FileNinja
+  hosts: localhost
+  vars:
+    packages: [npm,nodejs]
+    base_repo: git@github.ncsu.edu:csc510-fall2019/CSC510-7.git
+    local_repo_directory: /home/ubuntu
+    update_packages: [bash, openssl, openssh-server, openssh-client]
+
+  tasks:
+    - name: Install setup packages
+      package:
+        name: "{{ item }}"
+        state: present
+        update_cache: yes
+      with_items: "{{ packages }}"
+      become: yes
+      become_method: sudo
+
+    - name: "Install forever"
+      npm:
+        name: forever
+        global: yes
+        state: present
+      become: yes
+      become_method: sudo
+    
+    - name: "Create base repo folder"
+      file:
+        path: "{{ local_repo_directory }}/CSC510-7"
+        state: directory
+        mode: '0777'
+      become: yes
+      become_method: sudo
+      become_user: ubuntu
+
+    - name: Cloning base repo
+      git:
+        repo: "{{ base_repo }}"
+        dest: "{{ local_repo_directory }}/CSC510-7"
+      become: yes
+      become_method: sudo
+      become_user: ubuntu
+
+    - name: Install node packages
+      npm:
+        executable: /usr/bin/npm
+        path: "{{ local_repo_directory }}/CSC510-7"
+      become: yes
+      become_method: sudo
+      become_user: ubuntu
+    
+    - name: Stop running fileninja instance
+      command: "forever stopall"
+      become: yes
+      become_method: sudo
+      become_user: ubuntu
+
+    - name: Run FileNinja from forever
+      command: "forever start {{ local_repo_directory }}/CSC510-7/index.js"
+      become: yes
+      become_method: sudo
+      become_user: ubuntu
