@@ -60,7 +60,6 @@ function check_if_all_pdf(data) {
 	var result = true
 	data.files.forEach(f => {
 		if (utils_service.get_file_extension(f.name) != 'pdf') {
-			bot.postMessage(data.channel, 'Wrong format. All files must be of PDF format');
 			result = false
 		}
 	});

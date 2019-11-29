@@ -38,7 +38,7 @@ async function init(command, data) {
 			bot_response = "No file associated with command. Upload a PDF file with command watermark the file."
 		}
 		else if (command.length == 3) {
-			watermark_files(data, command)
+			bot_response = await watermark_files(data, command)
 		}
 		else {
 			// Provide a text for this watermark
@@ -53,7 +53,7 @@ async function init(command, data) {
 			bot_response = "No file associated with command. Upload a PDF file with command watermark the file."
 		}
 		else {
-			watermark_files(data, command)
+			bot_response = await watermark_files(data, command)
 		}
 	}
 
@@ -61,29 +61,36 @@ async function init(command, data) {
 	return bot_response
 }
 
-function watermark_files(data, command) {
+async function watermark_files(data, command) {
 	if (watermark_service.check_if_all_pdf(data)) {
-		data.files.forEach(f => {
-			watermark(f.url_private, command, data).then((water_marked_file) => {
-				fs.writeFile("temp_" + f.name, water_marked_file, function (err, result) {
-					file_upload_service.upload_file_via_bot("temp_" + f.name, "watermark_" + f.name, data.channel)
-						.then((res) => {
-							if (res) {
-								bot.postMessage(data.channel, 'File watermarked successfully');
-							}
-						})
-				});
+		for (i = 0; i < data.files.length; i++) {
+			f = data.files[i]
+			upload_status = await watermark(f.url_private, command, data).then(async (water_marked_file) => {
+				fs.writeFileSync("temp_files/temp_" + f.name, water_marked_file);
+				status = await file_upload_service.upload_file_via_bot("temp_files/temp_" + f.name, "watermark_" + f.name, data.channel)
+					.then((res) => {
+						return res
+					});
+				return status
 			});
-		});
+			if (!upload_status) {
+				return ('Something went wrong. Try again')
+			}
+		}
+		utils_service.fileCleanUp("temp_files")
+		return ('File watermarked successfully.');
+	}
+	else {
+		return ('Wrong format. All files must be of PDF format')
 	}
 }
 
-function watermark(url, command, data) {
+async function watermark(url, command, data) {
 	if (command[1] == 'text') {
-		return text_watermark_Pdf(url, command[2])
+		return await text_watermark_Pdf(url, command[2])
 	}
 	else {
-		return image_watermark_PDF(url, command[1], data.channel)
+		return await image_watermark_PDF(url, command[1], data.channel)
 	}
 }
 

@@ -117,7 +117,7 @@ describe('testWaterMark', function () {
       try {
         AWS.mock('DynamoDB.DocumentClient', 'query', function (params, callback) {
           callback(null, data.get_all_watermarks_result);
-      });
+        });
 
         cmd = utils_service.split_command(data.watermark_commands[5])
         var response = await controller.init(cmd, data.watermarks[2]).then((res) => res);
@@ -134,6 +134,85 @@ describe('testWaterMark', function () {
         cmd = utils_service.split_command(data.watermark_commands[2])
         var response = await controller.init(cmd, data.watermarks[2]).then((res) => res);
         expect(response).to.equal('No file associated with command. Upload a PDF file with command watermark the file.')
+      }
+      catch (e) {
+        console.log(e)
+      }
+    });
+
+    it('it should return a message for wrong format of file as watermarking only accepts PDF format', async function () {
+      try {
+        cmd = utils_service.split_command(data.watermark_commands[2])
+        var response = await controller.init(cmd, data.watermarks[0]).then((res) => res);
+        expect(response).to.equal('Wrong format. All files must be of PDF format')
+      }
+      catch (e) {
+        console.log(e)
+      }
+    });
+
+    it('it should successfully image-watermark the file', async function () {
+      try {
+        AWS.mock('DynamoDB.DocumentClient', 'get', function (params, callback) {
+          callback(null, data.get_watermark_result);
+        });
+        nock("https://files.slack.com/files-pri/TNTGTLN5U-FPN4VD3TQ/rb_sample.pdf")
+          .log(console.log)
+          .get('')
+          .replyWithFile(200, './test_files/sample.pdf', {
+            'Content-Type': 'application/json',
+          })
+
+        nock("https://files.slack.com/files-pri/TNTGTLN5U-FPKEGRLJ0/lugia_tribal_by_katlyon-d7u5u9p.png")
+          .log(console.log)
+          .get('')
+          .replyWithFile(200, './test_files/mock.png', {
+            'Content-Type': 'application/json',
+          })
+
+          nock("https://slack.com/api")
+          .log(console.log)
+          .post('/files.upload?token=xoxb-775571702198-775695559382-MSox8rQEc2qhmuGa9wz3JiNJ')
+          .reply(200, { ok: true })
+
+        cmd = utils_service.split_command(data.watermark_commands[2])
+        var response = await controller.init(cmd, data.watermarks[1]).then((res) => res);
+        expect(response).to.equal('File watermarked successfully.')
+        AWS.restore('DynamoDB.DocumentClient');
+      }
+      catch (e) {
+        console.log(e)
+      }
+    });
+
+    it('it should successfully text-watermark the file', async function () {
+      try {
+        AWS.mock('DynamoDB.DocumentClient', 'get', function (params, callback) {
+          callback(null, data.get_watermark_result);
+        });
+        nock("https://files.slack.com/files-pri/TNTGTLN5U-FPN4VD3TQ/rb_sample.pdf")
+          .log(console.log)
+          .get('')
+          .replyWithFile(200, './test_files/sample.pdf', {
+            'Content-Type': 'application/json',
+          })
+
+        nock("https://files.slack.com/files-pri/TNTGTLN5U-FPKEGRLJ0/lugia_tribal_by_katlyon-d7u5u9p.png")
+          .log(console.log)
+          .get('')
+          .replyWithFile(200, './test_files/mock.png', {
+            'Content-Type': 'application/json',
+          })
+
+          nock("https://slack.com/api")
+          .log(console.log)
+          .post('/files.upload?token=xoxb-775571702198-775695559382-MSox8rQEc2qhmuGa9wz3JiNJ')
+          .reply(200, { ok: true })
+
+        cmd = utils_service.split_command(data.watermark_commands[3])
+        var response = await controller.init(cmd, data.watermarks[1]).then((res) => res);
+        expect(response).to.equal('File watermarked successfully.')
+        AWS.restore('DynamoDB.DocumentClient');
       }
       catch (e) {
         console.log(e)
