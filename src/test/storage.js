@@ -1,4 +1,3 @@
-/* test/watermark.js */
 require('dotenv').config();
 var controller = require('../controller/storage_limit_controller.js');
 var utils_service = require('../service/utils_service');
