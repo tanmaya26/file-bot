@@ -45,7 +45,7 @@
     - name: Install node packages
       npm:
         executable: /usr/bin/npm
-        path: "{{ local_repo_directory }}/CSC510-7"
+        path: "{{ local_repo_directory }}/CSC510-7/src"
       become: yes
       become_method: sudo
       become_user: ubuntu
@@ -57,7 +57,7 @@
       become_user: ubuntu
 
     - name: Run FileNinja from forever
-      command: "forever start {{ local_repo_directory }}/CSC510-7/index.js"
+      command: "forever start --sourceDir {{ local_repo_directory }}/CSC510-7/src index.js"
       become: yes
       become_method: sudo
       become_user: ubuntu
