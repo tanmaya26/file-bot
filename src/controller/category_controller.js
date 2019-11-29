@@ -5,16 +5,19 @@ var bot = slack_bot_service.bot;
 async function setCategory(category_name, data) {
 	var response = await category_service.setCategory(category_name, data.channel).then((res) => res);
 	bot.postMessage(data.channel, response);
+	return response
 }
 
 async function getCategories(data) {
 	var response = await category_service.getCategories(data.channel).then((res) => res);
 	bot.postMessage(data.channel, response);
+	return response
 }
 
 async function addFileToCategory(category_name, data) {
 	var response = await category_service.addFileToCategory(category_name, data).then((res) => res);
 	bot.postMessage(data.channel, response);
+	return response
 }
 
 async function showFilesOfACategory(category_name, data) {
@@ -23,11 +26,13 @@ async function showFilesOfACategory(category_name, data) {
 		var file = res.key + ": " + res.value;
 		bot.postMessage(data.channel, file);
 	});
+	return response
 }
 
 async function exportDeleteCategory(category_name, storage_name, data, is_export) {
 	var response = await category_service.exportDeleteCategory(category_name, storage_name, data, is_export).then((res) => res);
 	bot.postMessage(data.channel, response);
+	return response
 }
 
 module.exports.setCategory = setCategory;

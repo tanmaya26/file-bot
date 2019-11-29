@@ -1,4 +1,3 @@
-
 var AWS = require("aws-sdk");
 
 var table = "category";

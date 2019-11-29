@@ -413,5 +413,55 @@
       }
     ]
   },
-  "slack_delete_output": "ok"
+  "slack_delete_output": "ok",
+  "get_category_result": {
+    "Item": {
+      "name": "mock1",
+      "channel": "CNK1N4V5F"
+    }
+  },
+  "get_category_result_undefined": {
+  },
+  "get_all_categories_result": {
+    "Items": [
+      {
+        "name": "mock1",
+        "channel": "CNK1N4V5F"
+      },
+      {
+        "name": "mock2",
+        "channel": "CNK1N4V5F"
+      },
+      {
+        "name": "mock3",
+        "channel": "CNK1N4V5F"
+      }
+    ],
+    "Count": 3
+  },
+  "get_all_categories_result_zero": {
+    "Items": [],
+    "Count": 0
+  },
+  "show_all_files_in_category_result": {
+    "Items": [
+      {
+        "file_url": "https://files.slack.com/files-pri/TNTGTLN5U-FPKEGRLJ0/lugia_tribal_by_katlyon-d7u5u9p.png",
+        "file_name": "file1"
+      },
+      {
+        "file_url": "https://files.slack.com/files-pri/TNTGTLN5U-FPKEGRLJ0/lugia_tribal_by_katlyon-d7u5u9p.png",
+        "file_name": "file2"
+      },
+      {
+        "file_url": "https://files.slack.com/files-pri/TNTGTLN5U-FPKEGRLJ0/lugia_tribal_by_katlyon-d7u5u9p.png",
+        "file_name": "file3"
+      }
+    ],
+    "Count": 3
+  },
+  "show_all_files_in_category_result_zero": {
+    "Items": [],
+    "Count": 0
+  }
 }

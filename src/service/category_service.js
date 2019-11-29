@@ -1,7 +1,5 @@
 var db_service = require('../dbservice/category_dbservice')
-var slack_bot_service = require('./slack_bot_service');
 var utils_service = require('./utils_service');
-var bot = slack_bot_service.bot;
 
 async function setCategory(category_name, channel_name) {
 

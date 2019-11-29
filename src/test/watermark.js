@@ -3,6 +3,7 @@ require('dotenv').config();
 var controller = require('../controller/watermark_controller.js');
 var utils_service = require('../service/utils_service');
 var expect = require('chai').expect;
+var assert = require('chai').assert;
 var AWS = require('aws-sdk-mock');
 const nock = require("nock");
 
@@ -10,7 +11,7 @@ const nock = require("nock");
 const data = require("../mock.json")
 
 describe('testWaterMark', function () {
-  this.timeout(5000); 
+  this.timeout(5000);
   describe('#init()', function () {
 
     it('it should return a message for not providing an associated file with create watermark', async function () {
@@ -182,7 +183,7 @@ describe('testWaterMark', function () {
             'Content-Type': 'application/json',
           })
 
-          nock("https://slack.com/api")
+        nock("https://slack.com/api")
           .log(console.log)
           .post('/files.upload?token=xoxb-775571702198-775695559382-MSox8rQEc2qhmuGa9wz3JiNJ')
           .reply(200, { ok: true })
@@ -217,7 +218,7 @@ describe('testWaterMark', function () {
             'Content-Type': 'application/json',
           })
 
-          nock("https://slack.com/api")
+        nock("https://slack.com/api")
           .log(console.log)
           .post('/files.upload?token=xoxb-775571702198-775695559382-MSox8rQEc2qhmuGa9wz3JiNJ')
           .reply(200, { ok: true })
