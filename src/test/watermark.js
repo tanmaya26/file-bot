@@ -10,6 +10,7 @@ const nock = require("nock");
 const data = require("../mock.json")
 
 describe('testWaterMark', function () {
+  this.timeout(5000); 
   describe('#init()', function () {
 
     it('it should return a message for not providing an associated file with create watermark', async function () {
@@ -20,6 +21,7 @@ describe('testWaterMark', function () {
       }
       catch (e) {
         console.log(e)
+        assert.fail()
       }
     });
 
@@ -31,6 +33,7 @@ describe('testWaterMark', function () {
       }
       catch (e) {
         console.log(e)
+        assert.fail()
       }
     });
 
@@ -50,6 +53,7 @@ describe('testWaterMark', function () {
       }
       catch (e) {
         console.log(e)
+        assert.fail()
       }
     });
 
@@ -66,6 +70,7 @@ describe('testWaterMark', function () {
       }
       catch (e) {
         console.log(e)
+        assert.fail()
       }
     });
 
@@ -77,6 +82,7 @@ describe('testWaterMark', function () {
       }
       catch (e) {
         console.log(e)
+        assert.fail()
       }
     });
 
@@ -88,6 +94,7 @@ describe('testWaterMark', function () {
       }
       catch (e) {
         console.log(e)
+        assert.fail()
       }
     });
 
@@ -99,6 +106,7 @@ describe('testWaterMark', function () {
       }
       catch (e) {
         console.log(e)
+        assert.fail()
       }
     });
 
@@ -110,6 +118,7 @@ describe('testWaterMark', function () {
       }
       catch (e) {
         console.log(e)
+        assert.fail()
       }
     });
 
@@ -126,6 +135,7 @@ describe('testWaterMark', function () {
       }
       catch (e) {
         console.log(e)
+        assert.fail()
       }
     });
 
@@ -137,6 +147,7 @@ describe('testWaterMark', function () {
       }
       catch (e) {
         console.log(e)
+        assert.fail()
       }
     });
 
@@ -148,6 +159,7 @@ describe('testWaterMark', function () {
       }
       catch (e) {
         console.log(e)
+        assert.fail()
       }
     });
 
@@ -182,6 +194,7 @@ describe('testWaterMark', function () {
       }
       catch (e) {
         console.log(e)
+        assert.fail()
       }
     });
 
@@ -216,6 +229,7 @@ describe('testWaterMark', function () {
       }
       catch (e) {
         console.log(e)
+        assert.fail()
       }
     });
 
