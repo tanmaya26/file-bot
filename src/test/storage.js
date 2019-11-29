@@ -1,5 +1,5 @@
 /* test/watermark.js */
-
+require('dotenv').config();
 var controller = require('../controller/storage_limit_controller.js');
 var utils_service = require('../service/utils_service');
 var expect = require('chai').expect;
@@ -8,7 +8,6 @@ const nock = require("nock");
 
 // Load mock data
 const data = require("../mock.json")
-const env = Object.assign({}, process.env);
 
 describe('testStorageLimit', function () {
   describe('#init()', function () {
