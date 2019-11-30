@@ -15,9 +15,11 @@ Our application will be deployed to AWS environment. The application will run on
     3. Create a new .env file inside this (CSC510-7/src) folder:<br>
     ``` vi .env```
     4. In .env file, put the following variables.<br>
-        USER_SLACK_TOKEN=<br>
-        BOT_ID=<@UNTLFGFB8><br>
-        ADMIN_TOKEN=<br>
+       ``` 
+        USER_SLACK_TOKEN=
+        BOT_ID=<@UNTLFGFB8>
+        ADMIN_TOKEN=
+        ```
     NOTE: Obtain the USER_SLACK_TOKEN from https://api.slack.com/custom-integrations/legacy-tokens. You will find a legacy-token
     in your slack user account. 
     4. Run the ansible playbook:<br>
