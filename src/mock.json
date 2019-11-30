@@ -466,5 +466,12 @@
   "show_all_files_in_category_result_zero": {
     "Items": [],
     "Count": 0
+  },
+  "get_drive_result": {
+    "Item": {
+      "drive_name": "mock_drive"
+    }
+  },
+  "get_drive_result_undefined": {
   }
 }

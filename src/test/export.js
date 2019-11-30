@@ -62,6 +62,23 @@ describe('testExport', function () {
             assert.fail()
         }
     });
+
+    it('it should fail to export files from a category to google drive as as the drive does not exist', async function () {
+        try {
+            AWS.mock('DynamoDB.DocumentClient', 'get', function (params, callback) {
+                callback(null, data.get_drive_result_undefined);
+            });
+
+            var response = await controller.exportCategory('mock1', 'mock_drive', data.watermarks[2]).then((res) => res);
+            expect(response).to.equal("Google drive with name mock_drive doesn't exists. Try again with a valid drive name")
+            AWS.restore('DynamoDB.DocumentClient');
+        }
+        catch (e) {
+            console.log(e)
+            assert.fail()
+        }
+    });
+
     afterEach(function () {
         nock.cleanAll()
     })
