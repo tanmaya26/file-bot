@@ -1,11 +1,8 @@
 var AWS = require("aws-sdk");
-var creds = new AWS.Credentials(process.env.ACCESS_KEY,
-    process.env.SECRET_KEY,
-    process.env.SESSION_KEY);
+
 AWS.config.update({
     region: "us-east-1",
-    endpoint: "http://dynamodb.us-east-1.amazonaws.com",
-    credentials: creds
+    endpoint: "http://dynamodb.us-east-1.amazonaws.com"
 });
 
 var table = "watermark";
