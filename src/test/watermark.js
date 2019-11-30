@@ -175,16 +175,16 @@ describe('testWaterMark', function () {
       AWS.mock('DynamoDB.DocumentClient', 'get', function (params, callback) {
         callback(null, data.get_watermark_result);
       });
-      nock("https://files.slack.com/files-pri/TNTGTLN5U-FPN4VD3TQ/rb_sample.pdf")
+      nock("https://files.slack.com/files-pri/TNTGTLN5U-FPN4VD3TQ")
         .log(console.log)
-        .get('')
+        .get('/rb_sample.pdf')
         .replyWithFile(200, './test_files/sample.pdf', {
           'Content-Type': 'application/json',
         })
 
-      nock("https://files.slack.com/files-pri/TNTGTLN5U-FPKEGRLJ0/lugia_tribal_by_katlyon-d7u5u9p.png")
+      nock("https://files.slack.com/files-pri/TNTGTLN5U-FPKEGRLJ0")
         .log(console.log)
-        .get('')
+        .get('/lugia_tribal_by_katlyon-d7u5u9p.png')
         .replyWithFile(200, './test_files/mock.png', {
           'Content-Type': 'application/json',
         })
@@ -211,16 +211,16 @@ describe('testWaterMark', function () {
       AWS.mock('DynamoDB.DocumentClient', 'get', function (params, callback) {
         callback(null, data.get_watermark_result);
       });
-      nock("https://files.slack.com/files-pri/TNTGTLN5U-FPN4VD3TQ/rb_sample.pdf")
+      nock("https://files.slack.com/files-pri/TNTGTLN5U-FPN4VD3TQ")
         .log(console.log)
-        .get('')
+        .get('/rb_sample.pdf')
         .replyWithFile(200, './test_files/sample.pdf', {
           'Content-Type': 'application/json',
         })
 
-      nock("https://files.slack.com/files-pri/TNTGTLN5U-FPKEGRLJ0/lugia_tribal_by_katlyon-d7u5u9p.png")
+      nock("https://files.slack.com/files-pri/TNTGTLN5U-FPKEGRLJ0")
         .log(console.log)
-        .get('')
+        .get('/lugia_tribal_by_katlyon-d7u5u9p.png')
         .replyWithFile(200, './test_files/mock.png', {
           'Content-Type': 'application/json',
         })
