@@ -5,6 +5,7 @@ var bot = slack_bot_service.bot;
 async function deleteCategoryFiles(category_name, data) {
 	var response = await export_service.deleteCategoryFiles(category_name, data).then((res) => res);
 	bot.postMessage(data.channel, response);
+	return response
 }
 
 async function openModalToRegisterGoogleDrive(trigger_id) {
@@ -14,6 +15,7 @@ async function openModalToRegisterGoogleDrive(trigger_id) {
 async function exportCategory(category_name, drive_name, data) {
 	var response = await export_service.exportCategory(category_name, drive_name, data).then((res) => res);
 	bot.postMessage(data.channel, response);
+	return response
 }
 
 module.exports.deleteCategoryFiles = deleteCategoryFiles;

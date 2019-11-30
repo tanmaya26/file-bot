@@ -447,15 +447,18 @@
     "Items": [
       {
         "file_url": "https://files.slack.com/files-pri/TNTGTLN5U-FPKEGRLJ0/lugia_tribal_by_katlyon-d7u5u9p.png",
-        "file_name": "file1"
+        "file_name": "file1",
+        "file_id":"1"
       },
       {
         "file_url": "https://files.slack.com/files-pri/TNTGTLN5U-FPKEGRLJ0/lugia_tribal_by_katlyon-d7u5u9p.png",
-        "file_name": "file2"
+        "file_name": "file2",
+        "file_id":"2"
       },
       {
         "file_url": "https://files.slack.com/files-pri/TNTGTLN5U-FPKEGRLJ0/lugia_tribal_by_katlyon-d7u5u9p.png",
-        "file_name": "file3"
+        "file_name": "file3",
+        "file_id":"3"
       }
     ],
     "Count": 3

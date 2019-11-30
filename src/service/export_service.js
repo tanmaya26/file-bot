@@ -37,7 +37,7 @@ async function deleteCategoryFiles(category_name, data) {
 		var items = [];
 		var category_exists = await utils_service.checkIfCategoryExists(category_name, data.channel);
 		if (category_exists == false) {
-			return "No category with the name '" + category_name + "' exists";
+			return "No category with the name " + category_name + " exists";
 		}
 		else {
 			var files = await db_service.get_files(category_name, data.channel).then((res) => {
@@ -55,7 +55,7 @@ async function deleteCategoryFiles(category_name, data) {
 			}
 			await export_dbservice.delete_category_record(category_name, data.channel).then((res) => res);
 
-			return "Files of category '" + category_name + "' have been deleted.";
+			return "Files of category " + category_name + " have been deleted.";
 		}
 	} catch (err) {
 		console.log("Error Occurred: ", err);

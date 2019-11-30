@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "mocha"
+    "test": "mocha --exit"
   },
   "author": "CSC510-7 ",
   "license": "MIT",
