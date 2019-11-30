@@ -191,7 +191,8 @@ describe('testWaterMark', function () {
 
       nock("https://slack.com/api")
         .log(console.log)
-        .post('/files.upload?token=xoxb-775571702198-775695559382-MSox8rQEc2qhmuGa9wz3JiNJ')
+        .post('/files.upload')
+        .query({ token: 'xoxb-775571702198-775695559382-MSox8rQEc2qhmuGa9wz3JiNJ' })
         .reply(200, { ok: true })
 
       cmd = utils_service.split_command(data.watermark_commands[2])
@@ -226,7 +227,8 @@ describe('testWaterMark', function () {
 
       nock("https://slack.com/api")
         .log(console.log)
-        .post('/files.upload?token=xoxb-775571702198-775695559382-MSox8rQEc2qhmuGa9wz3JiNJ')
+        .post('/files.upload')
+        .query({ token: 'xoxb-775571702198-775695559382-MSox8rQEc2qhmuGa9wz3JiNJ' })
         .reply(200, { ok: true })
 
       cmd = utils_service.split_command(data.watermark_commands[3])
