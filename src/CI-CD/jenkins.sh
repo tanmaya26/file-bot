@@ -23,15 +23,25 @@ fi
 npm test test/watermark.js
 if [ $? -ne 0 ]
 then
-  echo "npm test failed"
+  echo "npm test watermark failed"
 fi
 npm test test/export.js
 if [ $? -ne 0 ]
 then
-  echo "npm test failed"
+  echo "npm test export failed"
 fi
 npm test test/category.js
 if [ $? -ne 0 ]
 then
-  echo "npm test failed"
+  echo "npm test category failed"
+fi
+npm test test/storage.js
+if [ $? -ne 0 ]
+then
+  echo "npm test storage failed"
+fi
+node test/selenium.js
+if [ $? -ne 0 ]
+then
+  echo "Integeration test failed"
 fi

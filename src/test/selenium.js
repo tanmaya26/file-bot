@@ -5,6 +5,9 @@ var promise = require('selenium-webdriver').promise;
 const assert = require('assert');
 const fs = require('fs');
 var Slack = require('nodejslack');
+const uuidv1 = require('uuid/v1');
+const watermarkname = uuidv1();
+const categoryname = uuidv1();
 
 const textbox_xpath = "/html/body/div[2]/div/div/div[4]/div/div/footer/div/div/div[1]/div/div[1]";
 const channel_xpath = "/html/body/div[2]/div/div/div[3]/div/nav/div[2]/div[1]/div/div[1]/div/div/div[11]/a/span";
@@ -27,7 +30,7 @@ async function logout(driver, url) {
 }
 
 async function switchChannel(driver) {
-    await driver.findElement(By.xpath("/html/body/div[2]/div/div/div[3]/div/nav/div[2]/div[1]/div/div[1]/div/div/div[7]/a/span")).click();
+    await driver.findElement(By.xpath("/html/body/div[2]/div/div/div[3]/div/nav/div[2]/div[1]/div/div[1]/div/div/div[6]/a/span")).click();
 }
 
 async function navigateToChannel(driver) {
@@ -37,12 +40,12 @@ async function navigateToChannel(driver) {
 
 
 // Register Watermark Usecases
-async function UseCaseRegisterWaterMarkGood(driver) { 
+async function UseCaseRegisterWaterMarkGood(driver) {
     var form = {
-        file: fs.createReadStream("../test_files/mock.png"), 
+        file: fs.createReadStream("./test_files/mock.png"), 
         filename: 'mock.png', 
-        text: BOT_ID+" --watermark register wm1",
-        initial_comment: BOT_ID+' --watermark register wm1',
+        text: BOT_ID+" --watermark register "+watermarkname,
+        initial_comment: BOT_ID+' --watermark register '+watermarkname,
         channels: 'bottesting'
     };
     
@@ -57,28 +60,30 @@ async function UseCaseRegisterWaterMarkGood(driver) {
       .catch(function(err){
           console.log('Failed on Uploading:',err);
         });
-    
+        
       await driver.sleep(4000);
-    
+      
+
       driver.findElements(By.className("c-message__body")).then(function(elements){
         elements[elements.length -1].getText().then(function (text){
             try {
+                
                 assert.equal("Watermark created successfully.",text);
                 console.log('Usecase 1: Expectedly passed to register watermark with images as png');
             } catch (e) {
-                console.log('Usecase 1: Unexpectedly passed to register watermark');
+                console.log('Usecase 1: Unexpectedly failed to register watermark');
                 return Promise.resolve('Usecase to register watermark failed');
             }
         })
     });
 }
 
-async function UseCaseRegisterWaterMarkWhenJPGIsUploaded(driver, url) {
+async function UseCaseRegisterWaterMarkWhenJPGIsUploaded(driver) {
     var form = {
-        file: fs.createReadStream("../test_files/mock.jpg"),
+        file: fs.createReadStream("./test_files/mock.jpg"),
         filename: 'mock.jpg',
-        text: BOT_ID+" --watermark register wm1",
-        initial_comment: BOT_ID+' --watermark register wm1',
+        text: BOT_ID+" --watermark register "+watermarkname,
+        initial_comment: BOT_ID+' --watermark register '+watermarkname,
         channels: 'bottesting'
     };
     
@@ -94,7 +99,7 @@ async function UseCaseRegisterWaterMarkWhenJPGIsUploaded(driver, url) {
           console.log('Failed on Uploading:',err);
         });
     
-      await driver.sleep(4000);
+      await driver.sleep(6000);
     
       driver.findElements(By.className("c-message__body")).then(function(elements){
         elements[elements.length -1].getText().then(function (text){
@@ -130,10 +135,10 @@ async function UseCaseRegisterWaterMarkWhenNoImageProvided(driver) {
 // Add watermark to file
 async function UseCaseWatermarkFileGood(driver) {
     var form = {
-        file: fs.createReadStream("../test_files/sample.pdf"),
+        file: fs.createReadStream("./test_files/sample.pdf"),
         filename: 'sample.pdf', 
-        text: BOT_ID+" --watermark wm1",
-        initial_comment: BOT_ID+' --watermark wm1',
+        text: BOT_ID+" --watermark "+watermarkname,
+        initial_comment: BOT_ID+' --watermark '+watermarkname,
         channels: 'bottesting'
       };
 
@@ -166,10 +171,10 @@ async function UseCaseWatermarkFileGood(driver) {
 
 async function UseCaseWaterMarkWhenFileIsNotPDFProvided(driver) {
     var form = {
-        file: fs.createReadStream("../test_files/report.txt"),
+        file: fs.createReadStream("./test_files/report.txt"),
         filename: 'report.txt', 
-        text: BOT_ID+" --watermark wm1",
-        initial_comment: BOT_ID+' --watermark wm1',
+        text: BOT_ID+" --watermark "+watermarkname,
+        initial_comment: BOT_ID+' --watermark '+watermarkname,
         channels: 'bottesting'
       };
 
@@ -201,9 +206,8 @@ async function UseCaseWaterMarkWhenFileIsNotPDFProvided(driver) {
 }
 
 async function UseCaseWaterMarkWhenNoImageProvided(driver) {
-    await driver.findElement(By.className("ql-editor ql-blank")).sendKeys("@fileninja --watermark wm1", Key.RETURN);
+    await driver.findElement(By.className("ql-editor ql-blank")).sendKeys("@fileninja --watermark "+watermarkname, Key.RETURN);
     await driver.sleep(4000);
-    
 
     driver.findElements(By.className("c-message__body")).then(function(elements){
         elements[elements.length -1].getText().then(function (text){
@@ -222,12 +226,11 @@ async function UseCaseWaterMarkWhenNoImageProvided(driver) {
 async function UseCaseListWaterMarks(driver) {
     await driver.findElement(By.className("ql-editor ql-blank")).sendKeys("@fileninja --watermark list", Key.RETURN);
     await driver.sleep(4000);
-    
 
     driver.findElements(By.className("c-message__body")).then(function(elements){
         elements[elements.length -1].getText().then(function (text){
             try {
-                assert.equal("Watermarks for this channel are: wm1,wm2,wm3",text);
+                assert.ok(text.match(/Watermarks for this channel are:/g),text);
                 console.log('Usecase 7: Expectedly passed listing watermarks');
             } catch (e) {
                 console.log('Usecase 7: Unexpectedly failed listing watermarks');
@@ -244,7 +247,7 @@ async function UseCaseSetStorageLimitWithParams(driver) {
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
-                assert.equal("New Alert Limit has been set to 3.5 GB", text);
+                assert.equal("New Alert Limit has been set to 3.5 GB.", text);
                 console.log('Usecase 8: "Set storage limit" expectedly passed.');
             } catch (e) {
                 console.log('Usecase 8: "Set storage limit" unexpectedly failed when parameter given');
@@ -308,33 +311,47 @@ async function UseCaseGetStorage(driver) {
 //Register Category
 async function UseCaseRegisterCategoryWithParams(driver) {
 
-    await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --registerCategory Project4", Key.RETURN);
+    await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --registerCategory "+categoryname, Key.RETURN);
     await driver.sleep(4000);
 
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
                 assert.equal("Category registered.", text);
-                console.log('Usecase 13: "Register category" expectedly passed.');
+                console.log('Usecase 12: "Register category" expectedly passed.');
             } catch (e) {
-                console.log('Usecase 13: "Register category" unexpectedly failed.');
+                console.log('Usecase 12: "Register category" unexpectedly failed.');
                 return Promise.resolve('Usecase to register category failed.');
             }
         })
     });
 }
 
+
+async function UseCaseRegisterCategoryWithParams_2(driver) {
+
+    await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --registerCategory "+categoryname, Key.RETURN);
+    await driver.sleep(4000);
+
+    driver.findElements(By.className("c-message__body")).then(function (elements) {
+        elements[elements.length - 1].getText().then(function (text) {
+
+        })
+    });
+}
+
+
 async function UseCaseRegisterCategoryAlreadyExistingNameWithParams(driver) { 
-    await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --registerCategory Project1", Key.RETURN);
+    await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --registerCategory "+categoryname, Key.RETURN);
     await driver.sleep(4000);
 
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
-                assert.equal("Category with name Project1 already exists in this channel", text);
-                console.log('Usecase 12: "Register category" expectedly failed when user tried to add same category again.');
+                assert.equal("Category with name "+categoryname+" already exists in this channel", text);
+                console.log('Usecase 13: "Register category" expectedly failed when user tried to add same category again.');
             } catch (e) {
-                console.log('Usecase 12: Unexpectedly failed.');
+                console.log('Usecase 13: Unexpectedly failed.');
                 return Promise.resolve('Usecase to register category failed.');
             }
         })
@@ -345,10 +362,10 @@ async function UseCaseRegisterCategoryAlreadyExistingNameWithParams(driver) {
 async function UseCaseAddFilesToCategoryWithFilename(driver) { 
 
     var form = {
-        file: fs.createReadStream("../test_files/mock.png"), 
+        file: fs.createReadStream("./test_files/mock.png"), 
         filename: 'mock.png', 
-        text: BOT_ID+" --addToCategory upload_category",
-        initial_comment: BOT_ID+' --addToCategory upload_category',
+        text: BOT_ID+" --addToCategory "+categoryname,
+        initial_comment: BOT_ID+' --addToCategory '+categoryname,
         channels: 'bottesting'
     };
     
@@ -382,12 +399,12 @@ async function UseCaseAddFilesToCategoryWithFilename(driver) {
 
 // Export to external storage
 async function UseCaseExportCategoryToExternalStorageGood(driver) {
-    await driver.findElement(By.className("ql-editor ql-blank")).sendKeys("@fileninja --exportCategory Project1 rb_try", Key.RETURN);
+    await driver.findElement(By.className("ql-editor ql-blank")).sendKeys("@fileninja --exportCategory "+categoryname+" rb_try", Key.RETURN);
     await driver.sleep(4000);
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
-                assert.equal("Files of category 'Project1' have been exported.", text);
+                assert.equal("Files of category '"+categoryname+"' have been exported.", text);
                 console.log('Usecase 15: "Uploading category to external storage" expectedly passed.');
             } catch (e) {
                 console.log('Usecase 15: "Uploading category to external storage" unexpectedly failed.');
@@ -416,12 +433,12 @@ async function UseCaseExportNonExistingCategoryToExternalStorage(driver) {
 
 // Delete file/category
 async function UseCaseDeleteCategory(driver) {
-    await driver.findElement(By.className("ql-editor ql-blank")).sendKeys("@fileninja --deleteCategory Project1", Key.RETURN);
+    await driver.findElement(By.className("ql-editor ql-blank")).sendKeys("@fileninja --deleteCategory "+categoryname, Key.RETURN);
     await driver.sleep(4000);
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
-                assert.equal("Files of category Project1 have been deleted.", text);
+                assert.equal("Files of category "+categoryname+" have been deleted.", text);
                 console.log('Usecase 17: "Deleting file from a category" expectedly passed.');
             } catch (e) {
                 console.log('Usecase 17: "Deleting file from a category" unexpectedly failed.');
@@ -447,15 +464,15 @@ async function UseCaseDeleteNonExistingCategory(driver) {
     });
 }
 async function UseCaseShowFilesOfCategory(driver) {
-    await driver.findElement(By.className("ql-editor ql-blank")).sendKeys("@fileninja --showFiles project_test_1", Key.RETURN);
+    await driver.findElement(By.className("ql-editor ql-blank")).sendKeys("@fileninja --showFiles "+categoryname, Key.RETURN);
     await driver.sleep(4000);
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
-                assert.equal("test_file_2: https://files.slack.com/files-pri/TNTGTLN5U-FQ57P3GDA/download2.jpg", text);
+                assert.ok(text.match(/mock.png:/g),text);
                 console.log('Usecase 19: "Showing all files of a category" expectedly passed.');
             } catch (e) {
-                console.log('Usecase 19: "Showing all files of a category" unexpectedly passed.');
+                console.log('Usecase 19: "Showing all files of a category" unexpectedly failed.');
                 return Promise.resolve('Usecase to show file failed');
             }
         })
@@ -480,13 +497,18 @@ async function UseCaseShowFilesOfNonExistingCategory(driver) {
 
 (async () => {
 
-    let driver = await new Builder().forBrowser("chrome").build();
+    const chrome = require('selenium-webdriver/chrome');
+    const screen = {
+        width: 1200,
+        height: 610
+    };
+    let driver = await new Builder().forBrowser("chrome").setChromeOptions(new chrome.Options().headless().windowSize(screen)).build();
     await console.log("Test Results:")
     await login(driver, slackUrl);
     await switchChannel(driver);
     
     // Register Watermark
-    await UseCaseRegisterWaterMarkGood(driver);
+    await UseCaseRegisterWaterMarkGood(driver);   //delete this watermark afterwards
     await UseCaseRegisterWaterMarkWhenJPGIsUploaded(driver);
     await UseCaseRegisterWaterMarkWhenNoImageProvided(driver);
 
@@ -496,35 +518,39 @@ async function UseCaseShowFilesOfNonExistingCategory(driver) {
     await UseCaseWaterMarkWhenNoImageProvided(driver);
     await driver.sleep(3000);
 
-    // //List Watermark
+    //List Watermark
     await UseCaseListWaterMarks(driver);
 
-    // //Storage Size
+    //Storage Size
     await UseCaseSetStorageLimitWithParams(driver);
     await UseCaseSetGreaterStorageLimitWithParams(driver);
     await UseCaseSetStorageLimitWithoutParams(driver);
     await UseCaseGetStorage(driver);
 
-    // //Register Category
+    //Register Category
+    await UseCaseRegisterCategoryWithParams(driver);
     await UseCaseRegisterCategoryAlreadyExistingNameWithParams(driver);
     await driver.sleep(3000);
-    await UseCaseRegisterCategoryWithParams(driver);
 
-    // //Add files to category
+
+    //Add files to category
     await UseCaseAddFilesToCategoryWithFilename(driver);
     
-    // //Export File/Category
+    await UseCaseShowFilesOfCategory(driver);
+    await UseCaseShowFilesOfNonExistingCategory(driver);
+
+    //Export File/Category
     await UseCaseExportCategoryToExternalStorageGood(driver);
     await UseCaseExportNonExistingCategoryToExternalStorage(driver);
     await driver.sleep(3000);
 
-    // //Delete file/category
+    await UseCaseRegisterCategoryWithParams_2(driver);
+
+
+    //Delete file/category
     await UseCaseDeleteCategory(driver);
     await UseCaseDeleteNonExistingCategory(driver);
 
-    // //Show category files
-    await UseCaseShowFilesOfCategory(driver);
-    await UseCaseShowFilesOfNonExistingCategory(driver);
 
     await driver.sleep(1000)
     await driver.quit()
