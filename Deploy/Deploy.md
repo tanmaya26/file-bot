@@ -67,19 +67,20 @@ verify the use cases by typing the commands in text box.
         
     *USE CASE 2: Category*
     
-    - Register a category called 'project1'. A category will hold files in it.
+    - Register a category called 'ncsu1'. A category will hold files in it.
     
-        ``@fileninja --registerCategory project1``
+        ``@fileninja --registerCategory ncsu1``
     
         Bot Reply: ``Category registered.``
     - Trying to register a category again will give an error.
      
-        ``@fileninja --registerCategory project1``
+        ``@fileninja --registerCategory ncsu1``
     
         Bot Reply:
-        ``Category with name project1 already exists in this channel``
-    - Register a category called 'project2'
-        ``@fileninja --registerCategory project2``
+        ``Category with name ncsu1 already exists in this channel``
+    - Register a category called 'ncsu2'
+    
+        ``@fileninja --registerCategory ncsu2``
     
         Bot Reply: ``Category registered.``
         
@@ -88,20 +89,24 @@ verify the use cases by typing the commands in text box.
         ``@fileninja --getCategories``
     
         Bot Reply: 
-        ``Categories for this channel are: project1,project2``
+        ``Categories for this channel are: ncsu1,ncsu2``
         
     - Click on upload button to upload files, add one or more files with names such as file1.png, file2.png
-      In the upload message box, add the below command to add the files to category project 1.<br>
+      In the upload message box, add the below command to add the files to category ncsu1.<br>
     
-        ``@fileninja --addToCategory project1``
+        ``@fileninja --addToCategory ncsu1``
         
         Bot Reply:
         ``File added to category.``
-    - Repeat the above for project2. Click upload button and upload the two files as above.
-          ``@fileninja --addToCategory project2``
-    - To see the files uploaded to Project 1:<br>
+        
+        Adding multiple files to category:
+        ![storyboard](./Images/category.png)
+    - Repeat the above for ncsu2. Click upload button and upload the two files as above.
     
-       ``@fileninja --showFiles project1``
+       ``@fileninja --addToCategory ncsu2``
+    - To see the files uploaded to ncsu1:<br>
+    
+       ``@fileninja --showFiles ncsu1``
         
         Bot Reply:
         
@@ -110,20 +115,21 @@ verify the use cases by typing the commands in text box.
           file2.png: https://files.slack.com/files-pri/TNTGTLN5U-FR751GCSJ/file2.png
         ```
     - To see files in a category which doesn't exist.
-        ``@fileninja --showFiles project3``
     
-        Bot Reply: ``Error: No category with the name project3 exists``
+        ``@fileninja --showFiles ncsu3``
+    
+        Bot Reply: ``Error: No category with the name ncsu3 exists``
         
     - Delete a category in the channel. This will delete all files in that category too.
         
-        ``@fileninja --deleteCategory project1 ``
+        ``@fileninja --deleteCategory ncsu1 ``
     
-        Bot Reply: ``Files of category project1 have been deleted``
-    -   Export files in project2 to google drive named 'test'
+        Bot Reply: ``Files of category ncsu1 have been deleted``
+    -   Export files in ncsu2 to google drive named 'test'
     
-        ``@fileninja --exportCategory project2 test ``
+        ``@fileninja --exportCategory ncsu2 test ``
         
-        Bot Reply: ``Files of category 'project2' have been exported.``<br>
+        Bot Reply: ``Files of category 'ncsu2' have been exported.``<br>
         Files get exported to external google drive.
         
     *USE CASE 3: Watermark*
@@ -134,19 +140,28 @@ verify the use cases by typing the commands in text box.
    
         Bot Reply: ``Watermark created successfully.``
         
-    - Upload a suitable pdf file to be watermarked. In the upload message box write the message to
-    add text watermark (Script) to pdf.<br>
-      ``@fileninja --watermark text Script``
-       
-       Bot Reply: Returns the pdf file with watermarked text.<br>
-       ``File watermarked successfully.``
-    - Upload a suitable pdf file to be watermarked. In the upload message box write the message to
+        Registering a watermark:
+        ![storyboard](./Images/watermark-register.png)
+        
+    - Watermark a file with image. This image is a watermark image registered in previous step. Upload a suitable pdf file to be watermarked. In the upload message box write the message to
     add watermark to pdf.<br>
     ``@fileninja --watermark wm100``
        
        Bot Reply: Returns the pdf file with watermarked image.<br>
        ``File watermarked successfully.``
        
+      Adding a watermark image to a file:
+        ![storyboard](./Images/add-watermark.png)
+    
+    - Watermark a file with a text. As shown in the previous step, upload a suitable pdf file to be watermarked. In the upload message box write the message to
+    add text watermark (Script) to pdf.<br>
+      ``@fileninja --watermark text Script``
+       
+       Bot Reply: Returns the pdf file with watermarked text.<br>
+       ``File watermarked successfully.``
+       
+       Adding a watermark text to a file:
+        ![storyboard](./Images/watermark-text.png)
     - Fetch all watermarks in the channel.
     
         ``@fileninja --watermark list``
