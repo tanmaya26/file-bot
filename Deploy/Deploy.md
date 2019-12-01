@@ -150,7 +150,7 @@ verify the use cases by typing the commands in text box.
        Bot Reply: Returns the pdf file with watermarked image.<br>
        ``File watermarked successfully.``
        
-      Adding a watermark to a file:
+      Adding a watermark image to a file:
         ![storyboard](./Images/add-watermark.png)
     
     - Watermark a file with a text. As shown in the previous step, upload a suitable pdf file to be watermarked. In the upload message box write the message to
@@ -160,6 +160,8 @@ verify the use cases by typing the commands in text box.
        Bot Reply: Returns the pdf file with watermarked text.<br>
        ``File watermarked successfully.``
        
+       Adding a watermark text to a file:
+        ![storyboard](./Images/watermark-text.png)
     - Fetch all watermarks in the channel.
     
         ``@fileninja --watermark list``
