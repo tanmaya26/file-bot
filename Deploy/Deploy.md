@@ -155,8 +155,7 @@ verify the use cases by typing the commands in text box.
     
 ### Continuous Integration (CI) Server
 
-We have setup a job on Jenkins that triggers a build whenever there commits are pushed to master branch. Following is the link and credentials:
-
+We have setup a Jenkins server on EC2 host. A Jenkins job is configured for File Ninja. Every 1 minutes, it polls the repo: https://github.ncsu.edu/csc510-fall2019/CSC510-7. When it detects new changes, it triggers a build that runs all the tests against the latest changes. If build passes, it starts the ansible-playbook that automates the deployment of latest changes to server. 
 Jenkins URL: http://34.231.4.150:8080/job/file-ninja-master/<br>
 user:admin<br>
 password:csc510-7
