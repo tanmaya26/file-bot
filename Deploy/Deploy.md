@@ -152,7 +152,6 @@ verify the use cases by typing the commands in text box.
       
 ### Screencast
 
-## Screencast
 [Screencast video](https://drive.google.com/open?id=1IZliBJ0fsQbgEFl-Zs3dY2j4Mru1YqcX)
 
     
