@@ -83,7 +83,7 @@ verify the use cases by typing the commands in text box.
         ``Categories for this channel are: project1,project2``
         
     - Click on upload button to upload files, add one or more files with names such as file1.png, file2.png
-      In the upload message box, add the below command to add the files to category project 1.
+      In the upload message box, add the below command to add the files to category project 1.<br>
     
         ``@fileninja --addToCategory project1``
         
