@@ -37,6 +37,12 @@
         repo: "{{ base_repo }}"
         dest: "{{ local_repo_directory }}/CSC510-7"
 
+    - name: "Create test temp repo "
+      file:
+        path: "{{ local_repo_directory }}/CSC510-7/src/temp_files"
+        state: directory
+        mode: '0777'
+
     - name: Transfer env files
       copy:
         src: "{{ playbook_dir }}/.env"
