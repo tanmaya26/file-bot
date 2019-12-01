@@ -22,11 +22,9 @@ Our application will be deployed to AWS environment. The application will run on
         ```
     NOTE: Obtain the USER_SLACK_TOKEN from https://api.slack.com/custom-integrations/legacy-tokens. You will find a legacy-token
     in your slack user account.  
-5. Obtain the hostname, ip and ssh key of EC2 host and add it to inventory file. The inventory file should be in CI-CD folder where deploy.yml
-    is present.
-6. Run the ansible playbook:<br>
-    ``` ansible-playbook CI-CD/deploy.yml -i inventory -vvvv```
-7. Wait for the Ansible to finish setup.
+5. Run the ansible playbook:<br>
+    ``` ansible-playbook CI-CD/deploy.yml -i hosts.yml```
+6. Wait for the Ansible to finish setup.
 
 
 ### Acceptance Testing
@@ -150,11 +148,18 @@ verify the use cases by typing the commands in text box.
        
        Bot Reply: ``No file associated with command. Upload a PDF file with command watermark the file.`` 
       
-        
-     
+### Screencast
+
+[Screencast video](https://drive.google.com/open?id=1IZliBJ0fsQbgEFl-Zs3dY2j4Mru1YqcX)
+
     
-    
-    
-    
+### Continuous Integration (CI) Server
+
+We have setup a Jenkins server on EC2 host. A Jenkins job is configured for File Ninja. Every 1 minutes, it polls the repo: https://github.ncsu.edu/csc510-fall2019/CSC510-7. When it detects new changes, it triggers a build that runs all the tests against the latest changes. If build passes, it starts the ansible-playbook that automates the deployment of latest changes to server. <br>
+Jenkins URL: http://34.231.4.150:8080/job/file-ninja-master/<br>
+user:admin<br>
+password:csc510-7
+
+
 
 
