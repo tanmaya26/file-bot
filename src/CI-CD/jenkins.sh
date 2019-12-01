@@ -7,7 +7,7 @@ ls
 whoami
 
 cd src
-cp $HOME/.env $WORKSPACE/.env
+cp $HOME/.env .
 if [ $? -ne 0 ]
 then
   echo "Copying failed"
