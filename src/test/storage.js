@@ -11,7 +11,7 @@ const data = require("../mock.json")
 describe('testStorageLimit', function () {
   describe('#init()', function () {
 
-    it('it should return a message for setting storage limit', async function () {
+    it('it should return a message for setting a storage limit', async function () {
       try {
         cmd = utils_service.split_command("--setStorageSize 3.5")
         size = cmd[cmd.size-1]

@@ -45,7 +45,7 @@
 
     - name: Transfer env files
       copy:
-        src: "{{ playbook_dir }}/.env"
+        src: "/var/lib/jenkins/.env"
         dest: "{{ local_repo_directory }}/CSC510-7/src/.env"
         owner: ubuntu
         group: ubuntu
