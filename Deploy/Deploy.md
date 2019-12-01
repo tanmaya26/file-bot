@@ -108,7 +108,7 @@ verify the use cases by typing the commands in text box.
     
         ``@fileninja --exportCategory project2 test ``
         
-        Bot Reply: ``Files of category 'Project2' have been exported.``<br>
+        Bot Reply: ``Files of category 'project2' have been exported.``<br>
         Files get exported to external google drive.
         
     *USE CASE 3: Watermark*
