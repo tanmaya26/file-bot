@@ -183,6 +183,18 @@ async function open_modal(trigger_id) {
 	return resource
 }
 
+async function get_slack_file_list_for_channel(channel) {
+    const resource = await fetch("https://slack.com/api/files.list?token="+process.env.ADMIN_TOKEN+"&channel="+channel+"&pretty=1", {
+		method: 'GET'
+	}).then(function (response) {
+        return response.json();
+	})
+		.then(function (json) {
+            return json
+		});
+	return resource
+}
+
 module.exports.slack = slack;
 module.exports.bot = bot;
 module.exports.bot_id = bot_id;
@@ -190,3 +202,4 @@ module.exports.get_slack_resource_from_url = get_slack_resource_from_url;
 module.exports.get_json_data_from_url = get_json_data_from_url;
 module.exports.delete_file_from_slack = delete_file_from_slack;
 module.exports.open_modal = open_modal;
+module.exports.get_slack_file_list_for_channel= get_slack_file_list_for_channel

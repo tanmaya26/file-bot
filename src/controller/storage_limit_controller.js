@@ -12,11 +12,15 @@ async function getAlertSize(data) {
 	bot.postMessage(data.channel, response);
 }
 
+async function getCurrentSize(data) {
+	var response = await storage_limit_service.getCurrentSizeforChannel(data.channel).then((res) => res);
+	bot.postMessage(data.channel, response);
+}
+
 async function listenForFileActivity(data) {
     if (data.type == 'file_deleted') {
         var response = await storage_limit_service.deleteActivity(data.channel_ids[0]).then((res) => res);
         if (response[0]) {
-            bot.postMessage(data.channel_ids[0],"Current total file size for this channel is: "+response[2]+" GB , alert size: "+ response[3]+ " GB")
             if (!response[1]) {
                 bot.postMessage(data.channel_ids[0], "Total current file size has gone above the alert limit. ")
             } 
@@ -29,7 +33,6 @@ async function listenForFileActivity(data) {
 
         var response = await storage_limit_service.uploadActivity(data.channel).then((res) => res);
         if (response[0]) {
-            bot.postMessage(data.channel,"Current total file size for this channel is: "+response[2]+" GB , alert size: "+ response[3]+ " GB")
             if (!response[1]) {
                 bot.postMessage(data.channel, "Total current file size has gone above the alert limit. ")
             }
@@ -46,4 +49,5 @@ async function listenForFileActivity(data) {
 
 module.exports.setAlertSize = setAlertSize;
 module.exports.getAlertSize = getAlertSize;
+module.exports.getCurrentSize = getCurrentSize;
 module.exports.listenForFileActivity = listenForFileActivity;

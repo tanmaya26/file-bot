@@ -68,7 +68,9 @@ bot.on('message', function (data) {
 			} else if (cmd[0] == '--setStorageSize') {
 				storage_limit_controller.setAlertSize(cmd[1], data);
 			} else if (cmd[0] == '--getStorageSize') {
-				storage_limit_controller.getAlertSize(data);
+                storage_limit_controller.getAlertSize(data);
+            } else if (cmd[0] == '--getCurrentSize') {
+				storage_limit_controller.getCurrentSize(data);
 			} else if (cmd[0] == '--registerCategory') {
 				category_controller.setCategory(cmd[1], data);
 			} else if (cmd[0] == '--getCategories') {
