@@ -143,7 +143,7 @@ verify the use cases by typing the commands in text box.
        
        Bot Reply: ``No file associated with command. Upload a PNG file with command to create watermark.``
    
-    - Upload a jpg file to register as watermark. It will fail as only .png files are accepted.
+    - Upload a jpg file to register as watermark. It will fail as only .png files are accepted.<br>
         ``@fileninja --watermark register wm99``
        
        Bot Reply: ``Wrong format for file . Watermark only accepts .png files``
