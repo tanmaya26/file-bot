@@ -153,6 +153,12 @@ verify the use cases by typing the commands in text box.
 [Screencast video](https://drive.google.com/open?id=1IZliBJ0fsQbgEFl-Zs3dY2j4Mru1YqcX)
 
     
-    
+### Continuous Integration (CI) Server
+
+We have setup a job on Jenkins that triggers a build whenever there commits are pushed to master branch. Following is the link and credentials:
+
+Jenkins URL: http://34.231.4.150:8080/job/file-ninja-master/<br>
+user:admin<br>
+password:csc510-7
 
 
