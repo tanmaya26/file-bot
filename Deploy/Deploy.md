@@ -71,9 +71,50 @@ verify the use cases by typing the commands in text box.
         Bot Reply: <br>
         
         ``Please enter a number for storage size(in GB).``
+        
+    *USE CASE 2: Category Registration*
     
-     
+    - ``@fileninja --registerCategory Project1``
     
+        Bot Reply:
+        
+        ``Category registered.``
+    - ``@fileninja --registerCategory Project1``
+    
+        Bot Reply:
+        
+        ``Category with name Project1 already exists in this channel``
+        
+    - ``@fileninja --getCategories``
+    
+        Bot Reply:
+        
+        ``Categories for this channel are: Project1,Project2``
+        
+    - Click on upload button to upload files, add one or more files with names such as file1.png, file2.png
+      In the upload message box, add the below command to add the files to category Project 1.
+    
+        ``@fileninja --addCategory Project1``
+        
+        Bot Reply:
+        
+        ``File added to category.``
+        
+    - To see the files uploaded to Project 1:
+    
+        ``@fileninja --showFiles Project1``
+        
+        Bot Reply:
+        
+        ```
+          file1.png: https://files.slack.com/files-pri/TNTGTLN5U-FR4EWH01J/file1.png
+          fileName.png: https://files.slack.com/files-pri/TNTGTLN5U-FR751GCSJ/file2.png
+        ```
+    - ``@fileninja --registerCategory project3`` 
+    
+        Bot Reply:
+        
+        ````
         
         
      
