@@ -48,32 +48,31 @@ verify the use cases by typing the commands in text box.
 
     *USE CASE 1: Setting Storage Limit*
     
-    1. 
-        ``@fileninja --setStorageSize 3.5``
+    -  ``@fileninja --setStorageSize 3.5``
     
           Bot Reply: <br>
      
         ``New Alert Limit has been set to 3.5 GB``
         
-    2. ``@fileninja --getStorageSize``
+    - ``@fileninja --getStorageSize``
     
         Bot Reply: <br>
         
         ``Current alert limit is 3.5 GB``
         
-    3. ``@fileninja --setStorageSize 6``
+    - ``@fileninja --setStorageSize 6``
         
         Bot Reply: <br>
         
         ``Error. Size limit cannot be more than 5.0``
         
-    4. ``@fileninja --setStorageSize five``
+    - ``@fileninja --setStorageSize five``
         
         Bot Reply: <br>
         
         ``Please enter a number for storage size(in GB).``
     
-    5. 
+     
     
         
         
