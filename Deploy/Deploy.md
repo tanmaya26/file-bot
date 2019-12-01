@@ -1,4 +1,4 @@
-**Following are the instructions to setup the application**
+### Deployment Instructions
 
 Our application will be deployed to AWS environment. The application will run on a remote EC2 instance. 
 1. Login to AWS and obtain an EC2 machine. 
