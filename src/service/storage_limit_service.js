@@ -24,7 +24,6 @@ async function updateAlertSizeForChannel(size, data) {
                     }
                 });
                 
-
                 if (!channel_exists) {
                     var newCurrentSize = await totalFileSizeByChannel(data.channel).then((res) => {return res;});
                     if (newCurrentSize == -1) {
@@ -38,7 +37,7 @@ async function updateAlertSizeForChannel(size, data) {
                 
                 let response = await storage_limit_dbservice.setAlertSize(data.channel, size).then((res) => {return res;});
                     if (response) {
-                        return "New Alert Limit has been set to " + parseFloat(size) + " GB";
+                        return "New Alert Limit has been set to " + parseFloat(size) + " GB.";
                     } else {
                         return "Failed updating alert limit size";
                     }

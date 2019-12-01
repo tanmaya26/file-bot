@@ -4,17 +4,20 @@ var bot = slack_bot_service.bot;
 
 async function setAlertSize(size, data) {
 	var response = await storage_limit_service.updateAlertSizeForChannel(size, data).then((res) => res);
-	bot.postMessage(data.channel, response);
+    bot.postMessage(data.channel, response);
+    return response
 }
 
 async function getAlertSize(data) {
 	var response = await storage_limit_service.getAlertSizeforChannel(data.channel).then((res) => res);
-	bot.postMessage(data.channel, response);
+    bot.postMessage(data.channel, response);
+    return response
 }
 
 async function getCurrentSize(data) {
 	var response = await storage_limit_service.getCurrentSizeforChannel(data.channel).then((res) => res);
-	bot.postMessage(data.channel, response);
+    bot.postMessage(data.channel, response);
+    return response
 }
 
 async function listenForFileActivity(data) {
