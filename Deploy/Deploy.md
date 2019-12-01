@@ -38,7 +38,8 @@ Our application will be deployed to AWS environment. The application will run on
 https://app.slack.com/client/TNTGTLN5U/CNK1N4V5F
 
 5. Once inside the channel, start typing the following commands to
-verify the use cases by typing the commands in text box.
+verify the use cases by typing the commands in text box. As shown in the screen shot below, enter 
+commands in the textbox at the bottom to start interacting with bot.
 
     *USE CASE 1: Storage*
     
@@ -47,6 +48,10 @@ verify the use cases by typing the commands in text box.
        ``@fileninja --setStorageSize 3.5``
     
         Bot Reply: ``New Alert Limit has been set to 3.5 GB``
+        
+        Enter text/command as shown:
+        ![storyboard](./Images/textbox.png)
+        
         
     - Get current storage limit.
     
