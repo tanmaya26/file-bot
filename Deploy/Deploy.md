@@ -68,16 +68,14 @@ verify the use cases by typing the commands in text box.
     
     - ``@fileninja --registerCategory project1``
     
-        Bot Reply:        
-        ``Category registered.``
+        Bot Reply: ``Category registered.``
     - ``@fileninja --registerCategory project1``
     
         Bot Reply:
         ``Category with name project1 already exists in this channel``
     - ``@fileninja --registerCategory project2``
     
-        Bot Reply:        
-        ``Category registered.``
+        Bot Reply: ``Category registered.``
         
     - ``@fileninja --getCategories``
     
