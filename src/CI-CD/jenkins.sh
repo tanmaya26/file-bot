@@ -6,6 +6,7 @@ pwd
 ls
 whoami
 
+mkdir -p src/temp_files
 cd src
 cp $HOME/.env .
 if [ $? -ne 0 ]
