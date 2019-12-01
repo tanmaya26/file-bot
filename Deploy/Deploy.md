@@ -42,36 +42,50 @@ verify the use cases by typing the commands in text box.
 
     *USE CASE 1: Storage*
     
-    - ``@fileninja --setStorageSize 3.5``
+    - Set a new storage limit.
+    
+       ``@fileninja --setStorageSize 3.5``
     
         Bot Reply: ``New Alert Limit has been set to 3.5 GB``
         
-    - ``@fileninja --getStorageSize``
+    - Get current storage limit.
+    
+       ``@fileninja --getStorageSize``
     
         Bot Reply: ``Current alert limit is 3.5 GB``
         
-    - ``@fileninja --setStorageSize 6``
+    - Trying to set storage grater than 5.0 GB will give an error as Slack doesn't allow storage more than 5.0 GB.
+        ``@fileninja --setStorageSize 6``
         
         Bot Reply: ``Error. Size limit cannot be more than 5.0``
         
-    - ``@fileninja --setStorageSize five``
+    - Trying to set a storage without numerical value will give an error.
+    
+        ``@fileninja --setStorageSize five``
         
         Bot Reply: ``Please enter a number for storage size(in GB).``
         
     *USE CASE 2: Category*
     
-    - ``@fileninja --registerCategory project1``
+    - Register a category called 'project1'. A category will hold files in it.
+    
+        ``@fileninja --registerCategory project1``
     
         Bot Reply: ``Category registered.``
-    - ``@fileninja --registerCategory project1``
+    - Trying to register a category again will give an error.
+     
+        ``@fileninja --registerCategory project1``
     
         Bot Reply:
         ``Category with name project1 already exists in this channel``
-    - ``@fileninja --registerCategory project2``
+    - Register a category called 'project2'
+        ``@fileninja --registerCategory project2``
     
         Bot Reply: ``Category registered.``
         
-    - ``@fileninja --getCategories``
+    - Fetch all categories in the channel.
+        
+        ``@fileninja --getCategories``
     
         Bot Reply: 
         ``Categories for this channel are: project1,project2``
@@ -85,9 +99,9 @@ verify the use cases by typing the commands in text box.
         ``File added to category.``
     - Repeat the above for project2. Click upload button and upload the two files as above.
           ``@fileninja --addToCategory project2``
-    - To see the files uploaded to Project 1:
+    - To see the files uploaded to Project 1:<br>
     
-        ``@fileninja --showFiles project1``
+       ``@fileninja --showFiles project1``
         
         Bot Reply:
         
@@ -95,11 +109,14 @@ verify the use cases by typing the commands in text box.
           file1.png: https://files.slack.com/files-pri/TNTGTLN5U-FR4EWH01J/file1.png
           file2.png: https://files.slack.com/files-pri/TNTGTLN5U-FR751GCSJ/file2.png
         ```
-    - ``@fileninja --showFiles project3``
+    - To see files in a category which doesn't exist.
+        ``@fileninja --showFiles project3``
     
         Bot Reply: ``Error: No category with the name project3 exists``
         
-    - ``@fileninja --deleteCategory project1 ``
+    - Delete a category in the channel. This will delete all files in that category too.
+        
+        ``@fileninja --deleteCategory project1 ``
     
         Bot Reply: ``Files of category project1 have been deleted``
     -   Export files in project2 to google drive named 'test'
@@ -130,7 +147,9 @@ verify the use cases by typing the commands in text box.
        Bot Reply: Returns the pdf file with watermarked image.<br>
        ``File watermarked successfully.``
        
-    - ``@fileninja --watermark list``
+    - Fetch all watermarks in the channel.
+    
+        ``@fileninja --watermark list``
        
        Bot Reply: ``Watermarks for this channel are: wm100``
     
