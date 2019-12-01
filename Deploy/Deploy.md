@@ -33,13 +33,9 @@ Our application will be deployed to AWS environment. The application will run on
 
 1. Navigate to CSC510-7/src
 2. Run:
-    ```
-    npm install
-    ```
+    ``npm install``
 3. Run:
-    ```
-    node index.js
-    ```
+    ``node index.js``
 4. Now, go to the following link (Slack channel URL): <br>
 https://app.slack.com/client/TNTGTLN5U/CNK1N4V5F
 
