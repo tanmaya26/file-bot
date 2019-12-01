@@ -21,7 +21,66 @@ Our application will be deployed to AWS environment. The application will run on
         ADMIN_TOKEN=
         ```
     NOTE: Obtain the USER_SLACK_TOKEN from https://api.slack.com/custom-integrations/legacy-tokens. You will find a legacy-token
-    in your slack user account. 
-    4. Run the ansible playbook:<br>
-    ``` ansible-playbook CI-CD/deploy.yml```
+    in your slack user account.  
+    5. Obtain the hostname, ip and ssh key of EC2 host and add it to inventory file. The inventory file should be in CI-CD folder where deploy.yml
+    is present.
+    6. Run the ansible playbook:<br>
+    ``` ansible-playbook CI-CD/deploy.yml -i inventory -vvvv```
+    7. Wait for the Ansible to finish setup.
+
+
+### Acceptance Testing
+
+1. Navigate to CSC510-7/src
+2. Run:
+    ```
+    npm install
+    ```
+3. Run:
+    ```
+    node index.js
+    ```
+4. Now, go to the following link (Slack channel URL): <br>
+https://app.slack.com/client/TNTGTLN5U/CNK1N4V5F
+
+5. Once inside the channel, start typing the following commands to
+verify the use cases by typing the commands in text box.
+
+    *USE CASE 1: Setting Storage Limit*
+    
+    1. 
+        ``@fileninja --setStorageSize 3.5``
+    
+          Bot Reply: <br>
+     
+        ``New Alert Limit has been set to 3.5 GB``
+        
+    2. ``@fileninja --getStorageSize``
+    
+        Bot Reply: <br>
+        
+        ``Current alert limit is 3.5 GB``
+        
+    3. ``@fileninja --setStorageSize 6``
+        
+        Bot Reply: <br>
+        
+        ``Error. Size limit cannot be more than 5.0``
+        
+    4. ``@fileninja --setStorageSize five``
+        
+        Bot Reply: <br>
+        
+        ``Please enter a number for storage size(in GB).``
+    
+    5. 
+    
+        
+        
+     
+    
+    
+    
+    
+
 
