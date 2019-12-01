@@ -159,7 +159,8 @@ We have setup a Jenkins server on EC2 host. A Jenkins job is configured for File
 Jenkins URL: http://34.231.4.150:8080/job/file-ninja-master/<br>
 user:admin<br>
 password:csc510-7
-
-
+<p align="center">
+<img src="./Images/jenkins.png">
+</p>
 
 
