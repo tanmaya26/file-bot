@@ -42,6 +42,17 @@
       become_method: sudo
       become_user: ubuntu
 
+    - name: Transfer env files
+      copy:
+        src: "/var/lib/jenkins/.env"
+        dest: "{{ local_repo_directory }}/CSC510-7/src/.env"
+        owner: ubuntu
+        group: ubuntu
+        mode: '0777'
+      become: yes
+      become_method: sudo
+      become_user: ubuntu
+    
     - name: Install node packages
       npm:
         executable: /usr/bin/npm
