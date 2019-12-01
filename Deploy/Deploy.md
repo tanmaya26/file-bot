@@ -22,11 +22,11 @@ Our application will be deployed to AWS environment. The application will run on
         ```
     NOTE: Obtain the USER_SLACK_TOKEN from https://api.slack.com/custom-integrations/legacy-tokens. You will find a legacy-token
     in your slack user account.  
-    5. Obtain the hostname, ip and ssh key of EC2 host and add it to inventory file. The inventory file should be in CI-CD folder where deploy.yml
+5. Obtain the hostname, ip and ssh key of EC2 host and add it to inventory file. The inventory file should be in CI-CD folder where deploy.yml
     is present.
-    6. Run the ansible playbook:<br>
+6. Run the ansible playbook:<br>
     ``` ansible-playbook CI-CD/deploy.yml -i inventory -vvvv```
-    7. Wait for the Ansible to finish setup.
+7. Wait for the Ansible to finish setup.
 
 
 ### Acceptance Testing
