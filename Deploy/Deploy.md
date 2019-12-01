@@ -48,9 +48,9 @@ verify the use cases by typing the commands in text box.
 
     *USE CASE 1: Storage*
     
-    -  ``@fileninja --setStorageSize 3.5``
+    - ``@fileninja --setStorageSize 3.5``
     
-          Bot Reply: ``New Alert Limit has been set to 3.5 GB``
+        Bot Reply: ``New Alert Limit has been set to 3.5 GB``
         
     - ``@fileninja --getStorageSize``
     
@@ -107,13 +107,55 @@ verify the use cases by typing the commands in text box.
         
     - ``@fileninja --deleteCategory project1 ``
     
-        Bot Reply: 
-    -   Export files in project2 to google drive.
+        Bot Reply: ``Files of category project1 have been deleted``
+    -   Export files in project2 to google drive named 'test'
     
-        ``@fileninja --exportCategory project2 googleDrive ``
+        ``@fileninja --exportCategory project2 test ``
         
         Bot Reply: 
         
+    *USE CASE 3: Watermark*
+    
+    -  Upload a suitable .png image to be used as watermark. Select only one image to register as watermark. In the upload message box write the message to
+    register this image as watermark.<br>
+        ``@fileninja --watermark register wm100``
+   
+        Bot Reply: ``Watermark created successfully.``
+        
+    - Upload a suitable pdf file to be watermarked. In the upload message box write the message to
+    add text watermark (Script) to pdf.<br>
+      ``@fileninja --watermark text Script``
+       
+       Bot Reply: Returns the pdf file with watermarked text.<br>
+       ``File watermarked successfully.``
+    - Upload a suitable pdf file to be watermarked. In the upload message box write the message to
+    add watermark to pdf.<br>
+    ``@fileninja --watermark wm100``
+       
+       Bot Reply: Returns the pdf file with watermarked image.<br>
+       ``File watermarked successfully.``
+       
+    - ``@fileninja --watermark list``
+       
+       Bot Reply: ``Watermarks for this channel are: wm100``
+    
+    - ``@fileninja --watermark register wm99``
+       
+       Bot Reply: ``No file associated with command. Upload a PNG file with command to create watermark.``
+   
+    - Upload a jpg file to register as watermark. It will fail as only .png files are accepted.
+        ``@fileninja --watermark register wm99``
+       
+       Bot Reply: ``Wrong format for file . Watermark only accepts .png files``
+
+    - ``@fileninja --watermark text``
+       
+       Bot Reply:
+    - Without uploading any file, watermark command fails.<br>
+        ``@fileninja --watermark wm100``
+       
+       Bot Reply: ``No file associated with command. Upload a PDF file with command watermark the file.`` 
+      
         
      
     
