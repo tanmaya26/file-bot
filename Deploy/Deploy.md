@@ -148,9 +148,6 @@ verify the use cases by typing the commands in text box.
        
        Bot Reply: ``Wrong format for file . Watermark only accepts .png files``
 
-    - ``@fileninja --watermark text``
-       
-       Bot Reply:
     - Without uploading any file, watermark command fails.<br>
         ``@fileninja --watermark wm100``
        
