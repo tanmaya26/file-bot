@@ -27,7 +27,7 @@ async function logout(driver, url) {
 }
 
 async function switchChannel(driver) {
-    await driver.findElement(By.xpath("/html/body/div[2]/div/div/div[3]/div/nav/div[2]/div[1]/div/div[1]/div/div/div[6]/a/span")).click();
+    await driver.findElement(By.xpath("/html/body/div[2]/div/div/div[3]/div/nav/div[2]/div[1]/div/div[1]/div/div/div[7]/a/span")).click();
 }
 
 async function navigateToChannel(driver) {
@@ -154,7 +154,7 @@ async function UseCaseWatermarkFileGood(driver) {
       driver.findElements(By.className("c-message__body")).then(function(elements){
         elements[elements.length -1].getText().then(function (text){
             try {
-                assert.equal("File watermarked successfully",text);
+                assert.equal("File watermarked successfully.",text);
                 console.log('Usecase 4: Expectedly passed file got watermarked');
             } catch (e) {
                 console.log('Usecase 4: Unexpectedly failed to watermarked');
@@ -244,7 +244,7 @@ async function UseCaseSetStorageLimitWithParams(driver) {
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
-                assert.equal("New Size Limit has been set to \"3.5\"", text);
+                assert.equal("New Alert Limit has been set to 3.5 GB", text);
                 console.log('Usecase 8: "Set storage limit" expectedly passed.');
             } catch (e) {
                 console.log('Usecase 8: "Set storage limit" unexpectedly failed when parameter given');
@@ -277,7 +277,7 @@ async function UseCaseSetStorageLimitWithoutParams(driver) {
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
-                assert.equal("Not a number", text);
+                assert.equal("Please enter a number for storage size(in GB).", text);
                 console.log('Usecase 10: "Set storage limit" expectedly failed when wrong/no parameter given');
             } catch (e) {
                 console.log('Usecase 10: "Set storage limit" unexpectedly failed when wrong/no parameter given');
@@ -295,7 +295,7 @@ async function UseCaseGetStorage(driver) {
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
-                assert.equal("Current size limit is 3.5", text);
+                assert.equal("Current alert limit is 3.5 GB", text);
                 console.log('Usecase 11: "Get storage limit" expectedly passed.');
             } catch (e) {
                 console.log('Usecase 11: "Get storage limit" unexpectedly failed.');
@@ -314,7 +314,7 @@ async function UseCaseRegisterCategoryWithParams(driver) {
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
-                assert.equal("Category has been added with name: \"Project4\"", text);
+                assert.equal("Category registered.", text);
                 console.log('Usecase 13: "Register category" expectedly passed.');
             } catch (e) {
                 console.log('Usecase 13: "Register category" unexpectedly failed.');
@@ -331,7 +331,7 @@ async function UseCaseRegisterCategoryAlreadyExistingNameWithParams(driver) {
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
-                assert.equal("Error. Category name already exists.", text);
+                assert.equal("Category with name Project1 already exists in this channel", text);
                 console.log('Usecase 12: "Register category" expectedly failed when user tried to add same category again.');
             } catch (e) {
                 console.log('Usecase 12: Unexpectedly failed.');
@@ -344,13 +344,32 @@ async function UseCaseRegisterCategoryAlreadyExistingNameWithParams(driver) {
 // Add file to a category
 async function UseCaseAddFilesToCategoryWithFilename(driver) { 
 
-    await driver.findElement(By.xpath(textbox_xpath)).sendKeys("@fileninja --addCategory Project1 fileName.png", Key.RETURN);
-    await driver.sleep(4000);
+    var form = {
+        file: fs.createReadStream("../test_files/mock.png"), 
+        filename: 'mock.png', 
+        text: BOT_ID+" --addToCategory upload_category",
+        initial_comment: BOT_ID+' --addToCategory upload_category',
+        channels: 'bottesting'
+    };
+    
+      await slack.fileUpload(form)
+      .then(function(response){
 
-    driver.findElements(By.className("c-message__body")).then(function (elements) {
-        elements[elements.length - 1].getText().then(function (text) {
+          if(!response || !response.ok){
+              return Promise.reject(new Error('Something wrong happened during the upload.'));
+          }
+          return Promise.resolve(response);
+      })
+      .catch(function(err){
+          console.log('Failed on Uploading:',err);
+        });
+    
+      await driver.sleep(4000);
+    
+      driver.findElements(By.className("c-message__body")).then(function(elements){
+        elements[elements.length -1].getText().then(function (text){
             try {
-                assert.equal("File 'fileName.png' has been added under the category 'Project1'.", text);
+                assert.equal("File added to category.", text);
                 console.log('Usecase 14: "Add files to category" expectedly passed when filename given');
             } catch (e) {
                 console.log('Usecase 14: "Add files to category" unexpectedly failed.');
@@ -358,17 +377,17 @@ async function UseCaseAddFilesToCategoryWithFilename(driver) {
             }
         })
     });
-    
+
 }
 
 // Export to external storage
 async function UseCaseExportCategoryToExternalStorageGood(driver) {
-    await driver.findElement(By.className("ql-editor ql-blank")).sendKeys("@fileninja --exportCategory Project1 googleDrive", Key.RETURN);
+    await driver.findElement(By.className("ql-editor ql-blank")).sendKeys("@fileninja --exportCategory Project1 rb_try", Key.RETURN);
     await driver.sleep(4000);
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
-                assert.equal("Files of category 'Project1' have been moved to external storage.", text);
+                assert.equal("Files of category 'Project1' have been exported.", text);
                 console.log('Usecase 15: "Uploading category to external storage" expectedly passed.');
             } catch (e) {
                 console.log('Usecase 15: "Uploading category to external storage" unexpectedly failed.');
@@ -379,12 +398,12 @@ async function UseCaseExportCategoryToExternalStorageGood(driver) {
 }
 
 async function UseCaseExportNonExistingCategoryToExternalStorage(driver) {
-    await driver.findElement(By.className("ql-editor ql-blank")).sendKeys("@fileninja --exportCategory Sample googleDrive", Key.RETURN);
+    await driver.findElement(By.className("ql-editor ql-blank")).sendKeys("@fileninja --exportCategory sample rb_try", Key.RETURN);
     await driver.sleep(4000);
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
-                assert.equal("Error. Category name: Sample does not exists.", text);
+                assert.equal("No category with the name 'sample' exists", text);
                 console.log('Usecase 16: "Uploading non existing file to external storage" expectedly failed.');
             } catch (e) {
                 console.log('Usecase 16: "Uploading non existing file to external storage" unexpectedly passed.');
@@ -402,7 +421,7 @@ async function UseCaseDeleteCategory(driver) {
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
-                assert.equal("Files of category 'Project1' have been deleted.", text);
+                assert.equal("Files of category Project1 have been deleted.", text);
                 console.log('Usecase 17: "Deleting file from a category" expectedly passed.');
             } catch (e) {
                 console.log('Usecase 17: "Deleting file from a category" unexpectedly failed.');
@@ -418,7 +437,7 @@ async function UseCaseDeleteNonExistingCategory(driver) {
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
-                assert.equal("Error. Category name: Sample1 does not exists.", text);
+                assert.equal("No category with the name Sample1 exists", text);
                 console.log('Usecase 18: "Uploading non existing file to external storage" expectedly failed.');
             } catch (e) {
                 console.log('Usecase 18: "Uploading non existing file to external storage" unexpectedly passed.');
@@ -428,12 +447,12 @@ async function UseCaseDeleteNonExistingCategory(driver) {
     });
 }
 async function UseCaseShowFilesOfCategory(driver) {
-    await driver.findElement(By.className("ql-editor ql-blank")).sendKeys("@fileninja --showFiles Project1", Key.RETURN);
+    await driver.findElement(By.className("ql-editor ql-blank")).sendKeys("@fileninja --showFiles project_test_1", Key.RETURN);
     await driver.sleep(4000);
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
-                assert.equal("Files under the category 'Project1' are  project1.pdf, sample.pdf,", text);
+                assert.equal("test_file_2: https://files.slack.com/files-pri/TNTGTLN5U-FQ57P3GDA/download2.jpg", text);
                 console.log('Usecase 19: "Showing all files of a category" expectedly passed.');
             } catch (e) {
                 console.log('Usecase 19: "Showing all files of a category" unexpectedly passed.');
@@ -449,7 +468,7 @@ async function UseCaseShowFilesOfNonExistingCategory(driver) {
     driver.findElements(By.className("c-message__body")).then(function (elements) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
-                assert.equal("Error. Category name: Project3 does not exists.", text);
+                assert.equal("Error: No category with the name Project3 exists", text);
                 console.log('Usecase 20: "Showing all files of a category" expectedly failed.');
             } catch (e) {
                 console.log('Usecase 20: "Showing all files of a category" unexpectedly passed.');
@@ -477,33 +496,33 @@ async function UseCaseShowFilesOfNonExistingCategory(driver) {
     await UseCaseWaterMarkWhenNoImageProvided(driver);
     await driver.sleep(3000);
 
-    //List Watermark
+    // //List Watermark
     await UseCaseListWaterMarks(driver);
 
-    //Storage Size
+    // //Storage Size
     await UseCaseSetStorageLimitWithParams(driver);
     await UseCaseSetGreaterStorageLimitWithParams(driver);
     await UseCaseSetStorageLimitWithoutParams(driver);
     await UseCaseGetStorage(driver);
 
-    //Register Category
+    // //Register Category
     await UseCaseRegisterCategoryAlreadyExistingNameWithParams(driver);
     await driver.sleep(3000);
     await UseCaseRegisterCategoryWithParams(driver);
 
-    //Add files to category
+    // //Add files to category
     await UseCaseAddFilesToCategoryWithFilename(driver);
     
-    //Export File/Category
+    // //Export File/Category
     await UseCaseExportCategoryToExternalStorageGood(driver);
     await UseCaseExportNonExistingCategoryToExternalStorage(driver);
     await driver.sleep(3000);
 
-    //Delete file/category
+    // //Delete file/category
     await UseCaseDeleteCategory(driver);
     await UseCaseDeleteNonExistingCategory(driver);
 
-    //Show category files
+    // //Show category files
     await UseCaseShowFilesOfCategory(driver);
     await UseCaseShowFilesOfNonExistingCategory(driver);
 

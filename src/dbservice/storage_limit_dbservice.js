@@ -15,15 +15,14 @@ async function getCurrentSize(channel) {
             "channel_id": channel
         }
     };
-    console.log("Getting curent size")
+    console.log("Getting curent limit size");
     return await new Promise((resolve, reject) => {
         docClient.get(params, function (err, data) {
             if (err) {
-                console.error("Unable to read current size item. Error JSON:", JSON.stringify(err, null, 2));
+                console.error("Unable to read alert limit item. Error JSON:", JSON.stringify(err, null, 2));
                 reject(-1);
             } else {
-                console.log("Getting Current Size Item succeeded:", JSON.stringify(data.Item.current_size, null, 2));
-                resolve(data.Item.current_size);
+                resolve(data);
             }
         })
     });
@@ -103,8 +102,7 @@ async function getAlertSize(channel) {
                 console.error("Unable to read alert limit item. Error JSON:", JSON.stringify(err, null, 2));
                 reject(-1);
             } else {
-                console.log("Get alert limit item succeeded:", JSON.stringify(data.Item.limit_size, null, 2));
-                resolve(data.Item.limit_size);
+                resolve(data);
             }
         })
     });
