@@ -46,75 +46,75 @@ https://app.slack.com/client/TNTGTLN5U/CNK1N4V5F
 5. Once inside the channel, start typing the following commands to
 verify the use cases by typing the commands in text box.
 
-    *USE CASE 1: Setting Storage Limit*
+    *USE CASE 1: Storage*
     
     -  ``@fileninja --setStorageSize 3.5``
     
-          Bot Reply: <br>
-     
-        ``New Alert Limit has been set to 3.5 GB``
+          Bot Reply: ``New Alert Limit has been set to 3.5 GB``
         
     - ``@fileninja --getStorageSize``
     
-        Bot Reply: <br>
-        
-        ``Current alert limit is 3.5 GB``
+        Bot Reply: ``Current alert limit is 3.5 GB``
         
     - ``@fileninja --setStorageSize 6``
         
-        Bot Reply: <br>
-        
-        ``Error. Size limit cannot be more than 5.0``
+        Bot Reply: ``Error. Size limit cannot be more than 5.0``
         
     - ``@fileninja --setStorageSize five``
         
-        Bot Reply: <br>
+        Bot Reply: ``Please enter a number for storage size(in GB).``
         
-        ``Please enter a number for storage size(in GB).``
-        
-    *USE CASE 2: Category Registration*
+    *USE CASE 2: Category*
     
-    - ``@fileninja --registerCategory Project1``
+    - ``@fileninja --registerCategory project1``
     
-        Bot Reply:
-        
+        Bot Reply:        
         ``Category registered.``
-    - ``@fileninja --registerCategory Project1``
+    - ``@fileninja --registerCategory project1``
     
         Bot Reply:
-        
-        ``Category with name Project1 already exists in this channel``
+        ``Category with name project1 already exists in this channel``
+    - ``@fileninja --registerCategory project2``
+    
+        Bot Reply:        
+        ``Category registered.``
         
     - ``@fileninja --getCategories``
     
-        Bot Reply:
-        
-        ``Categories for this channel are: Project1,Project2``
+        Bot Reply: 
+        ``Categories for this channel are: project1,project2``
         
     - Click on upload button to upload files, add one or more files with names such as file1.png, file2.png
-      In the upload message box, add the below command to add the files to category Project 1.
+      In the upload message box, add the below command to add the files to category project 1.
     
-        ``@fileninja --addCategory Project1``
+        ``@fileninja --addToCategory project1``
         
         Bot Reply:
-        
         ``File added to category.``
-        
+    - Repeat the above for project2. Click upload button and upload the two files as above.
+          ``@fileninja --addToCategory project2``
     - To see the files uploaded to Project 1:
     
-        ``@fileninja --showFiles Project1``
+        ``@fileninja --showFiles project1``
         
         Bot Reply:
         
         ```
           file1.png: https://files.slack.com/files-pri/TNTGTLN5U-FR4EWH01J/file1.png
-          fileName.png: https://files.slack.com/files-pri/TNTGTLN5U-FR751GCSJ/file2.png
+          file2.png: https://files.slack.com/files-pri/TNTGTLN5U-FR751GCSJ/file2.png
         ```
-    - ``@fileninja --registerCategory project3`` 
+    - ``@fileninja --showFiles project3``
     
-        Bot Reply:
+        Bot Reply: ``Error: No category with the name project3 exists``
         
-        ````
+    - ``@fileninja --deleteCategory project1 ``
+    
+        Bot Reply: 
+    -   Export files in project2 to google drive.
+    
+        ``@fileninja --exportCategory project2 googleDrive ``
+        
+        Bot Reply: 
         
         
      
