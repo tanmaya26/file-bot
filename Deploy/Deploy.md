@@ -79,6 +79,7 @@ verify the use cases by typing the commands in text box.
         Bot Reply:
         ``Category with name ncsu1 already exists in this channel``
     - Register a category called 'ncsu2'
+    
         ``@fileninja --registerCategory ncsu2``
     
         Bot Reply: ``Category registered.``
@@ -101,7 +102,8 @@ verify the use cases by typing the commands in text box.
         Adding multiple files to category:
         ![storyboard](./Images/category.png)
     - Repeat the above for ncsu2. Click upload button and upload the two files as above.
-          ``@fileninja --addToCategory ncsu2``
+    
+       ``@fileninja --addToCategory ncsu2``
     - To see the files uploaded to ncsu1:<br>
     
        ``@fileninja --showFiles ncsu1``
@@ -113,6 +115,7 @@ verify the use cases by typing the commands in text box.
           file2.png: https://files.slack.com/files-pri/TNTGTLN5U-FR751GCSJ/file2.png
         ```
     - To see files in a category which doesn't exist.
+    
         ``@fileninja --showFiles ncsu3``
     
         Bot Reply: ``Error: No category with the name ncsu3 exists``
@@ -140,13 +143,7 @@ verify the use cases by typing the commands in text box.
         Registering a watermark:
         ![storyboard](./Images/watermark-register.png)
         
-    - Upload a suitable pdf file to be watermarked. In the upload message box write the message to
-    add text watermark (Script) to pdf.<br>
-      ``@fileninja --watermark text Script``
-       
-       Bot Reply: Returns the pdf file with watermarked text.<br>
-       ``File watermarked successfully.``
-    - Upload a suitable pdf file to be watermarked. In the upload message box write the message to
+    - Watermark a file with image. This image is a watermark image registered in previous step. Upload a suitable pdf file to be watermarked. In the upload message box write the message to
     add watermark to pdf.<br>
     ``@fileninja --watermark wm100``
        
@@ -155,6 +152,13 @@ verify the use cases by typing the commands in text box.
        
       Adding a watermark to a file:
         ![storyboard](./Images/add-watermark.png)
+    
+    - Watermark a file with a text. As shown in the previous step, upload a suitable pdf file to be watermarked. In the upload message box write the message to
+    add text watermark (Script) to pdf.<br>
+      ``@fileninja --watermark text Script``
+       
+       Bot Reply: Returns the pdf file with watermarked text.<br>
+       ``File watermarked successfully.``
        
     - Fetch all watermarks in the channel.
     
