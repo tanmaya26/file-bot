@@ -243,7 +243,7 @@ describe('testWaterMark', function () {
   });
   afterEach(function () {
     nock.cleanAll()
-})
+  });
 });
 
 

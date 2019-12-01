@@ -16,7 +16,7 @@ describe('testCategory', function () {
             .log(console.log)
             .post('/chat.postMessage')
             .reply(200, { ok: true })
-    })
+    });
 
     it('it should fail to register the category as a category with same name exists', async function () {
         try {
