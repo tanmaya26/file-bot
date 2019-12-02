@@ -127,12 +127,12 @@ commands in the textbox at the bottom to start interacting with bot.
         
     - Delete a category in the channel. This will delete all files in that category too.
         
-        ``@fileninja --deleteCategory ncsu1 ``
+        ``@fileninja --deleteCategory ncsu1``
     
         Bot Reply: ``Files of category ncsu1 have been deleted``
     -   Export files in ncsu2 to google drive named 'test'
     
-        ``@fileninja --exportCategory ncsu2 test ``
+        ``@fileninja --exportCategory ncsu2 test``
         
         Bot Reply: ``Files of category 'ncsu2' have been exported.``<br>
         Files get exported to external google drive.
