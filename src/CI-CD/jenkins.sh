@@ -41,7 +41,7 @@ fi
 npm test test/storage.js
 if [ $? -ne 0 ]
 then
-  echo "npm test storage failed"
+  echo "npm test storage fails"
   exit 1
 fi
 node test/selenium.js
