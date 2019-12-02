@@ -51,6 +51,7 @@ commands in the textbox at the bottom to start interacting with bot.
         Bot Reply: ``New Alert Limit has been set to 3.5 GB``
         
         Enter text/command as shown:
+
         ![storyboard](./Images/textbox.png)
         
         
@@ -97,8 +98,9 @@ commands in the textbox at the bottom to start interacting with bot.
         Bot Reply: 
         ``Categories for this channel are: ncsu1,ncsu2``
 
-    - **Click on upload button to upload files, add one or more files with names such as file1.png, file2.png
-      In the upload message box, add the below command to add the files to category ncsu1.<br>**
+    - **Add files to a category<br>**
+    Click on upload button to upload files, add one or more files with names such as file1.png, file2.png
+      In the upload message box, add the below command to add the files to category ncsu1.<br>
 
         ``@fileninja --addToCategory ncsu1``
 
@@ -183,9 +185,9 @@ commands in the textbox at the bottom to start interacting with bot.
         Note: We have already registered two drives with the names 'test' and 'rb_try' and have mailed the credentials for the respective google accounts to the TAs. Feel free to use these accounts to use our export features. 
 
     **USE CASE 3: Watermark**
-
-    -  **Upload a suitable .png image to be used as watermark. Select only one image to register as watermark. In the upload message box write the message to
-    register this image as watermark.<br>**
+    -   **Register a watermark<br>**
+    Upload a suitable .png image to be used as watermark. Select only one image to register as watermark. In the upload message box write the message to
+    register this image as watermark.<br>
         ``@fileninja --watermark register wm100``
 
         Bot Reply: ``Watermark created successfully.``
@@ -194,8 +196,8 @@ commands in the textbox at the bottom to start interacting with bot.
         
         ![storyboard](./Images/watermark-register.png)
 
-    - **Watermark a file with image. This image is a watermark image registered in previous step. Upload a suitable pdf file to be watermarked. In the upload message box write the message to
-    add watermark to pdf.<br>**
+    - **Watermark a file with image.<br>** This image is a watermark image registered in previous step. Upload a suitable pdf file to be watermarked. In the upload message box write the message to
+    add watermark to pdf.
     ``@fileninja --watermark wm100``
        
        Bot Reply: Returns the pdf file with watermarked image.<br>
@@ -205,8 +207,8 @@ commands in the textbox at the bottom to start interacting with bot.
 
         ![storyboard](./Images/add-watermark.png)
     
-    - **Watermark a file with a text. As shown in the previous step, upload a suitable pdf file to be watermarked. In the upload message box write the message to
-    add text watermark (Script) to pdf.<br>**
+    - **Watermark a file with a text.<br>** As shown in the previous step, upload a suitable pdf file to be watermarked. In the upload message box write the message to
+    add text watermark (Script) to pdf.
       ``@fileninja --watermark text Script``
 
        Bot Reply: Returns the pdf file with watermarked text.<br>
