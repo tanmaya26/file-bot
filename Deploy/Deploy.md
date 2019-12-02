@@ -130,6 +130,38 @@ commands in the textbox at the bottom to start interacting with bot.
         ``@fileninja --deleteCategory ncsu1``
     
         Bot Reply: ``Files of category ncsu1 have been deleted``
+
+    - Register a Google drive to use export functionality. (or you can directly move to export functionality and use the commands we have given, as those projects are already created)  
+
+        ``/registerdrive``  
+        A pop up comes, giving you the instructions to follow to Register Google Drive. Here are the instructions in a more elaborate form:
+        1. ``Go to Google Developers Console``.  
+        Here simply click on link given to you.
+        2. ``Select your project or create a new one (and then select it)``  
+        ![create_project](./Images/create_project.png)
+        3. ``In the sidebar on the left, expand APIs & Services > Library``  
+        ![create_project](./Images/flow1.png)
+        4. ``Find 'Google Drive API' and enable it for your selected project .``  
+        ![create_project](./Images/flow2.png)
+        5. ``In the sidebar on the left, expand APIs & Services > Credentials``  
+        ![create_project](./Images/flow3.png)
+        6. ``Click blue "Create credentials" drop down and select "Service account key".``  
+        ![create_project](./Images/flow4.png)
+        7. ``Select a existing service account or create a new one.``  
+        If you select to create a new service account, under 'Role', select 'Project'>'Owner'.
+        ![create_project](./Images/flow5.png)
+        8. ``Select the 'JSON' key type radio button and click create. A JSON file will be downloaded.``  
+        9. ``Now go to your google drive and create a new folder. Share this folder with "client_email". Open the folder and copy the folder-id from the URL to the 'Folder-Id' field below.``  
+        Right click on the folder and click on Share. Then paste the 'client_email' given in double quotes in the JSON file you downloaded in step 8.  
+        ![create_project](./Images/flow7.png)  
+        ![create_project](./Images/flow6.png)  
+        Now open the folder and copy the folder-id from the URL to the 'Folder-Id' field provided in the modal. As can be seen below, the last part of the url is the folder-id.
+        ![create_project](./Images/flow9.png)
+        10. ``Open the JSON file and copy the "private_key" and "client_email" attributes in the following respective fields below``  
+        Now copy the "client_email" and "private_key" from the JSON file to the fields provided in the modal.
+        ![create_project](./Images/flow8.png)
+        Also give a name to the drive. You'll use this name to export files. For example, in the ``@fileninja --exportCategory ncsu2 test`` , 'test' is the name of the drive.
+
     -   Export files in ncsu2 to google drive named 'test'
     
         ``@fileninja --exportCategory ncsu2 test``
