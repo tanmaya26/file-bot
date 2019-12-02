@@ -219,7 +219,7 @@ commands in the textbox at the bottom to start interacting with bot.
        
        Bot Reply: ``No file associated with command. Upload a PDF file with command watermark the file.`` 
       
-### Screencast
+### Deployment Screencast
 
 [Screencast video](https://drive.google.com/open?id=1IZliBJ0fsQbgEFl-Zs3dY2j4Mru1YqcX)
 
@@ -232,7 +232,7 @@ Jenkins URL: http://34.231.4.150:8080/job/file-ninja-master/<br>
 user:admin<br>
 password:csc510-7
 
-### Screencast
+### Jenkins Screencast
 [Screencast video](https://drive.google.com/open?id=157F2o-bnDcjwJrL3cr8gL3Spgyi0GMJI)
 
 <p align="center">
