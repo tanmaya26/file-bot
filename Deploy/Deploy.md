@@ -243,11 +243,6 @@ commands in the textbox at the bottom to start interacting with bot.
 
 We have setup a Jenkins server on EC2 host. A Jenkins job is configured for File Ninja. Every 1 minutes, it polls the repo: https://github.ncsu.edu/csc510-fall2019/CSC510-7. When it detects new changes, it triggers a build that runs all the tests against the latest changes. If build passes, it starts the ansible-playbook that automates the deployment of latest changes to server. <br>
 
-Jenkins URL: http://34.231.4.150:8080/job/file-ninja-master/<br>
-user:admin<br>
-password:csc510-7
-
-
 ### Jenkins Screencast
 [Screencast video](https://drive.google.com/open?id=157F2o-bnDcjwJrL3cr8gL3Spgyi0GMJI)
 
