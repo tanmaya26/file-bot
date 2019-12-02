@@ -24,24 +24,29 @@ npm test test/watermark.js
 if [ $? -ne 0 ]
 then
   echo "npm test watermark failed"
+  exit 1
 fi
 npm test test/export.js
 if [ $? -ne 0 ]
 then
   echo "npm test export failed"
+  exit 1
 fi
 npm test test/category.js
 if [ $? -ne 0 ]
 then
   echo "npm test category failed"
+  exit 1
 fi
 npm test test/storage.js
 if [ $? -ne 0 ]
 then
   echo "npm test storage failed"
+  exit 1
 fi
 node test/selenium.js
 if [ $? -ne 0 ]
 then
   echo "Integeration test failed"
+  exit 1
 fi

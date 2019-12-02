@@ -405,9 +405,9 @@ async function UseCaseExportCategoryToExternalStorageGood(driver) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
                 assert.equal("Files of category '"+categoryname+"' have been exported.", text);
-                console.log('Usecase 15: "Uploading category to external storage" expectedly passed.');
+                console.log('Usecase 17: "Uploading category to external storage" expectedly passed.');
             } catch (e) {
-                console.log('Usecase 15: "Uploading category to external storage" unexpectedly failed.');
+                console.log('Usecase 17: "Uploading category to external storage" unexpectedly failed.');
                 return Promise.resolve('Usecase to register category failed.');
             }
         })
@@ -421,9 +421,9 @@ async function UseCaseExportNonExistingCategoryToExternalStorage(driver) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
                 assert.equal("No category with the name 'sample' exists", text);
-                console.log('Usecase 16: "Uploading non existing file to external storage" expectedly failed.');
+                console.log('Usecase 18: "Uploading non existing file to external storage" expectedly failed.');
             } catch (e) {
-                console.log('Usecase 16: "Uploading non existing file to external storage" unexpectedly passed.');
+                console.log('Usecase 18: "Uploading non existing file to external storage" unexpectedly passed.');
                 return Promise.resolve('Usecase to register category failed.');
             }
         })
@@ -439,9 +439,9 @@ async function UseCaseDeleteCategory(driver) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
                 assert.equal("Files of category "+categoryname+" have been deleted.", text);
-                console.log('Usecase 17: "Deleting file from a category" expectedly passed.');
+                console.log('Usecase 19: "Deleting file from a category" expectedly passed.');
             } catch (e) {
-                console.log('Usecase 17: "Deleting file from a category" unexpectedly failed.');
+                console.log('Usecase 19: "Deleting file from a category" unexpectedly failed.');
                 return Promise.resolve('Usecase to register category failed.');
             }
         })
@@ -455,9 +455,9 @@ async function UseCaseDeleteNonExistingCategory(driver) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
                 assert.equal("No category with the name Sample1 exists", text);
-                console.log('Usecase 18: "Uploading non existing file to external storage" expectedly failed.');
+                console.log('Usecase 20: "Uploading non existing file to external storage" expectedly failed.');
             } catch (e) {
-                console.log('Usecase 18: "Uploading non existing file to external storage" unexpectedly passed.');
+                console.log('Usecase 20: "Uploading non existing file to external storage" unexpectedly passed.');
                 return Promise.resolve('Usecase to register category failed.');
             }
         })
@@ -470,9 +470,9 @@ async function UseCaseShowFilesOfCategory(driver) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
                 assert.ok(text.match(/mock.png:/g),text);
-                console.log('Usecase 19: "Showing all files of a category" expectedly passed.');
+                console.log('Usecase 15: "Showing all files of a category" expectedly passed.');
             } catch (e) {
-                console.log('Usecase 19: "Showing all files of a category" unexpectedly failed.');
+                console.log('Usecase 15: "Showing all files of a category" unexpectedly failed.');
                 return Promise.resolve('Usecase to show file failed');
             }
         })
@@ -486,9 +486,9 @@ async function UseCaseShowFilesOfNonExistingCategory(driver) {
         elements[elements.length - 1].getText().then(function (text) {
             try {
                 assert.equal("Error: No category with the name Project3 exists", text);
-                console.log('Usecase 20: "Showing all files of a category" expectedly failed.');
+                console.log('Usecase 16: "Showing all files of a category" expectedly failed.');
             } catch (e) {
-                console.log('Usecase 20: "Showing all files of a category" unexpectedly passed.');
+                console.log('Usecase 16: "Showing all files of a category" unexpectedly passed.');
                 return Promise.resolve('Usecase to show file passed');
             }
         })
