@@ -17,3 +17,6 @@
 
 ## PROCESS Document
 [PROCESS Document](Process/PROCESS.md)
+
+## DEPLOY Document
+[DEPLOY Document](Deploy/Deploy.md)

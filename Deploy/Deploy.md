@@ -232,6 +232,9 @@ Jenkins URL: http://34.231.4.150:8080/job/file-ninja-master/<br>
 user:admin<br>
 password:csc510-7
 
+### Screencast
+[Screencast video](https://drive.google.com/open?id=157F2o-bnDcjwJrL3cr8gL3Spgyi0GMJI)
+
 <p align="center">
 <img src="./Images/jenkins.png">
 </p>
