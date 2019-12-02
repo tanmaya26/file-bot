@@ -21,10 +21,11 @@ Our application will be deployed to AWS environment. The application will run on
         ADMIN_TOKEN=
         ```
     NOTE: Obtain the USER_SLACK_TOKEN from https://api.slack.com/custom-integrations/legacy-tokens. You will find a legacy-token
-    in your slack user account.  
-5. Run the ansible playbook:<br>
+    in your slack user account. 
+5. Obtain the hostname, ip and ssh key of EC2 host and add it to hosts.yml file. hosts.yml file is present in CI-CD directory.
+6. Run the ansible playbook:<br>
     ``` ansible-playbook CI-CD/deploy.yml -i hosts.yml```
-6. Wait for the Ansible to finish setup.
+7. Wait for the Ansible to finish setup.
 
 
 ### Acceptance Testing
@@ -236,7 +237,8 @@ commands in the textbox at the bottom to start interacting with bot.
 
        Bot Reply: ``No file associated with command. Upload a PDF file with command watermark the file.`` 
 
-### Screencast
+### Deployment Screencast
+
 
 [Screencast video](https://drive.google.com/open?id=1IZliBJ0fsQbgEFl-Zs3dY2j4Mru1YqcX)
 
@@ -248,6 +250,10 @@ We have setup a Jenkins server on EC2 host. A Jenkins job is configured for File
 Jenkins URL: http://34.231.4.150:8080/job/file-ninja-master/<br>
 user:admin<br>
 password:csc510-7
+
+
+### Jenkins Screencast
+[Screencast video](https://drive.google.com/open?id=157F2o-bnDcjwJrL3cr8gL3Spgyi0GMJI)
 
 <p align="center">
 <img src="./Images/jenkins.png">
